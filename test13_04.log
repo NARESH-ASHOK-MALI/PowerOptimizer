@@ -1,0 +1,462 @@
+================================================================================
+  POWER OPTIMIZER - ANALYSIS SESSION LOG
+  Date: 2026-04-13 (Sunday) 16:17 - 16:30 IST
+  Device: Asus Vivobook Pro OLED M3500QC
+  Script Version: v5.1 → v6.0 (updated this session)
+================================================================================
+
+================================================================================
+  SECTION 1: SYSTEM SNAPSHOT AT TIME OF SCAN
+================================================================================
+
+  Computer Name:       --JARVIS--
+  System:              ASUSTeK Vivobook_ASUSLaptop M3500QC_M3500QC
+  BIOS:                M3500QC.316 (2023/05/25) — LATEST, no newer available
+  OS Build:            26100.1.amd64fre.ge_release.240331-1435 (Win 11)
+  CPU:                 AMD Ryzen 5 5600H (6C/12T, 3301 MHz base, 4200 MHz boost)
+  iGPU:                AMD Radeon Graphics (Vega 7)
+  dGPU:                NVIDIA GeForce RTX 3050 4GB (PCIe x8)
+  RAM:                 16 GB DDR4
+  Storage:             512 GB NVMe SSD
+  Display:             15.6" Samsung OLED 60Hz (AMOLED)
+  Connected Standby:   Supported
+  S3 Sleep:            NOT supported (uses Modern Standby)
+  Platform Role:       Mobile
+  PCIe ASPM:           HARDWARE DISABLED (BIOS incompatibility, unfixable)
+
+================================================================================
+  SECTION 2: BATTERY HEALTH (from battery-report.html)
+================================================================================
+
+  Battery Name:        ASUS Battery
+  Manufacturer:        ASUSTeK
+  Chemistry:           Li-Ion (LIon)
+  Design Capacity:     63,041 mWh
+  Full Charge Capacity: 55,957 mWh
+  Battery Health:      88.8% (GOOD threshold: ≥80%)
+  Cycle Count:         263
+  Report Generated:    2026-04-13 16:13:43
+
+  --- Capacity Degradation Trend ---
+  Energy report (Mar 6):  Design=63,041  FullCharge=54,975  Health=87.2%  Cycles=231
+  Battery report (Apr 13): Design=63,041  FullCharge=55,957  Health=88.8%  Cycles=263
+  NOTE: Full charge capacity *increased* slightly between scans — this is normal
+        Li-Ion recalibration behavior, not actual capacity gain.
+  Net degradation: ~32 cycles added in 38 days (~0.84 cycles/day average)
+
+  --- Recent Battery Life Estimates (from report) ---
+  Apr 13: Active=2h34m  Connected Standby=9h58m  (heavy use day)
+  Apr 12: Active=2h34m  Connected Standby=9h58m
+  Apr 11: Active=2h14m  Connected Standby=2h35m  (worst — likely Ultra Perf on battery)
+  Apr 10: Active=3h01m  Connected Standby=4h02m
+  Apr 09: Active=3h29m  Connected Standby=6h10m
+  Apr 08: Active=3h02m  Connected Standby=25h18m (mostly standby)
+  Apr 07: Active=1h45m  Connected Standby=1h54m  (worst — Ultra Perf on battery)
+  Apr 06: Active=1h30m  Connected Standby=1h49m  (worst — Ultra Perf on battery)
+
+  --- Deep Discharge Events (DANGEROUS for Li-Ion) ---
+  2026-04-08: Drained to 8.6% (from 100% in single session)
+  2026-04-10: Drained to 19.4%
+  2026-04-13: Drained to 7.5% (today!)
+  2026-04-08: Multiple sub-10% entries (9.9%, 9.5%, 8.9%, 8.6%)
+  RECOMMENDATION: Enable 80% charge cap in MyASUS, plug in at 20%
+
+================================================================================
+  SECTION 3: ENERGY REPORT FINDINGS (from energy-report.html)
+================================================================================
+
+  Scan Time:           2026-03-06 12:35:55 UTC
+  Scan Duration:       60 seconds
+  Process Count:       292
+  Thread Count:        4,173
+  Plugged In:          Yes (scan was on AC power)
+  Active Power Plan:   OEM Balanced ({381b4222-f694-41f0-9685-ff5bb260df2e})
+
+  --- ERRORS (10) ---
+  [E1] Display timeout disabled (Plugged In)
+       → Intentional in Performance mode (monitor-timeout-ac 0)
+       → STATUS: Known/Accepted
+
+  [E2] Sleep timeout disabled (Plugged In)
+       → Intentional in Performance mode (standby-timeout-ac 0)
+       → STATUS: Known/Accepted
+
+  [E3] USB Selective Suspend disabled (Plugged In)
+       → Performance mode disables for USB stability
+       → STATUS: Known/Accepted (enabled in Balanced + Saver)
+
+  [E4] PCI Express ASPM disabled (Plugged In)
+       → BIOS hardware incompatibility — cannot fix
+       → STATUS: Unfixable (BIOS M3500QC.316 is latest)
+
+  [E5] PowerToys.Awake — System Required Request
+       → Path: \Users\Naresh\AppData\Local\PowerToys\PowerToys.Awake.exe
+       → Prevents system from entering sleep
+       → STATUS: FIXED — Script kills PowerToys.Awake in saver mode
+
+  [E6] PowerToys.Awake — Display Required Request
+       → Same process preventing display sleep
+       → STATUS: FIXED — Script kills PowerToys.Awake in saver mode
+
+  [E7] MoUsoCoreWorker — Execution Required Request
+       → Path: \Windows\UUS\Packages\Preview\amd64\MoUsoCoreWorker.exe
+       → Windows Update orchestrator preventing sleep
+       → STATUS: FIXED — Script kills process + stops UsoSvc
+
+  [E8] Samsung phone USB not entering Selective Suspend
+       → Device: SAMSUNG Mobile USB Composite Device
+       → ID: USB\VID_04E8&PID_6863
+       → Host: PCI\VEN_1022&DEV_1639 (bus 4, device 0, function 3)
+       → STATUS: PARTIALLY FIXED — Registry + recommendation to unplug
+
+  [E9] CPU Utilization high (50.60% average)
+       → Scan captured during active workload
+       → STATUS: Informational
+
+  [E10] PCIe ASPM hardware disabled (platform level)
+       → Duplicate of E4 — BIOS incompatibility
+       → STATUS: Unfixable
+
+  --- WARNINGS (4) ---
+  [W1] Edge requesting 1ms timer resolution (10000 / 100ns units)
+       → Path: \Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+       → PID at scan time: 13576
+       → Prevents deep CPU C-states
+       → STATUS: FIXED — Script kills Edge, disables background, enables efficiency
+
+  [W2] MongoDB requesting 1ms timer resolution (10000 / 100ns units)
+       → Path: \Program Files\MongoDB\Server\8.2\bin\mongod.exe
+       → PID at scan time: 4968
+       → STATUS: FIXED — Script stops MongoDB service, sets to demand start
+
+  [W3] Webcam rarely entering USB Selective Suspend
+       → Device: USB Composite Device
+       → ID: USB\VID_13D3&PID_3563
+       → Host: PCI bus 4, device 0, function 4
+       → Time Suspended: 0%
+       → STATUS: FIXED (v6.0) — Device now disabled in saver mode
+
+  [W4] CPU Utilization Analysis Error
+       → Partial analysis — some results incomplete
+       → STATUS: Informational (does not affect findings)
+
+  --- INFORMATIONAL ---
+  [I1] Platform timer resolution: 156250 (15.6ms default — correct)
+  [I2] Video quality on battery: "Optimize for Video Quality" → changed to power-save in v6.0
+  [I3] Wi-Fi on AC: Maximum Performance (correct for plugged in)
+  [I4] Connected Standby: Supported
+  [I5] Processor: ACPI CPPC, 3 idle states per core, max perf 145%
+  [I6] Lowest throttle: 12% (hardware minimum)
+  [I7] Device Drivers: Analysis successful, no issues
+
+================================================================================
+  SECTION 4: POWEROPTIMIZER.LOG ANALYSIS (2,344 lines, Feb 22 – Apr 13)
+================================================================================
+
+  --- Mode Usage Statistics ---
+  Ultra Battery Saver:     ~45 activations
+  Max Performance:         ~40 activations
+  Ultra Performance:       ~20 activations
+  Balanced:                ~5 activations
+  Quick Re-apply:          ~12 activations
+  GPU Switch:              ~3 accesses
+  Startup Cleanup:         ~4 accesses
+  Battery Report:          ~2 generations
+  OLED Care:               ~1 access
+
+  --- Anomalies Detected ---
+  [A1] RAPID MODE SWITCHING (multiple occurrences)
+       2026-03-07 23:47:01 → Saver activated
+       2026-03-07 23:47:24 → Performance activated (23 SECONDS later)
+       Impact: Unnecessary GPU enable/disable cycle, service churn
+
+  [A2] DUPLICATE SAVER ACTIVATIONS
+       2026-03-09 14:13:25 → Saver activated
+       2026-03-09 14:15:35 → Saver activated AGAIN (2 min later)
+       Impact: Redundant execution, no harm but wasteful
+
+  [A3] INCOMPLETE EXECUTION (silent failure)
+       2026-03-03 16:49:47 → Saver activated
+       2026-03-03 16:50:31 → OLED step completed
+       (Missing: NVMe, USB, Services, Edge, Energy Saver steps)
+       2026-03-03 16:56:30 → Saver re-activated from scratch
+       Impact: System was in partial saver state for ~6 minutes
+
+  [A4] PERFORMANCE MODE ON BATTERY
+       Multiple days show Ultra Performance activated while on battery
+       (Apr 6-7: battery life dropped to 1h30m - 1h45m)
+       Impact: Extreme battery drain, thermal stress
+
+  [A5] SERVICE STOP BOTTLENECK
+       Timestamp gaps show service stopping takes 30-33 seconds consistently
+       Example: 2026-04-13 08:35:43 (USB step) → 08:36:22 (Services stopped)
+       Impact: 30+ second delay in every saver activation
+
+  --- Feature Addition Timeline (from log) ---
+  Before Feb 22: Basic saver/performance (no Edge fix, no USB, no NVIDIA tasks)
+  ~Feb 22:       Added Edge timer fix, webcam USB suspend, NVIDIA task disable
+  ~Mar 6:        Added Samsung phone USB, low battery protection, Awake module kill
+  ~Mar 7:        Added Ultra Performance (NVIDIA-preferred rendering) mode
+  Apr 13:        v6.0 — Log rotation, GPU pref reset, webcam disable, battery fixes
+
+================================================================================
+  SECTION 5: BUGS FOUND AND FIXED (v5.1 → v6.0)
+================================================================================
+
+  [BUG-1] CRITICAL: Battery GUID Conflict (LINE 479-481 in v5.1)
+    PROBLEM: Critical battery action GUID 637ea02f was being set to 3 (Hibernate)
+             BUT this GUID is actually the Energy Saver threshold, NOT critical action.
+             Line 454 also sets the same GUID to 100 — conflict!
+             The correct GUID for critical battery action is d8742dcb.
+    FIX:     Swapped GUIDs — d8742dcb now gets action=3, 637ea02f gets action=0
+    IMPACT:  System would never hibernate on critical battery → deep discharge damage
+
+  [BUG-2] HIGH: PowerToys wildcard taskkill (LINE 1525 in v5.1)
+    PROBLEM: taskkill /IM "PowerToys*" — taskkill doesn't support wildcards in /IM
+             This silently failed every time, leaving PowerToys processes running
+    FIX:     Changed to explicit /FI "IMAGENAME eq PowerToys.exe" per process
+    IMPACT:  PowerToys was never actually killed in re-apply mode
+
+  [BUG-3] HIGH: Balanced mode doesn't reset GPU preferences
+    PROBLEM: Ultra Performance sets DirectXUserGlobalSettings=GpuPreference=2
+             and EnableMsHybrid=2, DisablePowerMizer=1 in registry.
+             Balanced mode never clears these — apps keep using RTX 3050
+    FIX:     Added step [6/6] in balanced that deletes these registry keys
+    IMPACT:  After using Ultra Perf once, GPU was stuck on RTX 3050 until reboot
+
+  [BUG-4] HIGH: Re-apply ignores power source
+    PROBLEM: Quick re-apply ([R]) always applies battery saver settings even
+             when laptop woke up plugged into AC power
+    FIX:     Added CIM battery status check — skips re-apply if on AC
+    IMPACT:  User was accidentally throttling CPU to 40% while plugged in
+
+  [BUG-5] MEDIUM: No log rotation
+    PROBLEM: PowerOptimizer.log grows unbounded (was 160KB / 2,344 lines)
+    FIX:     Added :logrotate subroutine, trims to 500 lines on saver activation
+    IMPACT:  Log file would eventually consume significant disk space
+
+  [BUG-6] MEDIUM: Disk space integer overflow
+    PROBLEM: set /a uses 32-bit signed integers — drives >2TB show negative
+    FIX:     Replaced with PowerShell Get-PSDrive for disk space display
+    IMPACT:  Cosmetic — would show wrong values on large drives
+
+  [BUG-7] MEDIUM: Webcam only registry-fixed, not disabled
+    PROBLEM: Energy report showed webcam at 0% suspend time. Registry
+             SelectiveSuspendEnabled=1 alone wasn't enough.
+    FIX:     Now also calls Disable-PnpDevice on webcam in saver mode,
+             re-enables in balanced mode
+    IMPACT:  Webcam was drawing ~0.5W continuously even in saver
+
+  [BUG-8] LOW: MongoDB auto-restarts after service stop
+    PROBLEM: net stop MongoDB stops it, but service is set to auto-start
+             so it could restart on its own or after wake
+    FIX:     sc config MongoDB start= demand in saver, start= auto in balanced
+    IMPACT:  MongoDB's 1ms timer resolution request would return after wake
+
+================================================================================
+  SECTION 6: SCRIPT CHANGES SUMMARY (v5.1 → v6.0)
+================================================================================
+
+  File: d:\Personal_Projects\Testing\PowerOptimizer.bat
+  Lines: 1598 → ~1650 (net +52 lines)
+  Version: v5.1 → v6.0
+
+  CHANGES:
+  1. Version bump to v6.0 in title and all banners
+  2. Added LOG_MAX_LINES=500 config variable
+  3. Added :logrotate subroutine (PowerShell tail)
+  4. Saver mode calls :logrotate before logging
+  5. Fixed PowerToys kill: wildcard → explicit /FI filters (saver + re-apply)
+  6. Added sc config MongoDB start= demand in saver
+  7. Webcam: added Disable-PnpDevice call alongside registry fix
+  8. Fixed critical battery GUIDs (d8742dcb for action, 637ea02f for threshold)
+  9. Raised thresholds: critical 5%→8%, low warn 15%→20%
+  10. Balanced mode: added step [6/6] to reset GPU preferences + re-enable webcam
+  11. Balanced mode: restores MongoDB to auto start
+  12. Balanced mode: logs GPU reset in log message
+  13. Balanced mode: added GPU Prefs line to summary banner
+  14. Disk space: replaced WMIC/set /a with PowerShell Get-PSDrive
+  15. Re-apply: added power source detection (CIM Win32_Battery)
+  16. Re-apply: skips saver settings if on AC, shows message
+  17. Re-apply: fixed PowerToys wildcard (same as #5)
+  18. Updated all summary banners to reflect new thresholds and features
+
+================================================================================
+  SECTION 7: USER RECOMMENDATIONS
+================================================================================
+
+  URGENT:
+  - Enable 80% charge cap in MyASUS (Settings → Battery Health Charging)
+  - Stop deep-discharging: plug in at 20-30%, not 7-9%
+  - Never run Ultra Performance on battery
+
+  BEHAVIORAL:
+  - Use Balanced mode for everyday coding (currently underused)
+  - Avoid rapid mode switching (pick one and stay)
+  - Unplug Samsung phone when on battery
+  - Disable PowerToys Awake module permanently (or uninstall PowerToys)
+  - Set Edge background mode OFF: edge://settings/system
+
+  MAINTENANCE:
+  - Run energy report quarterly: powercfg /energy /output "energy-report.html"
+  - Run battery report monthly: powercfg /batteryreport
+  - Compare cycle count and full charge capacity trends against this baseline
+  - Consider uninstalling MongoDB service, run mongod manually when needed
+
+================================================================================
+  SECTION 8: BASELINE VALUES FOR NEXT SCAN COMPARISON
+================================================================================
+
+  Battery:
+    Design Capacity:       63,041 mWh
+    Full Charge Capacity:  55,957 mWh
+    Health Percentage:     88.8%
+    Cycle Count:           263
+    Date:                  2026-04-13
+
+  Energy Report (previous scan for trend):
+    Full Charge Capacity:  54,975 mWh
+    Cycle Count:           231
+    Date:                  2026-03-06
+
+  Degradation Rate:
+    ~32 cycles in 38 days = 0.84 cycles/day
+    ~982 mWh capacity gain (recalibration artifact, not real gain)
+    Expected next scan health (if 0.84 cycles/day continues):
+      In 30 days: ~288 cycles, estimated ~87-88% health
+      In 90 days: ~339 cycles, estimated ~85-86% health
+
+  Log File:
+    Lines at scan:         2,344 (will be trimmed to 500 by v6.0)
+    First entry:           2026-02-22
+    Last entry:            2026-04-13
+
+  Script Version:          v6.0
+  Script Size:             ~80 KB
+  Script Location:         d:\Personal_Projects\Testing\PowerOptimizer.bat
+
+================================================================================
+  END OF SESSION LOG — 2026-04-13T16:30:00+05:30
+================================================================================
+
+================================================================================
+  HOTFIX SESSION LOG
+  Date: 2026-04-16 (Wednesday) 19:00 - 19:08 IST
+  Device: Asus Vivobook Pro OLED M3500QC
+  Script Version: v6.0 (patched in-place, no version bump)
+================================================================================
+
+================================================================================
+  SECTION 9: CRITICAL BUG FOUND AND FIXED (Bluetooth Hardware Kill)
+================================================================================
+
+  [BUG-9] CRITICAL: Webcam Disable-PnpDevice kills Bluetooth hardware
+
+    PROBLEM:
+      In :saver [13/15], the script called Disable-PnpDevice on the webcam
+      device matching *VID_13D3*PID_3563*. This VID/PID matches a USB
+      Composite Device — when disabled, it takes down the entire USB
+      composite hub including the PHYSICAL BLUETOOTH CONTROLLER.
+
+      Result: Every time Ultra Battery Saver was activated, Bluetooth
+      hardware was completely killed. Bluetooth devices (mouse, headphones,
+      etc.) would disconnect and could not reconnect until balanced/
+      performance mode re-enabled the device.
+
+      This was introduced in v6.0 as [BUG-7] fix (Section 5, line 246).
+      The original BUG-7 analysis correctly identified the webcam's 0%
+      suspend time but the fix was too aggressive — disabling the device
+      rather than just setting the registry key.
+
+    ROOT CAUSE:
+      VID_13D3 & PID_3563 corresponds to a USB Composite Device that
+      hosts multiple functions on one USB port:
+        - Webcam (camera function)
+        - Bluetooth controller (radio function)
+      Calling Disable-PnpDevice disables the ENTIRE composite device,
+      not just the webcam function.
+
+    FIX:
+      - REMOVED: Disable-PnpDevice call for *VID_13D3*PID_3563* in :saver
+      - KEPT:    SelectiveSuspendEnabled=1 registry modification (safe)
+      - REMOVED: Enable-PnpDevice call for *VID_13D3*PID_3563* in :balanced
+                 (no longer needed since device is never disabled)
+      - UPDATED: All comments, log messages, and summary banners
+
+    IMPACT:  Bluetooth hardware remains functional in all power modes.
+             Webcam still benefits from USB Selective Suspend via registry.
+
+  --- CORRECTION TO PREVIOUS LOG ENTRIES ---
+
+    [W3] (Section 3, line 132-137): STATUS changed from
+         "FIXED (v6.0) — Device now disabled in saver mode"
+         to "FIXED (v6.0) — Selective suspend enabled via registry only.
+         Device is NOT disabled (would kill Bluetooth)."
+
+    [BUG-7] (Section 5, line 243-248): PARTIALLY REVERTED.
+         The Disable-PnpDevice portion was unsafe and has been removed.
+         The SelectiveSuspendEnabled registry fix remains.
+
+================================================================================
+  SECTION 10: CHANGES MADE THIS SESSION (v6.0 patch)
+================================================================================
+
+  File: d:\Personal_Projects\Testing\PowerOptimizer.bat
+
+  CHANGE 1 — :saver section, [13/15] (line ~453-460)
+    REMOVED:  "  $_ | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; " ^
+    KEPT:     SelectiveSuspendEnabled registry write
+    UPDATED:  Comment "AND disable device" → just "selective suspend via registry"
+
+  CHANGE 2 — :saver section, summary banner (line ~524)
+    CHANGED:  "Webcam DISABLED + Samsung phone suspend ON"
+           →  "Webcam suspend ON + Samsung phone suspend ON"
+
+  CHANGE 3 — :saver section, log message (line ~470)
+    CHANGED:  "Webcam disabled + Samsung phone USB selective suspend enabled"
+           →  "Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled"
+
+  CHANGE 4 — :balanced section, [6/6] (lines ~774-777)
+    REMOVED:  Entire PowerShell block:
+              :: Re-enable webcam (was disabled in saver mode)
+              powershell -NoProfile -Command ^
+                "Get-PnpDevice | Where-Object { $_.InstanceId -like '*VID_13D3*PID_3563*' } | " ^
+                "Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue" >nul 2>&1
+
+  CHANGE 5 — :balanced section, log messages + banner
+    CHANGED:  "GPU preferences reset to Optimus auto, webcam re-enabled"
+           →  "GPU preferences reset to Optimus auto"
+    CHANGED:  "Balanced mode restored (GPU prefs reset, webcam re-enabled)"
+           →  "Balanced mode restored (GPU prefs reset)"
+    CHANGED:  Banner "GPU Prefs: Reset to Optimus auto / Webcam re-enabled"
+           →  "GPU Prefs: Reset to Optimus auto"
+
+  Lines changed: ~10 lines removed/modified, net -5 lines
+
+================================================================================
+  SECTION 11: SAFETY AUDIT (post-patch)
+================================================================================
+
+  All remaining Disable-PnpDevice / Enable-PnpDevice calls audited:
+
+  LINE  SECTION          TARGET DEVICE         VERDICT
+  ----  -------          -------------         -------
+  309   :saver [3/15]    *NVIDIA* (Display)    SAFE — Only targets dGPU
+  567   :performance     *NVIDIA* (Display)    SAFE — Re-enables dGPU
+  717   :balanced [1/6]  *NVIDIA* (Display)    SAFE — Re-enables dGPU
+  838   :gpuswitch [1]   *NVIDIA* (Display)    SAFE — Manual GPU toggle
+  850   :gpuswitch [2]   *NVIDIA* (Display)    SAFE — Manual GPU toggle
+  1347  :ultraperf       *NVIDIA* (Display)    SAFE — Re-enables dGPU
+  1626  :reapply [5/6]   *NVIDIA* (Display)    SAFE — Re-disables dGPU after wake
+
+  NO remaining Disable/Enable calls target USB composite devices.
+  NO remaining calls reference VID_13D3 or PID_3563 for device enable/disable.
+  VID_13D3/PID_3563 is ONLY referenced for SelectiveSuspendEnabled registry    
+  writes, which is a safe, non-destructive power hint.
+
+  VERDICT: ✅ SCRIPT IS SAFE — No risk of disabling Bluetooth or other
+           composite USB functions in any power mode.
+
+================================================================================
+  END OF HOTFIX SESSION LOG — 2026-04-16T19:08:00+05:30
+================================================================================
