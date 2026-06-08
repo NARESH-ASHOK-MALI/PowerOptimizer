@@ -1,527 +1,563 @@
-[05-04-2026 18.59.03.46] === BALANCED MODE ACTIVATED === 
-[05-04-2026 18.59.11.12] Balanced mode restored 
-[05-04-2026 18.59.23.96] GPU Switch menu accessed 
-[05-04-2026 19.46.20.45] === BALANCED MODE ACTIVATED === 
-[05-04-2026 19.46.34.45] Balanced mode restored 
-[05-04-2026 20.23.20.06] === MAX PERFORMANCE MODE ACTIVATED === 
-[05-04-2026 20.23.20.14] PowerToys start attempted 
-[05-04-2026 20.23.23.11] RTX 3050 ENABLED 
-[05-04-2026 20.23.25.38] Power plan set to Ultimate/High Performance 
-[05-04-2026 20.23.26.66] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[05-04-2026 20.23.28.64] OLED 85, always on, no sleep 
-[05-04-2026 20.23.29.04] NVMe SSD: max performance, no PM 
-[05-04-2026 20.23.29.58] USB always on, PCIe no PM, Wi-Fi max perf 
-[05-04-2026 20.23.32.14] Services restored (including NVIDIA) 
-[05-04-2026 20.23.32.53] Scheduled tasks re-enabled 
-[05-04-2026 20.23.33.71] Energy Saver disabled 
-[05-04-2026 21.26.56.45] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[05-04-2026 21.26.57.61] RTX 3050 ENABLED + services started 
-[05-04-2026 21.26.59.19] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[05-04-2026 21.26.59.24] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[05-04-2026 21.26.59.33] Power plan set to Ultimate Performance 
-[05-04-2026 21.26.59.78] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[05-04-2026 21.27.00.95] OLED 85, always on, no sleep, no hibernate 
-[05-04-2026 21.27.01.03] NVMe SSD: max throughput, no PM, no sleep states 
-[05-04-2026 21.27.01.24] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[05-04-2026 21.27.05.49] All services started (including NVIDIA) 
-[05-04-2026 21.27.05.64] All scheduled tasks re-enabled (including NVIDIA) 
-[05-04-2026 21.27.06.09] Energy Saver completely disabled 
-[05-04-2026 21.27.06.25] Video playback set to max quality 
-[05-04-2026 21.58.07.69] === BALANCED MODE ACTIVATED === 
-[05-04-2026 21.58.14.36] Balanced mode restored 
-[05-04-2026 21.58.21.08] GPU Switch menu accessed 
-[05-04-2026 21.58.33.79] RTX 3050 manually disabled 
-[05-04-2026 21.58.33.81] NVIDIA set to max performance 
-[05-04-2026 23.00.33.67] === MAX PERFORMANCE MODE ACTIVATED === 
-[05-04-2026 23.00.33.71] PowerToys start attempted 
-[05-04-2026 23.00.36.88] RTX 3050 ENABLED 
-[05-04-2026 23.00.37.58] Power plan set to Ultimate/High Performance 
-[05-04-2026 23.00.37.84] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[05-04-2026 23.00.38.32] OLED 85, always on, no sleep 
-[05-04-2026 23.00.38.38] NVMe SSD: max performance, no PM 
-[05-04-2026 23.00.38.48] USB always on, PCIe no PM, Wi-Fi max perf 
-[05-04-2026 23.00.42.75] Services restored (including NVIDIA) 
-[05-04-2026 23.00.42.91] Scheduled tasks re-enabled 
-[05-04-2026 23.00.43.20] Energy Saver disabled 
-[05-04-2026 23.01.03.51] === QUICK RE-APPLY AFTER WAKE === 
-[05-04-2026 23.01.21.63] === MAX PERFORMANCE MODE ACTIVATED === 
-[05-04-2026 23.01.21.65] PowerToys start attempted 
-[05-04-2026 23.01.21.99] RTX 3050 ENABLED 
-[05-04-2026 23.01.23.00] Power plan set to Ultimate/High Performance 
-[05-04-2026 23.01.23.28] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[05-04-2026 23.01.23.72] OLED 85, always on, no sleep 
-[05-04-2026 23.01.23.77] NVMe SSD: max performance, no PM 
-[05-04-2026 23.01.23.88] USB always on, PCIe no PM, Wi-Fi max perf 
-[05-04-2026 23.01.24.11] Services restored (including NVIDIA) 
-[05-04-2026 23.01.24.36] Scheduled tasks re-enabled 
-[05-04-2026 23.01.24.83] Energy Saver disabled 
-[05-04-2026 23.01.29.01] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[05-04-2026 23.01.29.32] RTX 3050 ENABLED + services started 
-[05-04-2026 23.01.29.73] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[05-04-2026 23.01.29.80] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[05-04-2026 23.01.29.88] Power plan set to Ultimate Performance 
-[05-04-2026 23.01.30.35] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[05-04-2026 23.01.31.43] OLED 85, always on, no sleep, no hibernate 
-[05-04-2026 23.01.31.50] NVMe SSD: max throughput, no PM, no sleep states 
-[05-04-2026 23.01.31.71] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[05-04-2026 23.01.31.89] All services started (including NVIDIA) 
-[05-04-2026 23.01.32.02] All scheduled tasks re-enabled (including NVIDIA) 
-[05-04-2026 23.01.32.34] Energy Saver completely disabled 
-[05-04-2026 23.01.32.51] Video playback set to max quality 
-[06-04-2026  1.54.36.46] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[06-04-2026  1.54.36.66] Killed PowerToys + Awake module (was blocking sleep) 
-[06-04-2026  1.54.44.57] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[06-04-2026  1.54.45.01] Killed browsers 
-[06-04-2026  1.54.46.16] RTX 3050 DISABLED - iGPU only mode 
-[06-04-2026  1.54.46.42] Power plan set to Power Saver 
-[06-04-2026  1.54.46.50] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[06-04-2026  1.54.48.00] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[06-04-2026  1.54.48.04] NVMe SSD: APST ON, link PM aggressive 
-[06-04-2026  1.54.48.28] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[06-04-2026  1.55.19.08] Services stopped (including NVIDIA services) 
-[06-04-2026  1.55.19.30] Disabled heavy + NVIDIA scheduled tasks 
-[06-04-2026  1.55.19.51] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[06-04-2026  1.55.21.05] Webcam + Samsung phone USB selective suspend enabled 
-[06-04-2026  1.55.21.49] Energy Saver enabled (threshold=100) 
-[06-04-2026  1.55.21.71] Low battery protection: warn 15 
-[06-04-2026 13.45.46.57] === MAX PERFORMANCE MODE ACTIVATED === 
-[06-04-2026 13.45.46.70] PowerToys start attempted 
-[06-04-2026 13.46.04.47] RTX 3050 ENABLED 
-[06-04-2026 13.46.08.44] Power plan set to Ultimate/High Performance 
-[06-04-2026 13.46.09.90] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[06-04-2026 13.46.11.93] OLED 85, always on, no sleep 
-[06-04-2026 13.46.12.14] NVMe SSD: max performance, no PM 
-[06-04-2026 13.46.12.45] USB always on, PCIe no PM, Wi-Fi max perf 
-[06-04-2026 13.46.18.93] Services restored (including NVIDIA) 
-[06-04-2026 13.46.19.28] Scheduled tasks re-enabled 
-[06-04-2026 13.46.20.28] Energy Saver disabled 
-[06-04-2026 13.46.27.22] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[06-04-2026 13.46.29.29] RTX 3050 ENABLED + services started 
-[06-04-2026 13.46.32.34] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[06-04-2026 13.46.32.45] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[06-04-2026 13.46.33.19] Power plan set to Ultimate Performance 
-[06-04-2026 13.46.34.00] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[06-04-2026 13.46.35.29] OLED 85, always on, no sleep, no hibernate 
-[06-04-2026 13.46.35.36] NVMe SSD: max throughput, no PM, no sleep states 
-[06-04-2026 13.46.35.61] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[06-04-2026 13.46.35.84] All services started (including NVIDIA) 
-[06-04-2026 13.46.35.98] All scheduled tasks re-enabled (including NVIDIA) 
-[06-04-2026 13.46.36.46] Energy Saver completely disabled 
-[06-04-2026 13.46.36.63] Video playback set to max quality 
-[06-04-2026 20.46.50.31] === MAX PERFORMANCE MODE ACTIVATED === 
-[06-04-2026 20.46.50.35] PowerToys start attempted 
-[06-04-2026 20.46.51.53] RTX 3050 ENABLED 
-[06-04-2026 20.46.51.99] Power plan set to Ultimate/High Performance 
-[06-04-2026 20.46.52.81] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[06-04-2026 20.46.54.28] OLED 85, always on, no sleep 
-[06-04-2026 20.46.54.38] NVMe SSD: max performance, no PM 
-[06-04-2026 20.46.54.75] USB always on, PCIe no PM, Wi-Fi max perf 
-[06-04-2026 20.46.59.18] Services restored (including NVIDIA) 
-[06-04-2026 20.46.59.45] Scheduled tasks re-enabled 
-[06-04-2026 20.47.00.67] Energy Saver disabled 
-[06-04-2026 20.47.08.26] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[06-04-2026 20.47.10.19] RTX 3050 ENABLED + services started 
-[06-04-2026 20.47.12.88] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[06-04-2026 20.47.12.97] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[06-04-2026 20.47.13.52] Power plan set to Ultimate Performance 
-[06-04-2026 20.47.13.94] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[06-04-2026 20.47.15.05] OLED 85, always on, no sleep, no hibernate 
-[06-04-2026 20.47.15.11] NVMe SSD: max throughput, no PM, no sleep states 
-[06-04-2026 20.47.15.31] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[06-04-2026 20.47.15.49] All services started (including NVIDIA) 
-[06-04-2026 20.47.15.60] All scheduled tasks re-enabled (including NVIDIA) 
-[06-04-2026 20.47.16.02] Energy Saver completely disabled 
-[06-04-2026 20.47.16.18] Video playback set to max quality 
-[07-04-2026 13.41.00.79] === MAX PERFORMANCE MODE ACTIVATED === 
-[07-04-2026 13.41.00.84] PowerToys start attempted 
-[07-04-2026 13.41.02.57] RTX 3050 ENABLED 
-[07-04-2026 13.41.03.18] Power plan set to Ultimate/High Performance 
-[07-04-2026 13.41.04.22] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[07-04-2026 13.41.05.11] OLED 85, always on, no sleep 
-[07-04-2026 13.41.05.16] NVMe SSD: max performance, no PM 
-[07-04-2026 13.41.05.38] USB always on, PCIe no PM, Wi-Fi max perf 
-[07-04-2026 13.41.07.66] Services restored (including NVIDIA) 
-[07-04-2026 13.41.08.01] Scheduled tasks re-enabled 
-[07-04-2026 13.41.08.96] Energy Saver disabled 
-[07-04-2026 13.41.12.84] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[07-04-2026 13.41.15.07] RTX 3050 ENABLED + services started 
-[07-04-2026 13.41.18.13] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[07-04-2026 13.41.18.24] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[07-04-2026 13.41.18.94] Power plan set to Ultimate Performance 
-[07-04-2026 13.41.20.00] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[07-04-2026 13.41.21.37] OLED 85, always on, no sleep, no hibernate 
-[07-04-2026 13.41.21.46] NVMe SSD: max throughput, no PM, no sleep states 
-[07-04-2026 13.41.21.70] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[07-04-2026 13.41.21.92] All services started (including NVIDIA) 
-[07-04-2026 13.41.22.08] All scheduled tasks re-enabled (including NVIDIA) 
-[07-04-2026 13.41.22.58] Energy Saver completely disabled 
-[07-04-2026 13.41.22.76] Video playback set to max quality 
-[07-04-2026 21.11.50.56] === MAX PERFORMANCE MODE ACTIVATED === 
-[07-04-2026 21.11.50.60] PowerToys start attempted 
-[07-04-2026 21.11.52.27] RTX 3050 ENABLED 
-[07-04-2026 21.11.53.00] Power plan set to Ultimate/High Performance 
-[07-04-2026 21.11.54.21] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[07-04-2026 21.11.55.85] OLED 85, always on, no sleep 
-[07-04-2026 21.11.56.19] NVMe SSD: max performance, no PM 
-[07-04-2026 21.11.56.62] USB always on, PCIe no PM, Wi-Fi max perf 
-[07-04-2026 21.11.59.07] Services restored (including NVIDIA) 
-[07-04-2026 21.11.59.43] Scheduled tasks re-enabled 
-[07-04-2026 21.12.00.51] Energy Saver disabled 
-[07-04-2026 21.14.01.42] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[07-04-2026 21.14.03.67] RTX 3050 ENABLED + services started 
-[07-04-2026 21.14.08.08] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[07-04-2026 21.14.08.22] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[07-04-2026 21.14.09.13] Power plan set to Ultimate Performance 
-[07-04-2026 21.14.10.64] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[07-04-2026 21.14.12.77] OLED 85, always on, no sleep, no hibernate 
-[07-04-2026 21.14.13.06] NVMe SSD: max throughput, no PM, no sleep states 
-[07-04-2026 21.14.13.71] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[07-04-2026 21.14.13.97] All services started (including NVIDIA) 
-[07-04-2026 21.14.14.16] All scheduled tasks re-enabled (including NVIDIA) 
-[07-04-2026 21.14.14.72] Energy Saver completely disabled 
-[07-04-2026 21.14.14.92] Video playback set to max quality 
-[08-04-2026  3.23.21.30] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[08-04-2026  3.23.21.46] Killed PowerToys + Awake module (was blocking sleep) 
-[08-04-2026  3.23.28.82] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[08-04-2026  3.23.29.12] Killed browsers 
-[08-04-2026  3.23.31.09] RTX 3050 DISABLED - iGPU only mode 
-[08-04-2026  3.23.31.35] Power plan set to Power Saver 
-[08-04-2026  3.23.31.45] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[08-04-2026  3.23.33.12] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[08-04-2026  3.23.33.15] NVMe SSD: APST ON, link PM aggressive 
-[08-04-2026  3.23.33.36] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[08-04-2026  3.24.03.91] Services stopped (including NVIDIA services) 
-[08-04-2026  3.24.04.12] Disabled heavy + NVIDIA scheduled tasks 
-[08-04-2026  3.24.04.30] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[08-04-2026  3.24.06.02] Webcam + Samsung phone USB selective suspend enabled 
-[08-04-2026  3.24.06.42] Energy Saver enabled (threshold=100) 
-[08-04-2026  3.24.06.61] Low battery protection: warn 15 
-[08-04-2026 14.38.18.65] === MAX PERFORMANCE MODE ACTIVATED === 
-[08-04-2026 14.38.18.80] PowerToys start attempted 
-[08-04-2026 14.38.30.26] RTX 3050 ENABLED 
-[08-04-2026 14.38.32.22] Power plan set to Ultimate/High Performance 
-[08-04-2026 14.38.33.82] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[08-04-2026 14.38.36.69] OLED 85, always on, no sleep 
-[08-04-2026 14.38.36.90] NVMe SSD: max performance, no PM 
-[08-04-2026 14.38.37.75] USB always on, PCIe no PM, Wi-Fi max perf 
-[08-04-2026 14.38.46.78] Services restored (including NVIDIA) 
-[08-04-2026 14.38.47.19] Scheduled tasks re-enabled 
-[08-04-2026 14.38.48.43] Energy Saver disabled 
-[08-04-2026 14.41.20.91] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[08-04-2026 14.41.23.45] RTX 3050 ENABLED + services started 
-[08-04-2026 14.41.26.71] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[08-04-2026 14.41.26.82] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[08-04-2026 14.41.27.50] Power plan set to Ultimate Performance 
-[08-04-2026 14.41.28.23] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[08-04-2026 14.41.29.64] OLED 85, always on, no sleep, no hibernate 
-[08-04-2026 14.41.29.72] NVMe SSD: max throughput, no PM, no sleep states 
-[08-04-2026 14.41.29.97] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[08-04-2026 14.41.30.18] All services started (including NVIDIA) 
-[08-04-2026 14.41.30.34] All scheduled tasks re-enabled (including NVIDIA) 
-[08-04-2026 14.41.30.86] Energy Saver completely disabled 
-[08-04-2026 14.41.31.06] Video playback set to max quality 
-[08-04-2026 19.43.12.39] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[08-04-2026 19.43.12.65] Killed PowerToys + Awake module (was blocking sleep) 
-[08-04-2026 19.43.21.15] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[08-04-2026 19.43.21.56] Killed browsers 
-[08-04-2026 19.43.23.51] RTX 3050 DISABLED - iGPU only mode 
-[08-04-2026 19.43.24.13] Power plan set to Power Saver 
-[08-04-2026 19.43.24.54] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[08-04-2026 19.43.30.84] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[08-04-2026 19.43.31.04] NVMe SSD: APST ON, link PM aggressive 
-[08-04-2026 19.43.31.79] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[08-04-2026 19.44.03.05] Services stopped (including NVIDIA services) 
-[08-04-2026 19.44.03.62] Disabled heavy + NVIDIA scheduled tasks 
-[08-04-2026 19.44.04.26] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[08-04-2026 19.44.08.67] Webcam + Samsung phone USB selective suspend enabled 
-[08-04-2026 19.44.09.93] Energy Saver enabled (threshold=100) 
-[08-04-2026 19.44.10.67] Low battery protection: warn 15 
-[08-04-2026 20.53.16.41] === MAX PERFORMANCE MODE ACTIVATED === 
-[08-04-2026 20.53.16.45] PowerToys start attempted 
-[08-04-2026 20.53.22.35] RTX 3050 ENABLED 
-[08-04-2026 20.53.23.41] Power plan set to Ultimate/High Performance 
-[08-04-2026 20.53.24.91] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[08-04-2026 20.53.26.30] OLED 85, always on, no sleep 
-[08-04-2026 20.53.26.59] NVMe SSD: max performance, no PM 
-[08-04-2026 20.53.26.96] USB always on, PCIe no PM, Wi-Fi max perf 
-[08-04-2026 20.53.35.47] Services restored (including NVIDIA) 
-[08-04-2026 20.53.35.77] Scheduled tasks re-enabled 
-[08-04-2026 20.53.36.75] Energy Saver disabled 
-[08-04-2026 20.53.50.40] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[08-04-2026 20.53.52.29] RTX 3050 ENABLED + services started 
-[08-04-2026 20.53.54.82] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[08-04-2026 20.53.54.92] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[08-04-2026 20.53.55.50] Power plan set to Ultimate Performance 
-[08-04-2026 20.53.56.03] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[08-04-2026 20.53.57.18] OLED 85, always on, no sleep, no hibernate 
-[08-04-2026 20.53.57.25] NVMe SSD: max throughput, no PM, no sleep states 
-[08-04-2026 20.53.57.45] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[08-04-2026 20.53.57.64] All services started (including NVIDIA) 
-[08-04-2026 20.53.57.79] All scheduled tasks re-enabled (including NVIDIA) 
-[08-04-2026 20.53.58.21] Energy Saver completely disabled 
-[08-04-2026 20.53.58.38] Video playback set to max quality 
-[09-04-2026  9.35.27.72] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[09-04-2026  9.35.28.87] RTX 3050 ENABLED + services started 
-[09-04-2026  9.35.30.31] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[09-04-2026  9.35.30.36] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[09-04-2026  9.35.30.53] Power plan set to Ultimate Performance 
-[09-04-2026  9.35.30.67] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[09-04-2026  9.35.31.82] OLED 85, always on, no sleep, no hibernate 
-[09-04-2026  9.35.31.89] NVMe SSD: max throughput, no PM, no sleep states 
-[09-04-2026  9.35.32.09] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[09-04-2026  9.35.32.28] All services started (including NVIDIA) 
-[09-04-2026  9.35.32.42] All scheduled tasks re-enabled (including NVIDIA) 
-[09-04-2026  9.35.32.86] Energy Saver completely disabled 
-[09-04-2026  9.35.33.02] Video playback set to max quality 
-[10-04-2026 20.45.31.86] === MAX PERFORMANCE MODE ACTIVATED === 
-[10-04-2026 20.45.31.91] PowerToys start attempted 
-[10-04-2026 20.45.33.02] RTX 3050 ENABLED 
-[10-04-2026 20.45.33.48] Power plan set to Ultimate/High Performance 
-[10-04-2026 20.45.34.55] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[10-04-2026 20.45.35.97] OLED 85, always on, no sleep 
-[10-04-2026 20.45.36.25] NVMe SSD: max performance, no PM 
-[10-04-2026 20.45.36.71] USB always on, PCIe no PM, Wi-Fi max perf 
-[10-04-2026 20.45.37.07] Services restored (including NVIDIA) 
-[10-04-2026 20.45.37.35] Scheduled tasks re-enabled 
-[10-04-2026 20.45.38.23] Energy Saver disabled 
-[10-04-2026 20.45.43.75] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[10-04-2026 20.45.45.44] RTX 3050 ENABLED + services started 
-[10-04-2026 20.45.48.13] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[10-04-2026 20.45.48.23] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[10-04-2026 20.45.48.79] Power plan set to Ultimate Performance 
-[10-04-2026 20.45.49.40] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[10-04-2026 20.45.50.54] OLED 85, always on, no sleep, no hibernate 
-[10-04-2026 20.45.50.60] NVMe SSD: max throughput, no PM, no sleep states 
-[10-04-2026 20.45.50.81] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[10-04-2026 20.45.53.01] All services started (including NVIDIA) 
-[10-04-2026 20.45.53.12] All scheduled tasks re-enabled (including NVIDIA) 
-[10-04-2026 20.45.53.53] Energy Saver completely disabled 
-[10-04-2026 20.45.53.69] Video playback set to max quality 
-[11-04-2026 17.16.32.73] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[11-04-2026 17.16.32.97] Killed PowerToys + Awake module (was blocking sleep) 
-[11-04-2026 17.16.41.77] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[11-04-2026 17.16.42.21] Killed browsers 
-[11-04-2026 17.16.44.42] RTX 3050 DISABLED - iGPU only mode 
-[11-04-2026 17.16.45.04] Power plan set to Power Saver 
-[11-04-2026 17.16.45.37] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[11-04-2026 17.16.51.29] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[11-04-2026 17.16.51.43] NVMe SSD: APST ON, link PM aggressive 
-[11-04-2026 17.16.52.19] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[11-04-2026 17.17.25.80] Services stopped (including NVIDIA services) 
-[11-04-2026 17.17.26.49] Disabled heavy + NVIDIA scheduled tasks 
-[11-04-2026 17.17.27.23] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[11-04-2026 17.17.31.83] Webcam + Samsung phone USB selective suspend enabled 
-[11-04-2026 17.17.33.17] Energy Saver enabled (threshold=100) 
-[11-04-2026 17.17.33.83] Low battery protection: warn 15 
-[11-04-2026 22.00.37.88] === MAX PERFORMANCE MODE ACTIVATED === 
-[11-04-2026 22.00.38.01] PowerToys start attempted 
-[11-04-2026 22.00.49.74] RTX 3050 ENABLED 
-[11-04-2026 22.00.51.82] Power plan set to Ultimate/High Performance 
-[11-04-2026 22.00.53.00] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[11-04-2026 22.00.54.96] OLED 85, always on, no sleep 
-[11-04-2026 22.00.55.14] NVMe SSD: max performance, no PM 
-[11-04-2026 22.00.55.65] USB always on, PCIe no PM, Wi-Fi max perf 
-[11-04-2026 22.01.02.10] Services restored (including NVIDIA) 
-[11-04-2026 22.01.02.31] Scheduled tasks re-enabled 
-[11-04-2026 22.01.02.93] Energy Saver disabled 
-[12-04-2026 16.00.20.01] === MAX PERFORMANCE MODE ACTIVATED === 
-[12-04-2026 16.00.20.09] PowerToys start attempted 
-[12-04-2026 16.00.23.03] RTX 3050 ENABLED 
-[12-04-2026 16.00.27.10] Power plan set to Ultimate/High Performance 
-[12-04-2026 16.00.27.56] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[12-04-2026 16.00.28.62] OLED 85, always on, no sleep 
-[12-04-2026 16.00.28.73] NVMe SSD: max performance, no PM 
-[12-04-2026 16.00.28.97] USB always on, PCIe no PM, Wi-Fi max perf 
-[12-04-2026 16.00.31.44] Services restored (including NVIDIA) 
-[12-04-2026 16.00.31.82] Scheduled tasks re-enabled 
-[12-04-2026 16.00.32.69] Energy Saver disabled 
-[12-04-2026 19.11.01.20] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[12-04-2026 19.11.01.70] Killed PowerToys + Awake module (was blocking sleep) 
-[12-04-2026 19.11.13.10] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[12-04-2026 19.11.13.84] Killed browsers 
-[12-04-2026 19.11.17.96] RTX 3050 DISABLED - iGPU only mode 
-[12-04-2026 19.11.18.60] Power plan set to Power Saver 
-[12-04-2026 19.11.20.91] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[12-04-2026 19.11.25.93] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[12-04-2026 19.11.26.07] NVMe SSD: APST ON, link PM aggressive 
-[12-04-2026 19.11.26.73] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[12-04-2026 19.12.00.46] Services stopped (including NVIDIA services) 
-[12-04-2026 19.12.01.03] Disabled heavy + NVIDIA scheduled tasks 
-[12-04-2026 19.12.01.62] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[12-04-2026 19.12.05.75] Webcam + Samsung phone USB selective suspend enabled 
-[12-04-2026 19.12.06.96] Energy Saver enabled (threshold=100) 
-[12-04-2026 19.12.07.60] Low battery protection: warn 15 
-[12-04-2026 22.26.30.52] === MAX PERFORMANCE MODE ACTIVATED === 
-[12-04-2026 22.26.30.54] PowerToys start attempted 
-[12-04-2026 22.26.36.15] RTX 3050 ENABLED 
-[12-04-2026 22.26.36.71] Power plan set to Ultimate/High Performance 
-[12-04-2026 22.26.37.32] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[12-04-2026 22.26.38.04] OLED 85, always on, no sleep 
-[12-04-2026 22.26.38.16] NVMe SSD: max performance, no PM 
-[12-04-2026 22.26.38.37] USB always on, PCIe no PM, Wi-Fi max perf 
-[12-04-2026 22.26.46.69] Services restored (including NVIDIA) 
-[12-04-2026 22.26.46.85] Scheduled tasks re-enabled 
-[12-04-2026 22.26.47.32] Energy Saver disabled 
-[12-04-2026 22.26.51.75] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[12-04-2026 22.26.52.82] RTX 3050 ENABLED + services started 
-[12-04-2026 22.26.54.25] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[12-04-2026 22.26.54.30] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[12-04-2026 22.26.54.60] Power plan set to Ultimate Performance 
-[12-04-2026 22.26.55.15] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[12-04-2026 22.26.56.34] OLED 85, always on, no sleep, no hibernate 
-[12-04-2026 22.26.56.41] NVMe SSD: max throughput, no PM, no sleep states 
-[12-04-2026 22.26.56.63] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[12-04-2026 22.26.56.79] All services started (including NVIDIA) 
-[12-04-2026 22.26.56.91] All scheduled tasks re-enabled (including NVIDIA) 
-[12-04-2026 22.26.57.34] Energy Saver completely disabled 
-[12-04-2026 22.26.57.51] Video playback set to max quality 
-[13-04-2026  8.35.31.23] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[13-04-2026  8.35.31.42] Killed PowerToys + Awake module (was blocking sleep) 
-[13-04-2026  8.35.39.21] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[13-04-2026  8.35.39.56] Killed browsers 
-[13-04-2026  8.35.41.43] RTX 3050 DISABLED - iGPU only mode 
-[13-04-2026  8.35.41.70] Power plan set to Power Saver 
-[13-04-2026  8.35.41.83] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[13-04-2026  8.35.43.59] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[13-04-2026  8.35.43.64] NVMe SSD: APST ON, link PM aggressive 
-[13-04-2026  8.35.43.86] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[13-04-2026  8.36.22.01] Services stopped (including NVIDIA services) 
-[13-04-2026  8.36.22.20] Disabled heavy + NVIDIA scheduled tasks 
-[13-04-2026  8.36.22.41] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[13-04-2026  8.36.23.95] Webcam + Samsung phone USB selective suspend enabled 
-[13-04-2026  8.36.24.35] Energy Saver enabled (threshold=100) 
-[13-04-2026  8.36.24.56] Low battery protection: warn 15 
-[13-04-2026 11.53.53.94] === MAX PERFORMANCE MODE ACTIVATED === 
-[13-04-2026 11.53.54.07] PowerToys start attempted 
-[13-04-2026 11.54.08.47] RTX 3050 ENABLED 
-[13-04-2026 11.54.17.45] Power plan set to Ultimate/High Performance 
-[13-04-2026 11.54.18.79] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[13-04-2026 11.54.21.57] OLED 85, always on, no sleep 
-[13-04-2026 11.54.21.66] NVMe SSD: max performance, no PM 
-[13-04-2026 11.54.21.98] USB always on, PCIe no PM, Wi-Fi max perf 
-[13-04-2026 11.54.30.50] Services restored (including NVIDIA) 
-[13-04-2026 11.54.30.86] Scheduled tasks re-enabled 
-[13-04-2026 11.54.31.95] Energy Saver disabled 
-[13-04-2026 16.06.26.51] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[13-04-2026 16.06.28.29] RTX 3050 ENABLED + services started 
-[13-04-2026 16.06.29.68] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[13-04-2026 16.06.29.73] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[13-04-2026 16.06.29.81] Power plan set to Ultimate Performance 
-[13-04-2026 16.06.30.23] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[13-04-2026 16.06.31.38] OLED 85, always on, no sleep, no hibernate 
-[13-04-2026 16.06.31.44] NVMe SSD: max throughput, no PM, no sleep states 
-[13-04-2026 16.06.31.64] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[13-04-2026 16.06.31.83] All services started (including NVIDIA) 
-[13-04-2026 16.06.31.97] All scheduled tasks re-enabled (including NVIDIA) 
-[13-04-2026 16.06.32.39] Energy Saver completely disabled 
-[13-04-2026 16.06.32.55] Video playback set to max quality 
-[13-04-2026 21.38.49.92] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[13-04-2026 21.38.51.28] RTX 3050 ENABLED + services started 
-[13-04-2026 21.38.52.53] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[13-04-2026 21.38.52.59] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[13-04-2026 21.38.52.76] Power plan set to Ultimate Performance 
-[13-04-2026 21.38.52.91] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[13-04-2026 21.38.54.03] OLED 85, always on, no sleep, no hibernate 
-[13-04-2026 21.38.54.10] NVMe SSD: max throughput, no PM, no sleep states 
-[13-04-2026 21.38.54.32] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[13-04-2026 21.38.58.56] All services started (including NVIDIA) 
-[13-04-2026 21.38.58.72] All scheduled tasks re-enabled (including NVIDIA) 
-[13-04-2026 21.38.59.15] Energy Saver completely disabled 
-[13-04-2026 21.38.59.31] Video playback set to max quality 
-[14-04-2026  0.34.30.44] === BALANCED MODE ACTIVATED === 
-[14-04-2026  0.34.34.70] GPU preferences reset to Optimus auto, webcam re-enabled 
-[14-04-2026  0.34.34.86] Balanced mode restored (GPU prefs reset, webcam re-enabled) 
-[14-04-2026 19.10.10.48] === MAX PERFORMANCE MODE ACTIVATED === 
-[14-04-2026 19.10.10.52] PowerToys start attempted 
-[14-04-2026 19.10.12.80] RTX 3050 ENABLED 
-[14-04-2026 19.10.14.18] Power plan set to Ultimate/High Performance 
-[14-04-2026 19.10.14.70] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[14-04-2026 19.10.15.60] OLED 85, always on, no sleep 
-[14-04-2026 19.10.15.76] NVMe SSD: max performance, no PM 
-[14-04-2026 19.10.16.01] USB always on, PCIe no PM, Wi-Fi max perf 
-[14-04-2026 19.10.16.25] Services restored (including NVIDIA) 
-[14-04-2026 19.10.16.45] Scheduled tasks re-enabled 
-[14-04-2026 19.10.17.01] Energy Saver disabled 
-[14-04-2026 22.55.58.68] === BALANCED MODE ACTIVATED === 
-[14-04-2026 22.56.14.36] GPU preferences reset to Optimus auto, webcam re-enabled 
-[14-04-2026 22.56.14.70] Balanced mode restored (GPU prefs reset, webcam re-enabled) 
-[15-04-2026  1.00.52.87] === MAX PERFORMANCE MODE ACTIVATED === 
-[15-04-2026  1.00.52.93] PowerToys start attempted 
-[15-04-2026  1.00.56.46] RTX 3050 ENABLED 
-[15-04-2026  1.00.57.61] Power plan set to Ultimate/High Performance 
-[15-04-2026  1.00.58.91] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[15-04-2026  1.01.00.32] OLED 85, always on, no sleep 
-[15-04-2026  1.01.00.56] NVMe SSD: max performance, no PM 
-[15-04-2026  1.01.00.94] USB always on, PCIe no PM, Wi-Fi max perf 
-[15-04-2026  1.01.05.34] Services restored (including NVIDIA) 
-[15-04-2026  1.01.06.05] Scheduled tasks re-enabled 
-[15-04-2026  1.01.06.97] Energy Saver disabled 
-[15-04-2026  2.57.22.97] Log rotated (was 2384 lines) 
-[15-04-2026  2.57.23.35] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[15-04-2026  2.57.24.09] Killed PowerToys + Awake module (was blocking sleep) 
-[15-04-2026  2.57.33.80] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[15-04-2026  2.57.34.40] Killed browsers 
-[15-04-2026  2.57.39.17] RTX 3050 DISABLED - iGPU only mode 
-[15-04-2026  2.57.40.05] Power plan set to Power Saver 
-[15-04-2026  2.57.40.68] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[15-04-2026  2.57.42.48] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[15-04-2026  2.57.42.53] NVMe SSD: APST ON, link PM aggressive 
-[15-04-2026  2.57.42.74] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[15-04-2026  2.58.13.26] Services stopped (including NVIDIA services) 
-[15-04-2026  2.58.13.61] Disabled heavy + NVIDIA scheduled tasks 
-[15-04-2026  2.58.13.86] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[15-04-2026  2.58.19.45] Webcam disabled + Samsung phone USB selective suspend enabled 
-[15-04-2026  2.58.19.90] Energy Saver enabled (threshold=100) 
-[15-04-2026  2.58.20.13] Low battery protection: warn 20 
-[15-04-2026 21.09.45.19] === MAX PERFORMANCE MODE ACTIVATED === 
-[15-04-2026 21.09.45.25] PowerToys start attempted 
-[15-04-2026 21.09.52.51] RTX 3050 ENABLED 
-[15-04-2026 21.09.53.67] Power plan set to Ultimate/High Performance 
-[15-04-2026 21.09.54.74] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[15-04-2026 21.09.55.59] OLED 85, always on, no sleep 
-[15-04-2026 21.09.55.76] NVMe SSD: max performance, no PM 
-[15-04-2026 21.09.55.98] USB always on, PCIe no PM, Wi-Fi max perf 
-[15-04-2026 21.10.02.24] Services restored (including NVIDIA) 
-[15-04-2026 21.10.02.42] Scheduled tasks re-enabled 
-[15-04-2026 21.10.02.91] Energy Saver disabled 
-[15-04-2026 21.49.08.54] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[15-04-2026 21.49.11.91] RTX 3050 ENABLED + services started 
-[15-04-2026 21.49.14.67] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[15-04-2026 21.49.14.75] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[15-04-2026 21.49.14.85] Power plan set to Ultimate Performance 
-[15-04-2026 21.49.15.37] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[15-04-2026 21.49.17.57] OLED 85, always on, no sleep, no hibernate 
-[15-04-2026 21.49.17.66] NVMe SSD: max throughput, no PM, no sleep states 
-[15-04-2026 21.49.17.89] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[15-04-2026 21.49.20.13] All services started (including NVIDIA) 
-[15-04-2026 21.49.20.30] All scheduled tasks re-enabled (including NVIDIA) 
-[15-04-2026 21.49.21.70] Energy Saver completely disabled 
-[15-04-2026 21.49.21.89] Video playback set to max quality 
-[16-04-2026  2.55.51.61] Log rotated (was 540 lines) 
-[16-04-2026  2.55.52.58] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[16-04-2026  2.55.52.94] Killed PowerToys + Awake module (was blocking sleep) 
-[16-04-2026  2.55.58.40] Killed background apps + MongoDB + NVIDIA + Asus bloat 
-[16-04-2026  2.55.58.81] Killed browsers 
-[16-04-2026  2.56.03.58] RTX 3050 DISABLED - iGPU only mode 
-[16-04-2026  2.56.03.87] Power plan set to Power Saver 
-[16-04-2026  2.56.03.97] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[16-04-2026  2.56.08.56] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[16-04-2026  2.56.08.61] NVMe SSD: APST ON, link PM aggressive 
-[16-04-2026  2.56.08.99] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[16-04-2026  2.56.44.46] Services stopped (including NVIDIA services) 
-[16-04-2026  2.56.44.68] Disabled heavy + NVIDIA scheduled tasks 
-[16-04-2026  2.56.44.88] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
-[16-04-2026  2.56.50.18] Webcam disabled + Samsung phone USB selective suspend enabled 
-[16-04-2026  2.56.51.39] Energy Saver enabled (threshold=100) 
-[16-04-2026  2.56.51.59] Low battery protection: warn 20 
-[16-04-2026 13.42.31.72] === MAX PERFORMANCE MODE ACTIVATED === 
-[16-04-2026 13.42.31.77] PowerToys start attempted 
-[16-04-2026 13.42.39.80] RTX 3050 ENABLED 
-[16-04-2026 13.42.41.44] Power plan set to Ultimate/High Performance 
-[16-04-2026 13.42.43.46] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[16-04-2026 13.42.47.42] OLED 85, always on, no sleep 
-[16-04-2026 13.42.47.69] NVMe SSD: max performance, no PM 
-[16-04-2026 13.42.48.08] USB always on, PCIe no PM, Wi-Fi max perf 
-[16-04-2026 13.42.48.43] Services restored (including NVIDIA) 
-[16-04-2026 13.42.48.76] Scheduled tasks re-enabled 
-[16-04-2026 13.42.51.00] Energy Saver disabled 
+[14-05-2026 16.38.08.59] OLED 85, always on, no sleep, no hibernate 
+[14-05-2026 16.38.08.71] NVMe SSD: max throughput, no PM, no sleep states 
+[14-05-2026 16.38.08.99] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[14-05-2026 16.38.09.23] All services started (including NVIDIA) 
+[14-05-2026 16.38.09.43] All scheduled tasks re-enabled (including NVIDIA) 
+[14-05-2026 16.38.10.76] Energy Saver completely disabled 
+[14-05-2026 16.38.10.97] Video playback set to max quality 
+[18-05-2026 13.30.33.17] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[18-05-2026 13.30.37.71] RTX 3050 ENABLED + services started 
+[18-05-2026 13.30.41.46] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[18-05-2026 13.30.41.51] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[18-05-2026 13.30.41.71] Power plan set to Ultimate Performance 
+[18-05-2026 13.30.41.87] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[18-05-2026 13.30.43.88] OLED 85, always on, no sleep, no hibernate 
+[18-05-2026 13.30.43.98] NVMe SSD: max throughput, no PM, no sleep states 
+[18-05-2026 13.30.44.23] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[18-05-2026 13.30.46.51] All services started (including NVIDIA) 
+[18-05-2026 13.30.47.11] All scheduled tasks re-enabled (including NVIDIA) 
+[18-05-2026 13.30.48.99] Energy Saver completely disabled 
+[18-05-2026 13.30.49.28] Video playback set to max quality 
+[19-05-2026  9.33.49.77] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[19-05-2026  9.33.53.53] RTX 3050 ENABLED + services started 
+[19-05-2026  9.33.56.77] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[19-05-2026  9.33.56.82] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[19-05-2026  9.33.57.02] Power plan set to Ultimate Performance 
+[19-05-2026  9.33.57.18] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[19-05-2026  9.33.59.11] OLED 85, always on, no sleep, no hibernate 
+[19-05-2026  9.33.59.19] NVMe SSD: max throughput, no PM, no sleep states 
+[19-05-2026  9.33.59.43] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[19-05-2026  9.33.59.65] All services started (including NVIDIA) 
+[19-05-2026  9.33.59.81] All scheduled tasks re-enabled (including NVIDIA) 
+[19-05-2026  9.34.00.92] Energy Saver completely disabled 
+[19-05-2026  9.34.01.12] Video playback set to max quality 
+[22-05-2026 18.29.58.69] Log rotated (was 594 lines) 
+[22-05-2026 18.29.59.79] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[22-05-2026 18.30.00.32] Killed PowerToys + Awake module (was blocking sleep) 
+[22-05-2026 18.30.08.32] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[22-05-2026 18.30.08.70] Killed browsers 
+[22-05-2026 18.30.34.77] RTX 3050 DISABLED - iGPU only mode 
+[22-05-2026 18.30.35.09] Power plan set to Power Saver 
+[22-05-2026 18.30.35.23] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[22-05-2026 18.30.39.19] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[22-05-2026 18.30.39.26] NVMe SSD: APST ON, link PM aggressive 
+[22-05-2026 18.30.39.50] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[22-05-2026 18.31.12.60] Services stopped (including NVIDIA services) 
+[22-05-2026 18.31.12.80] Disabled heavy + NVIDIA scheduled tasks 
+[22-05-2026 18.31.13.02] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[22-05-2026 18.31.18.45] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[22-05-2026 18.31.19.76] Energy Saver enabled (threshold=100) 
+[22-05-2026 18.31.19.97] Low battery protection: warn 20 
+[22-05-2026 23.42.17.08] === BALANCED MODE ACTIVATED === 
+[22-05-2026 23.42.48.70] GPU preferences reset to Optimus auto 
+[22-05-2026 23.42.49.16] Balanced mode restored (GPU prefs reset) 
+[23-05-2026  8.45.27.23] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[23-05-2026  8.45.33.40] RTX 3050 ENABLED + services started 
+[23-05-2026  8.45.39.59] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[23-05-2026  8.45.39.70] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[23-05-2026  8.45.40.31] Power plan set to Ultimate Performance 
+[23-05-2026  8.45.40.79] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[23-05-2026  8.45.42.84] OLED 85, always on, no sleep, no hibernate 
+[23-05-2026  8.45.42.92] NVMe SSD: max throughput, no PM, no sleep states 
+[23-05-2026  8.45.43.14] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[23-05-2026  8.45.45.39] All services started (including NVIDIA) 
+[23-05-2026  8.45.45.58] All scheduled tasks re-enabled (including NVIDIA) 
+[23-05-2026  8.45.46.84] Energy Saver completely disabled 
+[23-05-2026  8.45.47.04] Video playback set to max quality 
+[24-05-2026  9.14.26.19] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[24-05-2026  9.14.29.79] RTX 3050 ENABLED + services started 
+[24-05-2026  9.14.33.15] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[24-05-2026  9.14.33.21] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[24-05-2026  9.14.33.41] Power plan set to Ultimate Performance 
+[24-05-2026  9.14.33.58] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[24-05-2026  9.14.35.78] OLED 85, always on, no sleep, no hibernate 
+[24-05-2026  9.14.35.85] NVMe SSD: max throughput, no PM, no sleep states 
+[24-05-2026  9.14.36.08] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[24-05-2026  9.14.36.28] All services started (including NVIDIA) 
+[24-05-2026  9.14.36.59] All scheduled tasks re-enabled (including NVIDIA) 
+[24-05-2026  9.14.37.78] Energy Saver completely disabled 
+[24-05-2026  9.14.37.97] Video playback set to max quality 
+[24-05-2026 10.41.16.39] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[24-05-2026 10.41.19.13] RTX 3050 ENABLED + services started 
+[24-05-2026 10.41.21.65] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[24-05-2026 10.41.21.71] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[24-05-2026 10.41.21.89] Power plan set to Ultimate Performance 
+[24-05-2026 10.41.22.05] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[24-05-2026 10.41.23.85] OLED 85, always on, no sleep, no hibernate 
+[24-05-2026 10.41.23.94] NVMe SSD: max throughput, no PM, no sleep states 
+[24-05-2026 10.41.24.16] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[24-05-2026 10.41.28.46] All services started (including NVIDIA) 
+[24-05-2026 10.41.28.63] All scheduled tasks re-enabled (including NVIDIA) 
+[24-05-2026 10.41.29.71] Energy Saver completely disabled 
+[24-05-2026 10.41.29.88] Video playback set to max quality 
+[27-05-2026  7.54.05.23] === BALANCED MODE ACTIVATED === 
+[27-05-2026  7.54.09.19] GPU preferences reset to Optimus auto 
+[27-05-2026  7.54.09.29] Video playback reset to balanced 
+[27-05-2026  7.54.09.48] Balanced mode restored (GPU prefs reset, video reset) 
+[27-05-2026 11.28.22.84] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[27-05-2026 11.28.25.69] RTX 3050 ENABLED + services started 
+[27-05-2026 11.28.28.34] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[27-05-2026 11.28.28.41] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[27-05-2026 11.28.28.74] Power plan set to Ultimate Performance 
+[27-05-2026 11.28.29.43] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[27-05-2026 11.28.30.76] OLED 85, always on, no sleep, no hibernate 
+[27-05-2026 11.28.30.85] NVMe SSD: max throughput, no PM, no sleep states 
+[27-05-2026 11.28.31.10] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[27-05-2026 11.28.31.31] All services started (including NVIDIA) 
+[27-05-2026 11.28.31.48] All scheduled tasks re-enabled (including NVIDIA) 
+[27-05-2026 11.28.31.94] Energy Saver completely disabled 
+[27-05-2026 11.28.32.13] Video playback set to max quality 
+[29-05-2026 12.48.07.81] Startup cleanup accessed 
+[29-05-2026 12.48.32.13] Startup cleanup accessed 
+[29-05-2026 12.48.43.39] OLED care menu accessed 
+[29-05-2026 12.49.46.05] Log rotated (was 578 lines) 
+[29-05-2026 12.49.46.28] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 12.49.46.84] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 12.49.54.71] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 12.49.55.20] Killed browsers 
+[29-05-2026 12.50.12.84] Log rotated (was 504 lines) 
+[29-05-2026 12.50.13.19] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 12.50.14.00] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 12.50.18.58] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 12.50.19.12] Killed browsers 
+[29-05-2026 12.51.18.67] === MAX PERFORMANCE MODE ACTIVATED === 
+[29-05-2026 12.51.18.71] PowerToys start attempted 
+[29-05-2026 12.51.22.29] RTX 3050 ENABLED 
+[29-05-2026 12.51.22.90] Power plan set to Ultimate/High Performance 
+[29-05-2026 12.51.23.30] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[29-05-2026 12.51.24.16] OLED 85, always on, no sleep 
+[29-05-2026 12.51.24.29] NVMe SSD: max performance, no PM 
+[29-05-2026 12.51.24.49] USB always on, PCIe no PM, Wi-Fi max perf 
+[29-05-2026 12.51.29.00] Services restored (including NVIDIA) 
+[29-05-2026 12.51.29.37] Scheduled tasks re-enabled 
+[29-05-2026 12.51.30.14] Energy Saver disabled 
+[29-05-2026 12.58.43.66] Log rotated (was 515 lines) 
+[29-05-2026 12.58.43.86] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 12.58.44.47] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 12.58.50.15] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 12.58.50.54] Killed browsers 
+[29-05-2026 13.02.57.74] Log rotated (was 504 lines) 
+[29-05-2026 13.02.57.96] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 13.02.58.52] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 13.03.01.75] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 13.03.01.75] DEBUG: Before browser if block 
+[29-05-2026 13.03.01.76] DEBUG: Inside browser block, starting taskkills 
+[29-05-2026 13.03.01.76] DEBUG: msedge killed 
+[29-05-2026 13.03.01.76] DEBUG: All browsers killed 
+[29-05-2026 13.03.02.10] Killed browsers 
+[29-05-2026 13.03.01.76] DEBUG: After call log inside browser block 
+[29-05-2026 13.03.02.11] DEBUG: After browser if block 
+[29-05-2026 13.03.02.12] DEBUG: Before ferdium if block 
+[29-05-2026 13.04.21.37] Log rotated (was 511 lines) 
+[29-05-2026 13.04.21.57] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 13.04.22.10] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 13.04.25.15] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 13.04.25.15] DEBUG: Before browser if block 
+[29-05-2026 13.04.25.16] DEBUG: Inside browser block, starting taskkills 
+[29-05-2026 13.04.25.16] DEBUG: msedge killed 
+[29-05-2026 13.04.25.16] DEBUG: All browsers killed 
+[29-05-2026 13.04.25.50] Killed browsers 
+[29-05-2026 13.04.25.16] DEBUG: After call log inside browser block 
+[29-05-2026 13.04.25.51] DEBUG: After browser if block 
+[29-05-2026 13.04.25.52] DEBUG: Before ferdium if block 
+[29-05-2026 13.05.47.57] Log rotated (was 511 lines) 
+[29-05-2026 13.05.47.77] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 13.05.48.30] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 13.05.51.33] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 13.05.51.33] DEBUG: Before browser if block 
+[29-05-2026 13.05.51.34] DEBUG: Inside browser block, starting taskkills 
+[29-05-2026 13.05.51.34] DEBUG: msedge killed 
+[29-05-2026 13.05.51.34] DEBUG: All browsers killed 
+[29-05-2026 13.05.51.67] Killed browsers 
+[29-05-2026 13.05.51.34] DEBUG: After call log inside browser block 
+[29-05-2026 13.05.51.68] DEBUG: After browser if block 
+[29-05-2026 13.05.51.69] DEBUG: Before ferdium if block 
+[29-05-2026 13.08.12.97] Log rotated (was 511 lines) 
+[29-05-2026 13.08.13.17] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 13.08.13.68] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 13.08.16.66] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 13.08.16.67] DEBUG: Before browser if block 
+[29-05-2026 13.08.16.67] DEBUG: Inside browser block, starting taskkills 
+[29-05-2026 13.08.16.67] DEBUG: msedge killed 
+[29-05-2026 13.08.16.67] DEBUG: All browsers killed 
+[29-05-2026 13.08.16.98] Killed browsers 
+[29-05-2026 13.08.16.67] DEBUG: After call log inside browser block 
+[29-05-2026 13.08.16.98] DEBUG: After browser if block 
+[29-05-2026 13.08.16.99] DEBUG: Before ferdium kill 
+[29-05-2026 13.08.17.07] DEBUG: Ferdium taskkill done 
+[29-05-2026 13.08.17.09] Killed Ferdium (1ms timer resolution hog) 
+[29-05-2026 13.08.17.09] DEBUG: After ferdium section 
+[29-05-2026 13.08.17.10] DEBUG: Before GPU disable 
+[29-05-2026 13.08.20.13] DEBUG: After GPU disable 
+[29-05-2026 13.08.20.20] RTX 3050 DISABLED - iGPU only mode 
+[29-05-2026 13.08.20.27] Power plan set to Power Saver 
+[29-05-2026 13.08.20.66] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[29-05-2026 13.08.22.09] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[29-05-2026 13.08.22.15] NVMe SSD: APST ON, link PM aggressive 
+[29-05-2026 13.08.22.42] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[29-05-2026 13.08.40.72] Services stopped in parallel (including NVIDIA services) 
+[29-05-2026 13.08.40.97] Disabled heavy + NVIDIA scheduled tasks 
+[29-05-2026 13.08.41.21] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[29-05-2026 13.08.44.22] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[29-05-2026 13.08.44.61] Energy Saver enabled (threshold=100) 
+[29-05-2026 13.08.44.83] Low battery protection: warn 20 
+[29-05-2026 13.08.45.03] Video playback set to power-save on battery 
+[29-05-2026 13.12.21.73] PowerToys start attempted 
+[29-05-2026 13.12.27.60] RTX 3050 ENABLED 
+[29-05-2026 13.12.28.22] Power plan set to Ultimate/High Performance 
+[29-05-2026 13.12.28.49] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[29-05-2026 13.12.28.93] OLED 85, always on, no sleep 
+[29-05-2026 13.12.28.98] NVMe SSD: max performance, no PM 
+[29-05-2026 13.12.29.08] USB always on, PCIe no PM, Wi-Fi max perf 
+[29-05-2026 13.12.41.45] Services restored (including NVIDIA) 
+[29-05-2026 13.12.41.63] Scheduled tasks re-enabled 
+[29-05-2026 13.12.41.98] Energy Saver disabled 
+[29-05-2026 13.21.19.32] Log rotated (was 539 lines) 
+[29-05-2026 13.21.19.53] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 13.21.20.02] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 13.21.22.65] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 13.21.22.94] Killed browsers 
+[29-05-2026 13.21.23.02] Killed Ferdium (1ms timer resolution hog) 
+[29-05-2026 13.21.25.84] DEBUG: After GPU disable 
+[29-05-2026 13.21.25.90] RTX 3050 DISABLED - iGPU only mode 
+[29-05-2026 13.21.25.96] Power plan set to Power Saver 
+[29-05-2026 13.21.26.35] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[29-05-2026 13.21.28.28] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[29-05-2026 13.21.28.33] NVMe SSD: APST ON, link PM aggressive 
+[29-05-2026 13.21.28.56] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[29-05-2026 13.21.55.15] Services stopped in parallel (including NVIDIA services) 
+[29-05-2026 13.21.55.36] Disabled heavy + NVIDIA scheduled tasks 
+[29-05-2026 13.21.55.53] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[29-05-2026 13.21.58.52] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[29-05-2026 13.21.58.91] Energy Saver enabled (threshold=100) 
+[29-05-2026 13.21.59.11] Low battery protection: warn 20 
+[29-05-2026 13.21.59.27] Video playback set to power-save on battery 
+[29-05-2026 13.22.46.13] === MAX PERFORMANCE MODE ACTIVATED === 
+[29-05-2026 13.22.46.15] PowerToys start attempted 
+[29-05-2026 13.22.53.02] RTX 3050 ENABLED 
+[29-05-2026 13.22.53.58] Power plan set to Ultimate/High Performance 
+[29-05-2026 13.22.53.78] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[29-05-2026 13.22.54.18] OLED 85, always on, no sleep 
+[29-05-2026 13.22.54.23] NVMe SSD: max performance, no PM 
+[29-05-2026 13.22.54.32] USB always on, PCIe no PM, Wi-Fi max perf 
+[29-05-2026 13.23.06.72] Services restored (including NVIDIA) 
+[29-05-2026 13.23.06.90] Scheduled tasks re-enabled 
+[29-05-2026 13.23.07.24] Energy Saver disabled 
+[29-05-2026 13.25.37.79] Log rotated (was 530 lines) 
+[29-05-2026 13.25.38.09] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[29-05-2026 13.25.38.72] Killed PowerToys + Awake module (was blocking sleep) 
+[29-05-2026 13.25.44.49] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[29-05-2026 13.25.44.90] Killed browsers 
+[29-05-2026 13.25.45.00] Killed Ferdium (1ms timer resolution hog) 
+[29-05-2026 13.25.49.19] DEBUG: After GPU disable 
+[29-05-2026 13.25.49.28] RTX 3050 DISABLED - iGPU only mode 
+[29-05-2026 13.25.49.37] Power plan set to Power Saver 
+[29-05-2026 13.25.49.91] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[29-05-2026 13.25.52.60] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[29-05-2026 13.25.52.65] NVMe SSD: APST ON, link PM aggressive 
+[29-05-2026 13.25.52.93] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[29-05-2026 13.26.11.51] Services stopped in parallel (including NVIDIA services) 
+[29-05-2026 13.26.11.77] Disabled heavy + NVIDIA scheduled tasks 
+[29-05-2026 13.26.11.99] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[29-05-2026 13.26.15.58] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[29-05-2026 13.26.16.01] Energy Saver enabled (threshold=100) 
+[29-05-2026 13.26.16.21] Low battery protection: warn 20 
+[29-05-2026 13.26.16.38] Video playback set to power-save on battery 
+[30-05-2026  0.26.07.32] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[30-05-2026  0.26.33.82] RTX 3050 ENABLED + services started 
+[30-05-2026  0.26.39.89] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[30-05-2026  0.26.39.98] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[30-05-2026  0.26.40.34] Power plan set to Ultimate Performance 
+[30-05-2026  0.26.40.65] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[30-05-2026  0.26.43.54] OLED 85, always on, no sleep, no hibernate 
+[30-05-2026  0.26.43.62] NVMe SSD: max throughput, no PM, no sleep states 
+[30-05-2026  0.26.43.86] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[30-05-2026  0.26.44.21] All services started (including NVIDIA) 
+[30-05-2026  0.26.51.18] All scheduled tasks re-enabled (including NVIDIA) 
+[30-05-2026  0.26.51.80] Energy Saver completely disabled 
+[30-05-2026  0.26.52.04] Video playback set to max quality 
+[30-05-2026  3.16.17.25] Log rotated (was 532 lines) 
+[30-05-2026  3.16.17.48] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[30-05-2026  3.16.18.06] Killed PowerToys + Awake module (was blocking sleep) 
+[30-05-2026  3.18.03.90] === BALANCED MODE ACTIVATED === 
+[30-05-2026  3.18.09.44] GPU preferences reset to Optimus auto 
+[30-05-2026  3.18.09.80] Video playback reset to balanced 
+[30-05-2026  3.18.10.07] Balanced mode restored (GPU prefs reset, video reset) 
+[30-05-2026 10.44.17.54] GPU Switch menu accessed 
+[30-05-2026 10.44.34.21] RTX 3050 manually disabled 
+[30-05-2026 10.44.36.01] GPU Switch menu accessed 
+[30-05-2026 18.15.49.05] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[30-05-2026 18.15.55.40] RTX 3050 ENABLED + services started 
+[30-05-2026 18.15.57.49] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[30-05-2026 18.15.57.55] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[30-05-2026 18.15.57.93] Power plan set to Ultimate Performance 
+[30-05-2026 18.15.58.56] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[30-05-2026 18.15.59.99] OLED 85, always on, no sleep, no hibernate 
+[30-05-2026 18.16.00.07] NVMe SSD: max throughput, no PM, no sleep states 
+[30-05-2026 18.16.00.31] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[30-05-2026 18.16.00.52] All services started (including NVIDIA) 
+[30-05-2026 18.16.00.70] All scheduled tasks re-enabled (including NVIDIA) 
+[30-05-2026 18.16.01.20] Energy Saver completely disabled 
+[30-05-2026 18.16.01.39] Video playback set to max quality 
+[30-05-2026 21.22.21.36] === BALANCED MODE ACTIVATED === 
+[30-05-2026 21.22.28.35] GPU preferences reset to Optimus auto 
+[30-05-2026 21.22.28.83] Video playback reset to balanced 
+[30-05-2026 21.22.29.25] Balanced mode restored (GPU prefs reset, video reset) 
+[30-05-2026 21.22.39.99] GPU Switch menu accessed 
+[30-05-2026 21.22.54.67] RTX 3050 manually disabled 
+[30-05-2026 21.23.15.03] GPU Switch menu accessed 
+[30-05-2026 21.25.06.35] Log rotated (was 529 lines) 
+[30-05-2026 21.25.06.86] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[30-05-2026 21.25.08.05] Killed PowerToys + Awake module (was blocking sleep) 
+[30-05-2026 21.25.19.88] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[31-05-2026  8.17.37.91] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[31-05-2026  8.17.44.42] RTX 3050 ENABLED + services started 
+[31-05-2026  8.17.49.83] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[31-05-2026  8.17.49.90] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[31-05-2026  8.17.50.34] Power plan set to Ultimate Performance 
+[31-05-2026  8.17.51.05] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[31-05-2026  8.17.52.72] OLED 85, always on, no sleep, no hibernate 
+[31-05-2026  8.17.52.96] NVMe SSD: max throughput, no PM, no sleep states 
+[31-05-2026  8.17.53.28] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[31-05-2026  8.17.53.69] All services started (including NVIDIA) 
+[31-05-2026  8.17.53.92] All scheduled tasks re-enabled (including NVIDIA) 
+[31-05-2026  8.17.55.97] Energy Saver completely disabled 
+[31-05-2026  8.17.56.19] Video playback set to max quality 
+[31-05-2026 21.21.03.19] Log rotated (was 516 lines) 
+[31-05-2026 21.21.03.61] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[31-05-2026 21.21.04.60] Killed PowerToys + Awake module (was blocking sleep) 
+[31-05-2026 21.21.12.04] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[31-05-2026 21.21.12.56] Killed browsers 
+[31-05-2026 21.21.12.70] Killed Ferdium (1ms timer resolution hog) 
+[31-05-2026 21.21.14.85] DEBUG: After GPU disable 
+[31-05-2026 21.21.14.93] RTX 3050 DISABLED - iGPU only mode 
+[31-05-2026 21.21.15.55] Power plan set to Power Saver 
+[31-05-2026 21.21.15.85] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[31-05-2026 21.21.21.62] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[31-05-2026 21.21.21.77] NVMe SSD: APST ON, link PM aggressive 
+[31-05-2026 21.21.22.58] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[31-05-2026 21.21.43.72] Services stopped in parallel (including NVIDIA services) 
+[31-05-2026 21.21.44.31] Disabled heavy + NVIDIA scheduled tasks 
+[31-05-2026 21.21.44.86] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[31-05-2026 21.21.49.62] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[31-05-2026 21.21.50.82] Energy Saver enabled (threshold=100) 
+[31-05-2026 21.21.51.57] Low battery protection: warn 20 
+[31-05-2026 21.21.52.21] Video playback set to power-save on battery 
+[01-06-2026  2.46.21.01] === QUICK RE-APPLY AFTER WAKE === 
+[01-06-2026  2.46.29.27] Re-killed processes after wake (incl. Ferdium, on battery) 
+[01-06-2026  2.46.29.50] CPU throttle re-applied 
+[01-06-2026  2.46.30.38] Brightness re-set to 25 
+[01-06-2026  2.46.55.87] Services re-stopped 
+[01-06-2026  2.46.59.02] GPU check after wake 
+[01-06-2026  2.46.59.68] Power plan re-applied 
+[01-06-2026 14.21.15.24] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[01-06-2026 14.21.24.42] RTX 3050 ENABLED + services started 
+[01-06-2026 14.21.37.47] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[01-06-2026 14.21.38.07] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[01-06-2026 14.21.39.02] Power plan set to Ultimate Performance 
+[01-06-2026 14.21.39.29] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[01-06-2026 14.21.42.18] OLED 85, always on, no sleep, no hibernate 
+[01-06-2026 14.21.42.48] NVMe SSD: max throughput, no PM, no sleep states 
+[01-06-2026 14.21.42.83] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[01-06-2026 14.21.45.99] All services started (including NVIDIA) 
+[01-06-2026 14.21.46.68] All scheduled tasks re-enabled (including NVIDIA) 
+[01-06-2026 14.21.48.01] Energy Saver completely disabled 
+[01-06-2026 14.21.48.24] Video playback set to max quality 
+[01-06-2026 14.22.03.17] Network saver menu accessed 
+[01-06-2026 14.22.21.57] Wi-Fi max performance 
+[01-06-2026 16.13.48.75] Log rotated (was 541 lines) 
+[01-06-2026 16.13.49.03] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[01-06-2026 16.13.49.63] Killed PowerToys + Awake module (was blocking sleep) 
+[01-06-2026 16.13.55.17] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[01-06-2026 16.13.55.54] Killed browsers 
+[01-06-2026 16.13.55.63] Killed Ferdium (1ms timer resolution hog) 
+[01-06-2026 16.13.57.62] DEBUG: After GPU disable 
+[01-06-2026 16.13.57.71] RTX 3050 DISABLED - iGPU only mode 
+[01-06-2026 16.13.58.09] Power plan set to Power Saver 
+[01-06-2026 16.13.58.32] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[01-06-2026 16.14.03.05] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[01-06-2026 16.14.03.24] NVMe SSD: APST ON, link PM aggressive 
+[01-06-2026 16.14.04.34] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[01-06-2026 16.14.24.26] Services stopped in parallel (including NVIDIA services) 
+[01-06-2026 16.14.24.51] Disabled heavy + NVIDIA scheduled tasks 
+[01-06-2026 16.14.24.73] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[01-06-2026 16.14.27.05] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[01-06-2026 16.14.27.60] Energy Saver enabled (threshold=100) 
+[01-06-2026 16.14.27.84] Low battery protection: warn 20 
+[01-06-2026 16.14.28.05] Video playback set to power-save on battery 
+[02-06-2026  2.28.51.15] === MAX PERFORMANCE MODE ACTIVATED === 
+[02-06-2026  2.28.51.23] PowerToys start attempted 
+[02-06-2026  2.28.59.72] RTX 3050 ENABLED 
+[02-06-2026  2.29.02.44] Power plan set to Ultimate/High Performance 
+[02-06-2026  2.29.05.77] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[02-06-2026  2.29.08.74] OLED 85, always on, no sleep 
+[02-06-2026  2.29.09.11] NVMe SSD: max performance, no PM 
+[02-06-2026  2.29.09.70] USB always on, PCIe no PM, Wi-Fi max perf 
+[02-06-2026  2.29.17.45] Services restored (including NVIDIA) 
+[02-06-2026  2.29.17.92] Scheduled tasks re-enabled 
+[02-06-2026  2.29.19.00] Energy Saver disabled 
+[02-06-2026  3.46.33.44] Log rotated (was 530 lines) 
+[02-06-2026  3.46.33.98] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[02-06-2026  3.46.35.10] Killed PowerToys + Awake module (was blocking sleep) 
+[02-06-2026  3.46.43.26] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[02-06-2026  3.46.43.97] Killed browsers 
+[02-06-2026  3.46.44.15] Killed Ferdium (1ms timer resolution hog) 
+[02-06-2026  3.46.48.54] DEBUG: After GPU disable 
+[02-06-2026  3.46.48.77] RTX 3050 DISABLED - iGPU only mode 
+[02-06-2026  3.46.49.65] Power plan set to Power Saver 
+[02-06-2026  3.46.50.61] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[02-06-2026  3.46.52.52] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[02-06-2026  3.46.52.58] NVMe SSD: APST ON, link PM aggressive 
+[02-06-2026  3.46.52.82] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[02-06-2026  3.47.11.07] Services stopped in parallel (including NVIDIA services) 
+[02-06-2026  3.47.11.29] Disabled heavy + NVIDIA scheduled tasks 
+[02-06-2026  3.47.11.50] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[02-06-2026  3.47.13.23] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[02-06-2026  3.47.13.68] Energy Saver enabled (threshold=100) 
+[02-06-2026  3.47.13.90] Low battery protection: warn 20 
+[02-06-2026  3.47.14.08] Video playback set to power-save on battery 
+[02-06-2026 14.02.32.76] === BALANCED MODE ACTIVATED === 
+[02-06-2026 14.02.57.14] GPU preferences reset to Optimus auto 
+[02-06-2026 14.02.57.43] Video playback reset to balanced 
+[02-06-2026 14.02.57.72] Balanced mode restored (GPU prefs reset, video reset) 
+[02-06-2026 18.54.08.93] === MAX PERFORMANCE MODE ACTIVATED === 
+[02-06-2026 18.54.08.98] PowerToys start attempted 
+[02-06-2026 18.54.11.39] RTX 3050 ENABLED 
+[02-06-2026 18.54.13.77] Power plan set to Ultimate/High Performance 
+[02-06-2026 18.54.14.15] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[02-06-2026 18.54.14.98] OLED 85, always on, no sleep 
+[02-06-2026 18.54.15.07] NVMe SSD: max performance, no PM 
+[02-06-2026 18.54.15.24] USB always on, PCIe no PM, Wi-Fi max perf 
+[02-06-2026 18.54.21.95] Services restored (including NVIDIA) 
+[02-06-2026 18.54.23.40] Scheduled tasks re-enabled 
+[02-06-2026 18.54.27.73] Energy Saver disabled 
+[02-06-2026 22.47.16.52] Log rotated (was 534 lines) 
+[02-06-2026 22.47.16.85] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[02-06-2026 22.47.17.75] Killed PowerToys + Awake module (was blocking sleep) 
+[02-06-2026 22.47.24.29] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[02-06-2026 22.47.24.99] Killed browsers 
+[02-06-2026 22.47.25.09] Killed Ferdium (1ms timer resolution hog) 
+[02-06-2026 22.47.28.32] DEBUG: After GPU disable 
+[02-06-2026 22.47.28.45] RTX 3050 DISABLED - iGPU only mode 
+[02-06-2026 22.47.28.82] Power plan set to Power Saver 
+[02-06-2026 22.47.29.76] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[02-06-2026 22.47.33.68] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[02-06-2026 22.47.33.76] NVMe SSD: APST ON, link PM aggressive 
+[02-06-2026 22.47.34.14] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[02-06-2026 22.48.04.36] Services stopped in parallel (including NVIDIA services) 
+[02-06-2026 22.48.04.65] Disabled heavy + NVIDIA scheduled tasks 
+[02-06-2026 22.48.04.94] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[02-06-2026 22.48.08.19] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[02-06-2026 22.48.08.77] Energy Saver enabled (threshold=100) 
+[02-06-2026 22.48.09.10] Low battery protection: warn 20 
+[02-06-2026 22.48.09.31] Video playback set to power-save on battery 
+[02-06-2026 22.49.43.80] Log rotated (was 519 lines) 
+[02-06-2026 22.49.44.20] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[02-06-2026 22.49.44.86] Killed PowerToys + Awake module (was blocking sleep) 
+[02-06-2026 22.49.47.94] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[02-06-2026 22.49.48.25] Killed browsers 
+[02-06-2026 22.49.48.33] Killed Ferdium (1ms timer resolution hog) 
+[02-06-2026 22.49.50.25] DEBUG: After GPU disable 
+[02-06-2026 22.49.50.31] RTX 3050 DISABLED - iGPU only mode 
+[02-06-2026 22.49.50.62] Power plan set to Power Saver 
+[02-06-2026 22.49.50.73] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[02-06-2026 22.49.52.49] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[02-06-2026 22.49.52.55] NVMe SSD: APST ON, link PM aggressive 
+[02-06-2026 22.49.52.81] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[02-06-2026 22.50.12.50] Services stopped in parallel (including NVIDIA services) 
+[02-06-2026 22.50.12.67] Disabled heavy + NVIDIA scheduled tasks 
+[02-06-2026 22.50.12.85] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[02-06-2026 22.50.14.45] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[02-06-2026 22.50.14.84] Energy Saver enabled (threshold=100) 
+[02-06-2026 22.50.15.04] Low battery protection: warn 20 
+[02-06-2026 22.50.15.20] Video playback set to power-save on battery 
+[03-06-2026  1.32.40.77] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[03-06-2026  1.32.45.93] RTX 3050 ENABLED + services started 
+[03-06-2026  1.32.48.34] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[03-06-2026  1.32.48.42] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[03-06-2026  1.32.48.93] Power plan set to Ultimate Performance 
+[03-06-2026  1.32.49.22] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[03-06-2026  1.32.53.64] OLED 85, always on, no sleep, no hibernate 
+[03-06-2026  1.32.54.13] NVMe SSD: max throughput, no PM, no sleep states 
+[03-06-2026  1.32.55.19] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[03-06-2026  1.32.56.00] All services started (including NVIDIA) 
+[03-06-2026  1.32.56.56] All scheduled tasks re-enabled (including NVIDIA) 
+[03-06-2026  1.32.57.62] Energy Saver completely disabled 
+[03-06-2026  1.32.58.02] Video playback set to max quality 
+[06-06-2026 13.50.26.58] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[06-06-2026 13.50.27.85] RTX 3050 ENABLED + services started 
+[06-06-2026 13.50.29.93] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[06-06-2026 13.50.30.00] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[06-06-2026 13.50.30.21] Power plan set to Ultimate Performance 
+[06-06-2026 13.50.30.41] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[06-06-2026 13.50.31.94] OLED 85, always on, no sleep, no hibernate 
+[06-06-2026 13.50.32.03] NVMe SSD: max throughput, no PM, no sleep states 
+[06-06-2026 13.50.32.31] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[06-06-2026 13.50.32.57] All services started (including NVIDIA) 
+[06-06-2026 13.50.32.78] All scheduled tasks re-enabled (including NVIDIA) 
+[06-06-2026 13.50.33.33] Energy Saver completely disabled 
+[06-06-2026 13.50.33.56] Video playback set to max quality 
+[07-06-2026  2.30.28.91] Log rotated (was 545 lines) 
+[07-06-2026  2.30.29.18] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[07-06-2026  2.30.29.67] Killed PowerToys + Awake module (was blocking sleep) 
+[07-06-2026  2.30.34.94] Killed background apps + MongoDB + NVIDIA + Asus bloat 
+[07-06-2026  2.30.35.33] Killed browsers 
+[07-06-2026  2.30.35.42] Killed Ferdium (1ms timer resolution hog) 
+[07-06-2026  2.30.37.22] DEBUG: After GPU disable 
+[07-06-2026  2.30.37.30] RTX 3050 DISABLED - iGPU only mode 
+[07-06-2026  2.30.37.72] Power plan set to Power Saver 
+[07-06-2026  2.30.37.93] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[07-06-2026  2.30.40.07] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[07-06-2026  2.30.40.14] NVMe SSD: APST ON, link PM aggressive 
+[07-06-2026  2.30.40.42] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[07-06-2026  2.30.59.82] Services stopped in parallel (including NVIDIA services) 
+[07-06-2026  2.31.00.12] Disabled heavy + NVIDIA scheduled tasks 
+[07-06-2026  2.31.00.35] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[07-06-2026  2.31.02.37] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[07-06-2026  2.31.02.93] Energy Saver enabled (threshold=100) 
+[07-06-2026  2.31.03.22] Low battery protection: warn 20 
+[07-06-2026  2.31.03.44] Video playback set to power-save on battery 
+[07-06-2026 14.12.09.50] === BALANCED MODE ACTIVATED === 
+[07-06-2026 14.12.30.68] GPU preferences reset to Optimus auto 
+[07-06-2026 14.12.31.14] Video playback reset to balanced 
+[07-06-2026 14.12.31.55] Balanced mode restored (GPU prefs reset, video reset) 
+[07-06-2026 18.18.10.59] === MAX PERFORMANCE MODE ACTIVATED === 
+[07-06-2026 18.18.10.68] PowerToys start attempted 
+[07-06-2026 18.18.13.49] RTX 3050 ENABLED 
+[07-06-2026 18.18.16.14] Power plan set to Ultimate/High Performance 
+[07-06-2026 18.18.17.59] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[07-06-2026 18.18.23.23] OLED 85, always on, no sleep 
+[07-06-2026 18.18.26.14] NVMe SSD: max performance, no PM 
+[07-06-2026 18.18.27.48] USB always on, PCIe no PM, Wi-Fi max perf 
+[07-06-2026 18.18.32.84] Services restored (including NVIDIA) 
+[07-06-2026 18.18.34.01] Scheduled tasks re-enabled 
+[07-06-2026 18.18.36.08] Energy Saver disabled 
+[07-06-2026 21.11.15.83] === BALANCED MODE ACTIVATED === 
+[07-06-2026 21.11.22.81] GPU preferences reset to Optimus auto 
+[07-06-2026 21.11.23.23] Video playback reset to balanced 
+[07-06-2026 21.11.23.53] Balanced mode restored (GPU prefs reset, video reset) 
+[07-06-2026 21.11.38.94] GPU Switch menu accessed 
+[07-06-2026 21.11.52.12] RTX 3050 manually disabled 
+[07-06-2026 21.11.53.76] GPU Switch menu accessed 
+[07-06-2026 21.12.10.85] Network saver menu accessed 
+[07-06-2026 21.12.28.98] Wi-Fi max power saving 
+[08-06-2026  2.15.05.21] === MAX PERFORMANCE MODE ACTIVATED === 
+[08-06-2026  2.15.05.26] PowerToys start attempted 
+[08-06-2026  2.15.18.91] RTX 3050 ENABLED 
+[08-06-2026  2.15.21.53] Power plan set to Ultimate/High Performance 
+[08-06-2026  2.15.23.94] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[08-06-2026  2.15.26.76] OLED 85, always on, no sleep 
+[08-06-2026  2.15.27.40] NVMe SSD: max performance, no PM 
+[08-06-2026  2.15.29.05] USB always on, PCIe no PM, Wi-Fi max perf 
+[08-06-2026  2.15.30.09] Services restored (including NVIDIA) 
+[08-06-2026  2.15.31.12] Scheduled tasks re-enabled 
+[08-06-2026  2.15.33.90] Energy Saver disabled 
+[08-06-2026  2.59.32.87] === BALANCED MODE ACTIVATED === 
+[08-06-2026  2.59.41.34] GPU preferences reset to Optimus auto 
+[08-06-2026  2.59.41.73] Video playback reset to balanced 
+[08-06-2026  2.59.42.01] Balanced mode restored (GPU prefs reset, video reset) 
+[08-06-2026  2.59.47.46] GPU Switch menu accessed 
+[08-06-2026  2.59.57.97] RTX 3050 manually disabled 
+[08-06-2026  2.59.58.78] GPU Switch menu accessed 
+[08-06-2026  3.00.05.24] Network saver menu accessed 
+[08-06-2026  3.00.35.81] Wi-Fi max power saving 

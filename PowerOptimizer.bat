@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Asus Vivobook Pro OLED - Power Optimizer v6.1
+title Asus Vivobook Pro OLED - Power Optimizer v7.0
 color 0B
 
 :: =============================================
@@ -12,7 +12,7 @@ color 0B
 ::  RAM:     16 GB DDR4
 ::  Storage: 512 GB NVMe SSD
 ::  Display: 15.6" OLED 60Hz (AMOLED)
-::  BIOS:    M3500QC.316 (2023/07/18) - LATEST
+::  BIOS:    M3500QC.316 (2023/05/25) - LATEST
 ::  NOTE:    PCIe ASPM disabled at BIOS level
 ::           (hardware incompatibility, no newer BIOS)
 :: =============================================
@@ -23,7 +23,11 @@ color 0B
 set "LOGFILE=%~dp0PowerOptimizer.log"
 set "KILL_BROWSERS=1"
 :: Set KILL_BROWSERS=0 to keep browsers open in battery saver
+set "KILL_FERDIUM=1"
+:: Set KILL_FERDIUM=0 to keep Ferdium open in battery saver
 set "LOG_MAX_LINES=500"
+:: Track current active mode to prevent duplicate activations
+set "CURRENT_MODE="
 
 :: =============================================
 ::  Check for Admin privileges (auto-elevate)
@@ -68,7 +72,7 @@ if /i "%~1"=="R" goto reapply
 cls
 echo.
 echo   +==============================================================+
-echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v6.1           :
+echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v7.0           :
 echo   :     Ryzen 5 5600H ^| RTX 3050 ^| 16GB ^| BIOS 316 (Latest)   :
 echo   +==============================================================+
 echo.
@@ -79,9 +83,17 @@ set "batPercent="
 set "batTime="
 set "powerSrc=UNKNOWN"
 
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get BatteryStatus /value 2^>nul ^| find "="') do set "batStatus=%%A"
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get EstimatedChargeRemaining /value 2^>nul ^| find "="') do set "batPercent=%%A"
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get EstimatedRunTime /value 2^>nul ^| find "="') do set "batTime=%%A"
+:: Using CIM instead of deprecated WMIC for Win11 24H2+ compatibility
+powershell -NoProfile -Command ^
+  "$b = Get-CimInstance Win32_Battery -ErrorAction SilentlyContinue; " ^
+  "if ($b) { " ^
+  "  [System.IO.File]::WriteAllText('%TEMP%\po_batstatus.txt', [string]$b.BatteryStatus); " ^
+  "  [System.IO.File]::WriteAllText('%TEMP%\po_batpct.txt', [string]$b.EstimatedChargeRemaining); " ^
+  "  [System.IO.File]::WriteAllText('%TEMP%\po_battime.txt', [string]$b.EstimatedRunTime); " ^
+  "}" >nul 2>&1
+if exist "%TEMP%\po_batstatus.txt" ( set /p batStatus=<"%TEMP%\po_batstatus.txt" & del "%TEMP%\po_batstatus.txt" >nul 2>&1 )
+if exist "%TEMP%\po_batpct.txt" ( set /p batPercent=<"%TEMP%\po_batpct.txt" & del "%TEMP%\po_batpct.txt" >nul 2>&1 )
+if exist "%TEMP%\po_battime.txt" ( set /p batTime=<"%TEMP%\po_battime.txt" & del "%TEMP%\po_battime.txt" >nul 2>&1 )
 
 :: ---- Detect current power plan ----
 set "currentPlan="
@@ -216,6 +228,18 @@ goto :eof
 :: =============================================================
 :saver
 cls
+:: Check if already in saver mode
+if not "!CURRENT_MODE!"=="SAVER" goto start_saver
+echo.
+echo   [!] Ultra Battery Saver is already active. Skipping re-activation.
+echo       Use [R] to Quick Re-apply if settings have drifted.
+echo.
+call :log "Saver activation skipped (already active)"
+pause
+goto menu
+:start_saver
+set "CURRENT_MODE=SAVER"
+set "startTime=%time%"
 call :logrotate
 call :log "=== ULTRA BATTERY SAVER MODE ACTIVATED ==="
 echo.
@@ -224,16 +248,17 @@ echo   :       Applying ULTRA Battery Saver for Vivobook Pro OLED     :
 echo   +==============================================================+
 echo.
 
-echo   [1/15] Killing PowerToys and Awake module (prevents sleep)...
+echo   [1/16] Killing PowerToys and Awake module (prevents sleep)...
 :: PowerToys.Awake was flagged in energy report: prevents system+display sleep
 taskkill /IM "PowerToys.Awake.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.Settings.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.Peek.UI.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.FancyZones.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.PowerLauncher.exe" /F /T >nul 2>&1
 call :log "Killed PowerToys + Awake module (was blocking sleep)"
 
-echo   [2/15] Killing heavy background apps...
+echo   [2/16] Killing heavy background apps...
 :: Docker
 taskkill /IM "Docker Desktop.exe" /F /T >nul 2>&1
 taskkill /IM "com.docker.backend.exe" /F /T >nul 2>&1
@@ -263,7 +288,11 @@ taskkill /IM CCXProcess.exe /F /T >nul 2>&1
 taskkill /IM Widgets.exe /F /T >nul 2>&1
 taskkill /IM WidgetService.exe /F /T >nul 2>&1
 :: Node / Dev tools background
-taskkill /IM "node.exe" /F /T >nul 2>&1
+:: IMPORTANT: Do NOT use /T (tree kill) for node.exe!
+:: If this script was launched from VS Code terminal, Antigravity, or any
+:: Node-based tool, /T would kill the cmd.exe process tree and terminate
+:: this script mid-execution (BUG-17 fix - May 2026).
+taskkill /IM "node.exe" /F >nul 2>&1
 :: MongoDB (timer resolution hog - requests 1ms/10000 100ns units, wastes CPU power)
 net stop MongoDB >nul 2>&1
 taskkill /IM mongod.exe /F /T >nul 2>&1
@@ -288,42 +317,52 @@ taskkill /IM "AsusOptimization.exe" /F /T >nul 2>&1
 taskkill /IM "MyASUS.exe" /F /T >nul 2>&1
 call :log "Killed background apps + MongoDB + NVIDIA + Asus bloat"
 
-:: Browsers
-if "%KILL_BROWSERS%"=="1" (
-    echo   [2b]  Closing browsers to save power...
-    taskkill /IM msedge.exe /F /T >nul 2>&1
-    taskkill /IM chrome.exe /F /T >nul 2>&1
-    taskkill /IM brave.exe /F /T >nul 2>&1
-    taskkill /IM firefox.exe /F /T >nul 2>&1
-    taskkill /IM opera.exe /F /T >nul 2>&1
-    call :log "Killed browsers"
-) else (
-    echo          Browsers kept open (KILL_BROWSERS=0)
-)
+:: Browsers — BUG-17 FIX: Do NOT use call :log inside if () blocks.
+:: cmd.exe's goto :eof inside a call from within a parenthesized block
+:: can corrupt the batch file seek pointer and silently kill execution.
+if "%KILL_BROWSERS%"=="0" echo          Browsers kept open (KILL_BROWSERS=0)
+if "%KILL_BROWSERS%"=="0" goto skipbrowsers
+echo   [2b]  Closing browsers to save power...
+taskkill /IM msedge.exe /F >nul 2>&1
+taskkill /IM chrome.exe /F >nul 2>&1
+taskkill /IM brave.exe /F >nul 2>&1
+taskkill /IM firefox.exe /F >nul 2>&1
+taskkill /IM opera.exe /F >nul 2>&1
+call :log "Killed browsers"
+:skipbrowsers
 
-echo   [3/15] Disabling NVIDIA RTX 3050 (using iGPU only)...
+:: Ferdium (Electron-based, requests 1ms timer resolution - energy report May 2026)
+if "%KILL_FERDIUM%"=="0" echo          Ferdium kept open (KILL_FERDIUM=0)
+if "%KILL_FERDIUM%"=="0" goto skipferdium
+echo   [2c]  Closing Ferdium (1ms timer hog)...
+taskkill /IM Ferdium.exe /F >nul 2>&1
+call :log "Killed Ferdium (1ms timer resolution hog)"
+:skipferdium
+
+echo   [3/16] Disabling NVIDIA RTX 3050 (using iGPU only)...
 :: Disable the discrete GPU to save ~15-25W
 :: This forces everything onto the Radeon Vega 7 iGPU
 powershell -NoProfile -Command ^
   "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
   "if ($gpu) { $gpu | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; Write-Host 'RTX 3050 disabled.' } " ^
   "else { Write-Host 'NVIDIA GPU not found or already disabled.' }"
+echo [%date% %time%] DEBUG: After GPU disable >> "%LOGFILE%"
 :: Stop NVIDIA services
 net stop NVDisplay.ContainerLocalSystem >nul 2>&1
 net stop NvTelemetryContainer >nul 2>&1
 call :log "RTX 3050 DISABLED - iGPU only mode"
 
-echo   [4/15] Setting Power Plan to Power Saver...
+echo   [4/16] Setting Power Plan to Power Saver...
 powercfg -setactive a1841308-3541-4fab-bc81-f71556f20b4a >nul 2>&1
 if %errorlevel% neq 0 (
     powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
 )
 call :log "Power plan set to Power Saver"
 
-echo   [5/15] Setting Windows Power Slider to Best Power Efficiency...
+echo   [5/16] Setting Windows Power Slider to Best Power Efficiency...
 powercfg /SetActiveOverlay SCHEME_CURRENT 961cc777-2547-4f9d-8174-7d86181b8a7a >nul 2>&1
 
-echo   [6/15] Throttling Ryzen 5600H, Boost OFF...
+echo   [6/16] Throttling Ryzen 5600H, Boost OFF...
 :: AMD Ryzen 5600H: 6 cores / 12 threads, 45W TDP
 :: Cap CPU max to 40% on battery (~18W effective)
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 40 >nul 2>&1
@@ -341,7 +380,7 @@ powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFAUTONOMOUS 1 >nul 2>&
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 100 >nul 2>&1
 call :log "Ryzen 5600H throttled 40%%, Boost OFF, EPP=100"
 
-echo   [7/15] OLED Display optimizations...
+echo   [7/16] OLED Display optimizations...
 :: Screen off after 2 minutes on battery (OLED = 0W when pixels off)
 powercfg /change monitor-timeout-dc 2
 :: Also set reasonable AC timeouts (energy report flagged "never" as error)
@@ -376,7 +415,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "
 powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 1 >nul 2>&1
 call :log "OLED: brightness 25%%, dark mode ON, black wallpaper, video=powersave"
 
-echo   [8/15] NVMe SSD power optimization...
+echo   [8/16] NVMe SSD power optimization...
 :: NVMe-specific: enable APST (Autonomous Power State Transitions)
 :: No spin-down needed for SSD, but enable NVMe sleep states
 :: Set NVMe NOPPME (Non-Operational Power Management Enable)
@@ -387,7 +426,7 @@ powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK 0b2d69d7-a2a1-449c-9680-f91c70521c60 2 >nul 2>&1
 call :log "NVMe SSD: APST ON, link PM aggressive"
 
-echo   [9/15] USB, PCIe, Wi-Fi power optimization...
+echo   [9/16] USB, PCIe, Wi-Fi power optimization...
 :: Enable USB selective suspend on battery AND AC (energy report flagged AC disabled)
 powercfg /setdcvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
 powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
@@ -403,25 +442,16 @@ powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving"
 
-echo   [10/15] Disabling heavy background services...
-net stop WSearch >nul 2>&1
-net stop wuauserv >nul 2>&1
-net stop SysMain >nul 2>&1
-net stop WerSvc >nul 2>&1
-net stop DiagTrack >nul 2>&1
-net stop Spooler >nul 2>&1
-net stop BITS >nul 2>&1
-net stop WbioSrvc >nul 2>&1
-net stop TermService >nul 2>&1
-net stop Fax >nul 2>&1
-:: Stop Update Orchestrator (MoUsoCoreWorker was preventing sleep)
-net stop UsoSvc >nul 2>&1
-:: Stop NVIDIA services (not needed with GPU disabled)
-net stop NVDisplay.ContainerLocalSystem >nul 2>&1
-net stop NvTelemetryContainer >nul 2>&1
-call :log "Services stopped (including NVIDIA services)"
+echo   [10/16] Disabling heavy background services (parallel)...
+:: Use parallel stops to reduce the 30+ second bottleneck
+powershell -NoProfile -Command ^
+  "$svcs = @('WSearch','wuauserv','SysMain','WerSvc','DiagTrack','Spooler','BITS','WbioSrvc','TermService','Fax','UsoSvc','NVDisplay.ContainerLocalSystem','NvTelemetryContainer'); " ^
+  "$jobs = $svcs | ForEach-Object { Start-Job -ScriptBlock { param($s) Stop-Service $s -Force -ErrorAction SilentlyContinue } -ArgumentList $_ }; " ^
+  "$jobs | Wait-Job -Timeout 30 | Out-Null; " ^
+  "$jobs | Remove-Job -Force" >nul 2>&1
+call :log "Services stopped in parallel (including NVIDIA services)"
 
-echo   [11/15] Disabling background scheduled tasks...
+echo   [11/16] Disabling background scheduled tasks...
 schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable >nul 2>&1
 schtasks /change /tn "\Microsoft\Windows\Autochk\Proxy" /disable >nul 2>&1
 schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable >nul 2>&1
@@ -433,7 +463,7 @@ schtasks /change /tn "\NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /disable 
 schtasks /change /tn "\NVIDIA GeForce Experience SelfUpdate_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /disable >nul 2>&1
 call :log "Disabled heavy + NVIDIA scheduled tasks"
 
-echo   [12/15] Fixing Edge timer resolution (power hog)...
+echo   [12/16] Fixing Edge timer resolution (power hog)...
 :: Edge requests 1ms timer resolution which prevents deep CPU C-states
 :: Disable Edge startup boost (reduces background Edge processes)
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
@@ -443,11 +473,11 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t RE
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "EfficiencyModeEnabled" /t REG_DWORD /d 1 /f >nul 2>&1
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "EfficiencyModeOnPowerEnabled" /t REG_DWORD /d 1 /f >nul 2>&1
 :: Kill Edge background processes that are requesting 1ms timer
-taskkill /IM msedge.exe /F /T >nul 2>&1
-taskkill /IM msedgewebview2.exe /F /T >nul 2>&1
+taskkill /IM msedge.exe /F >nul 2>&1
+taskkill /IM msedgewebview2.exe /F >nul 2>&1
 call :log "Edge timer fix: startup boost OFF, background OFF, efficiency ON"
 
-echo   [13/15] USB device power management (webcam + phone)...
+echo   [13/16] USB device power management (webcam + phone)...
 :: Energy report flagged webcam (VID_13D3/PID_3563) rarely entering suspend
 :: Force USB devices to allow selective suspend via registry
 powershell -NoProfile -Command ^
@@ -469,7 +499,7 @@ powershell -NoProfile -Command ^
   "}" >nul 2>&1
 call :log "Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled"
 
-echo   [14/15] Enabling Windows Energy Saver / Battery Saver...
+echo   [14/16] Enabling Windows Energy Saver / Battery Saver...
 :: Method 1: powercfg threshold
 powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 100 >nul 2>&1
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
@@ -492,7 +522,7 @@ powershell -NoProfile -Command ^
   "} catch { }" >nul 2>&1
 call :log "Energy Saver enabled (threshold=100%%)"
 
-echo   [15/15] Setting low battery protection...
+echo   [15/16] Setting low battery protection...
 :: Battery report shows drain to 7-9%% which degrades battery health
 :: Raised thresholds: critical 8%%, low warn 20%%
 :: Critical battery level: 8%%
@@ -508,9 +538,14 @@ powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f bc
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "Low battery protection: warn 20%%, hibernate 8%%"
 
+echo   [16/16] Setting video playback to power-save on battery...
+powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 1 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+call :log "Video playback set to power-save on battery"
+
 echo.
 echo   +==============================================================+
-echo   :         ULTRA BATTERY SAVER v6.1 is now ON!                  :
+echo   :         ULTRA BATTERY SAVER v7.0 is now ON!                  :
 echo   +--------------------------------------------------------------+
 echo   :  Ryzen 5600H: 40%% cap / Boost OFF / Core parking ON         :
 echo   :  RTX 3050:    DISABLED (Radeon iGPU only)                    :
@@ -518,8 +553,9 @@ echo   :  OLED:        25%% brightness / Dark Mode / Screen off 2m    :
 echo   :  NVMe SSD:    APST ON / Link PM aggressive                   :
 echo   :  Wi-Fi:       Max power saving / PCIe: Max savings           :
 echo   :  Sleep: 5 min / Hibernate: 15 min                            :
-echo   :  Services:    Search, Update, NVIDIA, Telemetry OFF          :
+echo   :  Services:    Parallel-stopped (Search, Update, NVIDIA, etc) :
 echo   :  MongoDB:     STOPPED (timer hog)                            :
+echo   :  Ferdium:     KILLED (1ms timer resolution hog)              :
 echo   :  Edge:        Efficiency mode ON / Background OFF            :
 echo   :  USB Devices: Webcam suspend ON + Samsung phone suspend ON    :
 echo   :  Video:       Power-optimized playback                       :
@@ -541,6 +577,15 @@ goto menu
 :: =============================================================
 :performance
 cls
+if not "!CURRENT_MODE!"=="PERFORMANCE" goto start_perf
+echo.
+echo   [!] Max Performance is already active. Skipping re-activation.
+echo.
+call :log "Performance activation skipped (already active)"
+pause
+goto menu
+:start_perf
+set "CURRENT_MODE=PERFORMANCE"
 call :log "=== MAX PERFORMANCE MODE ACTIVATED ==="
 echo.
 echo   +==============================================================+
@@ -704,6 +749,15 @@ goto menu
 :: =============================================================
 :balanced
 cls
+if not "!CURRENT_MODE!"=="BALANCED" goto start_bal
+echo.
+echo   [!] Balanced Mode is already active. Skipping re-activation.
+echo.
+call :log "Balanced activation skipped (already active)"
+pause
+goto menu
+:start_bal
+set "CURRENT_MODE=BALANCED"
 call :log "=== BALANCED MODE ACTIVATED ==="
 echo.
 echo   +==============================================================+
@@ -765,7 +819,7 @@ echo   [5/6] Resetting Energy Saver to default (20%%)...
 powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 20 >nul 2>&1
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 
-echo   [6/6] Resetting GPU preferences to auto (Optimus)...
+echo   [6/7] Resetting GPU preferences to auto (Optimus)...
 :: Clear global GPU preference set by Ultra Performance mode
 reg delete "HKLM\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /f >nul 2>&1
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "EnableMsHybrid" /f >nul 2>&1
@@ -773,6 +827,13 @@ reg delete "HKCU\SOFTWARE\NVIDIA Corporation\Global\NVTweak" /v "DisablePowerMiz
 :: Restore MongoDB to auto start
 sc config MongoDB start= auto >nul 2>&1
 call :log "GPU preferences reset to Optimus auto"
+
+echo   [7/7] Resetting video playback to balanced...
+:: Video quality was set to power-save in saver, max in ultra perf — reset to default
+powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 0 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 0 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+call :log "Video playback reset to balanced"
 
 :: Re-enable scheduled tasks
 schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /enable >nul 2>&1
@@ -782,7 +843,7 @@ schtasks /change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSys
 schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /enable >nul 2>&1
 schtasks /change /tn "\NvTmMon_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /enable >nul 2>&1
 schtasks /change /tn "\NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /enable >nul 2>&1
-call :log "Balanced mode restored (GPU prefs reset)"
+call :log "Balanced mode restored (GPU prefs reset, video reset)"
 
 echo.
 echo   +==============================================================+
@@ -793,6 +854,7 @@ echo   :  RTX 3050:    ENABLED (hybrid/Optimus mode)                  :
 echo   :  OLED:        60%% / Off 5/10 min / Sleep: 15/30 min         :
 echo   :  NVMe SSD:    Balanced PM / Energy Saver: 20%% default       :
 echo   :  GPU Prefs:   Reset to Optimus auto                           :
+echo   :  Video:       Default quality (balanced)                      :
 echo   :  All services running / Tasks enabled                        :
 echo   +==============================================================+
 echo.
@@ -829,50 +891,61 @@ echo   [5] Back to menu
 echo.
 set /p gpuChoice="  Select (1-5): "
 
-if "%gpuChoice%"=="1" (
-    echo.
-    echo   Disabling RTX 3050...
-    powershell -NoProfile -Command ^
-      "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
-      "if ($gpu) { " ^
-      "  $gpu | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; " ^
-      "  Write-Host '  RTX 3050 DISABLED. Using Radeon iGPU only.'; " ^
-      "} else { Write-Host '  NVIDIA GPU not found.' }"
-    net stop NVDisplay.ContainerLocalSystem >nul 2>&1
-    call :log "RTX 3050 manually disabled"
-)
-if "%gpuChoice%"=="2" (
-    echo.
-    echo   Enabling RTX 3050...
-    powershell -NoProfile -Command ^
-      "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
-      "if ($gpu) { " ^
-      "  $gpu | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; " ^
-      "  Write-Host '  RTX 3050 ENABLED.'; " ^
-      "} else { Write-Host '  NVIDIA GPU not found.' }"
-    net start NVDisplay.ContainerLocalSystem >nul 2>&1
-    call :log "RTX 3050 manually enabled"
-)
-if "%gpuChoice%"=="3" (
-    echo.
-    echo   Setting NVIDIA to Maximum Performance globally...
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PerfLevelSrc" /t REG_DWORD /d 8738 /f >nul 2>&1
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerEnable" /t REG_DWORD /d 1 /f >nul 2>&1
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerLevel" /t REG_DWORD /d 1 /f >nul 2>&1
-    echo   NVIDIA set to Maximum Performance.
-    echo   (You may also set this in NVIDIA Control Panel for per-app control)
-    call :log "NVIDIA set to max performance"
-)
-if "%gpuChoice%"=="4" (
-    echo.
-    echo   Setting NVIDIA to Power Saving (Optimus auto-switch)...
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PerfLevelSrc" /t REG_DWORD /d 8738 /f >nul 2>&1
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerEnable" /t REG_DWORD /d 1 /f >nul 2>&1
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerLevel" /t REG_DWORD /d 3 /f >nul 2>&1
-    echo   NVIDIA set to Power Saving (auto Optimus switching).
-    call :log "NVIDIA set to power saving/Optimus"
-)
+if "%gpuChoice%"=="1" goto gpu1
+if "%gpuChoice%"=="2" goto gpu2
+if "%gpuChoice%"=="3" goto gpu3
+if "%gpuChoice%"=="4" goto gpu4
 if "%gpuChoice%"=="5" goto menu
+goto gpuswitch
+
+:gpu1
+echo.
+echo   Disabling RTX 3050...
+powershell -NoProfile -Command ^
+  "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
+  "if ($gpu) { " ^
+  "  $gpu | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; " ^
+  "  Write-Host '  RTX 3050 DISABLED. Using Radeon iGPU only.'; " ^
+  "} else { Write-Host '  NVIDIA GPU not found.' }"
+net stop NVDisplay.ContainerLocalSystem >nul 2>&1
+call :log "RTX 3050 manually disabled"
+goto gpu_end
+
+:gpu2
+echo.
+echo   Enabling RTX 3050...
+powershell -NoProfile -Command ^
+  "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
+  "if ($gpu) { " ^
+  "  $gpu | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; " ^
+  "  Write-Host '  RTX 3050 ENABLED.'; " ^
+  "} else { Write-Host '  NVIDIA GPU not found.' }"
+net start NVDisplay.ContainerLocalSystem >nul 2>&1
+call :log "RTX 3050 manually enabled"
+goto gpu_end
+
+:gpu3
+echo.
+echo   Setting NVIDIA to Maximum Performance globally...
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PerfLevelSrc" /t REG_DWORD /d 8738 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerEnable" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerLevel" /t REG_DWORD /d 1 /f >nul 2>&1
+echo   NVIDIA set to Maximum Performance.
+echo   (You may also set this in NVIDIA Control Panel for per-app control)
+call :log "NVIDIA set to max performance"
+goto gpu_end
+
+:gpu4
+echo.
+echo   Setting NVIDIA to Power Saving (Optimus auto-switch)...
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PerfLevelSrc" /t REG_DWORD /d 8738 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerEnable" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerLevel" /t REG_DWORD /d 3 /f >nul 2>&1
+echo   NVIDIA set to Power Saving (auto Optimus switching).
+call :log "NVIDIA set to power saving/Optimus"
+goto gpu_end
+
+:gpu_end
 echo.
 pause
 goto gpuswitch
@@ -889,31 +962,29 @@ echo   :          SYSTEM STATUS - Vivobook Pro OLED                   :
 echo   +==============================================================+
 echo.
 
-:: Power source
+:: Power source (CIM instead of deprecated WMIC)
 echo   --- Power Source ---
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get BatteryStatus /value 2^>nul ^| find "="') do set "batStatus=%%A"
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get EstimatedChargeRemaining /value 2^>nul ^| find "="') do set "batPercent=%%A"
-if defined batStatus (
-    if "%batStatus%"=="2" ( echo   Source: Charging / Plugged In
-    ) else if "%batStatus%"=="1" ( echo   Source: On Battery
-    ) else ( echo   Source: Unknown )
-    echo   Battery: %batPercent%%%
-) else (
-    echo   Source: Desktop / No Battery
-)
-echo.
+powershell -NoProfile -Command ^
+  "$b = Get-CimInstance Win32_Battery -ErrorAction SilentlyContinue; " ^
+  "if ($b) { " ^
+  "  $src = if ($b.BatteryStatus -eq 2) {'Charging / Plugged In'} elseif ($b.BatteryStatus -eq 1) {'On Battery'} else {'Unknown'}; " ^
+  "  Write-Host ('  Source: ' + $src); " ^
+  "  Write-Host ('  Battery: ' + $b.EstimatedChargeRemaining + '%%'); " ^
+  "} else { Write-Host '  Source: Desktop / No Battery' }"
 
 :: Active power plan
 echo   --- Active Power Plan ---
 for /f "tokens=*" %%A in ('powercfg /getactivescheme 2^>nul') do echo   %%A
 echo.
 
-:: CPU info
+:: CPU info (CIM instead of deprecated WMIC)
 echo   --- Ryzen 5 5600H ---
-for /f "tokens=2 delims==" %%A in ('wmic cpu get Name /value 2^>nul ^| find "="') do echo   Processor: %%A
-for /f "tokens=2 delims==" %%A in ('wmic cpu get NumberOfCores /value 2^>nul ^| find "="') do echo   Cores: %%A (12 Threads)
-for /f "tokens=2 delims==" %%A in ('wmic cpu get LoadPercentage /value 2^>nul ^| find "="') do echo   Current Load: %%A%%
-for /f "tokens=2 delims==" %%A in ('wmic cpu get CurrentClockSpeed /value 2^>nul ^| find "="') do echo   Current Clock: %%A MHz (Base: 3300 MHz, Boost: 4200 MHz)
+powershell -NoProfile -Command ^
+  "$cpu = Get-CimInstance Win32_Processor; " ^
+  "Write-Host ('  Processor: ' + $cpu.Name); " ^
+  "Write-Host ('  Cores: ' + $cpu.NumberOfCores + ' (' + $cpu.NumberOfLogicalProcessors + ' Threads)'); " ^
+  "Write-Host ('  Current Load: ' + $cpu.LoadPercentage + '%%'); " ^
+  "Write-Host ('  Current Clock: ' + $cpu.CurrentClockSpeed + ' MHz (Base: 3300 MHz, Boost: 4200 MHz)')"
 echo.
 
 :: GPU status
@@ -923,19 +994,16 @@ powershell -NoProfile -Command ^
   "ForEach-Object { Write-Host ('  ' + $_.FriendlyName + ': ' + $_.Status) }"
 echo.
 
-:: RAM usage
+:: RAM usage (CIM instead of deprecated WMIC)
 echo   --- Memory (16 GB DDR4) ---
-for /f "tokens=2 delims==" %%A in ('wmic OS get TotalVisibleMemorySize /value 2^>nul ^| find "="') do (
-    set /a "totalRAM=%%A / 1024"
-    echo   Total RAM: !totalRAM! MB
-)
-for /f "tokens=2 delims==" %%A in ('wmic OS get FreePhysicalMemory /value 2^>nul ^| find "="') do (
-    set /a "freeRAM=%%A / 1024"
-    set /a "usedRAM=totalRAM - freeRAM"
-    echo   Used RAM:  !usedRAM! MB
-    echo   Free RAM:  !freeRAM! MB
-)
-echo.
+powershell -NoProfile -Command ^
+  "$os = Get-CimInstance Win32_OperatingSystem; " ^
+  "$totalMB = [math]::Round($os.TotalVisibleMemorySize / 1024); " ^
+  "$freeMB = [math]::Round($os.FreePhysicalMemory / 1024); " ^
+  "$usedMB = $totalMB - $freeMB; " ^
+  "Write-Host ('  Total RAM: ' + $totalMB + ' MB'); " ^
+  "Write-Host ('  Used RAM:  ' + $usedMB + ' MB'); " ^
+  "Write-Host ('  Free RAM:  ' + $freeMB + ' MB')"
 
 :: Storage
 echo   --- NVMe SSD (512 GB) ---
@@ -980,12 +1048,14 @@ for %%S in (WSearch wuauserv SysMain DiagTrack Spooler BITS NVDisplay.ContainerL
 )
 echo.
 
-:: Uptime
+:: Uptime (CIM instead of deprecated WMIC)
 echo   --- System Uptime ---
-for /f "tokens=2 delims==" %%A in ('wmic os get LastBootUpTime /value 2^>nul ^| find "="') do (
-    set "bootTime=%%A"
-    echo   Last Boot: !bootTime:~0,4!-!bootTime:~4,2!-!bootTime:~6,2! !bootTime:~8,2!:!bootTime:~10,2!
-)
+powershell -NoProfile -Command ^
+  "$os = Get-CimInstance Win32_OperatingSystem; " ^
+  "$boot = $os.LastBootUpTime; " ^
+  "$up = (Get-Date) - $boot; " ^
+  "Write-Host ('  Last Boot: ' + $boot.ToString('yyyy-MM-dd HH:mm')); " ^
+  "Write-Host ('  Uptime: ' + [int]$up.TotalHours + 'h ' + $up.Minutes + 'm')"
 echo.
 
 echo   --- Network Adapters ---
@@ -1011,37 +1081,31 @@ if %errorlevel% equ 0 (
 )
 echo.
 
-:: ---- Quick Battery Health Analysis ----
+:: ---- Quick Battery Health Analysis (CIM-based) ----
 echo   +--------------------------------------------------------------+
 echo   :             BATTERY HEALTH ANALYSIS                         :
 echo   +--------------------------------------------------------------+
-set "designCap="
-set "fullChargeCap="
-set "cycleCount="
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get DesignCapacity /value 2^>nul ^| find "="') do set "designCap=%%A"
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get FullChargeCapacity /value 2^>nul ^| find "="') do set "fullChargeCap=%%A"
-for /f "tokens=2 delims==" %%A in ('wmic path Win32_Battery get EstimatedChargeRemaining /value 2^>nul ^| find "="') do set "batPct=%%A"
-if defined designCap if defined fullChargeCap (
-    set /a "healthPct=fullChargeCap * 100 / designCap"
-    echo   Design Capacity:      !designCap! mWh
-    echo   Full Charge Capacity:  !fullChargeCap! mWh
-    echo   Battery Health:        !healthPct!%%
-    echo   Current Charge:        !batPct!%%
-    echo.
-    if !healthPct! GEQ 80 (
-        echo   Status: GOOD - Battery is healthy.
-    ) else if !healthPct! GEQ 60 (
-        echo   Status: FAIR - Consider monitoring degradation.
-    ) else (
-        echo   Status: POOR - Battery replacement recommended.
-    )
-    if !healthPct! LEQ 85 (
-        echo   TIP: Avoid draining below 20%% and charging above 80%%
-        echo        to slow further degradation.
-    )
-) else (
-    echo   [!] Could not read battery capacity via WMI.
-)
+powershell -NoProfile -Command ^
+  "$b = Get-CimInstance Win32_Battery -ErrorAction SilentlyContinue; " ^
+  "if ($b) { " ^
+  "  Write-Host ('  Current Charge:        ' + $b.EstimatedChargeRemaining + '%%'); " ^
+  "  Write-Host ('  Battery Status:        ' + $b.Status); " ^
+  "} else { Write-Host '  [!] No battery detected.' }; " ^
+  "try { " ^
+  "  $html = Get-Content '%~dp0energy-report.html' -Raw -ErrorAction Stop; " ^
+  "  if ($html -match 'Design Capacity.*?(\d+)') { $dc = $Matches[1]; Write-Host ('  Design Capacity:       ' + $dc + ' mWh') }; " ^
+  "  if ($html -match 'Last Full Charge.*?(\d+)') { $fc = $Matches[1]; Write-Host ('  Full Charge Capacity:  ' + $fc + ' mWh') }; " ^
+  "  if ($html -match 'Cycle Count.*?(\d+)') { $cc = $Matches[1]; Write-Host ('  Cycle Count:           ' + $cc) }; " ^
+  "  if ($dc -and $fc) { " ^
+  "    $health = [math]::Round([int]$fc / [int]$dc * 100, 1); " ^
+  "    Write-Host ('  Battery Health:        ' + $health + '%%'); " ^
+  "    Write-Host; " ^
+  "    if ($health -ge 80) { Write-Host '  Status: GOOD - Battery is healthy.' } " ^
+  "    elseif ($health -ge 60) { Write-Host '  Status: FAIR - Consider monitoring degradation.' } " ^
+  "    else { Write-Host '  Status: POOR - Battery replacement recommended.' }; " ^
+  "    if ($health -le 85) { Write-Host '  TIP: Avoid draining below 20%% and charging above 80%%'; Write-Host '       to slow further degradation.' }; " ^
+  "  }; " ^
+  "} catch { Write-Host '  [!] Run energy report first for detailed capacity data.' }"
 echo   +--------------------------------------------------------------+
 echo.
 
@@ -1088,39 +1152,52 @@ echo   [6] Back to menu
 echo.
 set /p netChoice="  Select (1-6): "
 
-if "%netChoice%"=="1" (
-    powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Name -like '*Bluetooth*' } | Disable-NetAdapter -Confirm:$false" >nul 2>&1
-    net stop bthserv >nul 2>&1
-    echo   Bluetooth disabled.
-    call :log "Bluetooth adapter disabled"
-)
-if "%netChoice%"=="2" (
-    powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Name -like '*Bluetooth*' } | Enable-NetAdapter -Confirm:$false" >nul 2>&1
-    net start bthserv >nul 2>&1
-    echo   Bluetooth enabled.
-    call :log "Bluetooth adapter enabled"
-)
-if "%netChoice%"=="3" (
-    powercfg /setdcvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 3 >nul 2>&1
-    powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 3 >nul 2>&1
-    powercfg /setactive SCHEME_CURRENT >nul 2>&1
-    echo   Wi-Fi set to max power saving.
-    call :log "Wi-Fi max power saving"
-)
-if "%netChoice%"=="4" (
-    powercfg /setdcvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0 >nul 2>&1
-    powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0 >nul 2>&1
-    powercfg /setactive SCHEME_CURRENT >nul 2>&1
-    echo   Wi-Fi set to max performance.
-    call :log "Wi-Fi max performance"
-)
-if "%netChoice%"=="5" (
-    echo   Disabling adapters that are disconnected...
-    powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Status -eq 'Disconnected' } | Disable-NetAdapter -Confirm:$false" >nul 2>&1
-    echo   Done.
-    call :log "Unused network adapters disabled"
-)
+if "%netChoice%"=="1" goto net1
+if "%netChoice%"=="2" goto net2
+if "%netChoice%"=="3" goto net3
+if "%netChoice%"=="4" goto net4
+if "%netChoice%"=="5" goto net5
 if "%netChoice%"=="6" goto menu
+goto networksaver
+
+:net1
+powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Name -like '*Bluetooth*' } | Disable-NetAdapter -Confirm:$false" >nul 2>&1
+net stop bthserv >nul 2>&1
+echo   Bluetooth disabled.
+call :log "Bluetooth adapter disabled"
+goto net_end
+
+:net2
+powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Name -like '*Bluetooth*' } | Enable-NetAdapter -Confirm:$false" >nul 2>&1
+net start bthserv >nul 2>&1
+echo   Bluetooth enabled.
+call :log "Bluetooth adapter enabled"
+goto net_end
+
+:net3
+powercfg /setdcvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 3 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 3 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+echo   Wi-Fi set to max power saving.
+call :log "Wi-Fi max power saving"
+goto net_end
+
+:net4
+powercfg /setdcvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+echo   Wi-Fi set to max performance.
+call :log "Wi-Fi max performance"
+goto net_end
+
+:net5
+echo   Disabling adapters that are disconnected...
+powershell -NoProfile -Command "Get-NetAdapter | Where-Object { $_.Status -eq 'Disconnected' } | Disable-NetAdapter -Confirm:$false" >nul 2>&1
+echo   Done.
+call :log "Unused network adapters disabled"
+goto net_end
+
+:net_end
 echo.
 pause
 goto networksaver
@@ -1161,40 +1238,49 @@ echo   [4] Back to menu
 echo.
 set /p startChoice="  Select (1-4): "
 
-if "%startChoice%"=="1" (
-    echo.
-    echo   Disabling common auto-start entries...
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDrive" /f >nul 2>&1
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "com.squirrel.Teams.Teams" /f >nul 2>&1
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "MicrosoftTeams" /f >nul 2>&1
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Spotify" /f >nul 2>&1
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Discord" /f >nul 2>&1
-    :: Asus-specific bloatware
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "ArmouryCrate" /f >nul 2>&1
-    reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "ArmouryCrate" /f >nul 2>&1
-    reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "AsusSplendid" /f >nul 2>&1
-    reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "AsusOptimization" /f >nul 2>&1
-    :: Cortana
-    reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f >nul 2>&1
-    :: Edge startup boost
-    reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
-    :: NVIDIA GeForce Experience overlay (battery drain)
-    reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "NvBackend" /f >nul 2>&1
-    echo   Done! Common + Asus + NVIDIA auto-start items disabled.
-    call :log "Startup bloatware disabled (incl. Asus + NVIDIA)"
-)
-if "%startChoice%"=="2" (
-    echo.
-    reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /f >nul 2>&1
-    reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /f >nul 2>&1
-    echo   Cortana and Edge startup boost policies removed.
-    call :log "Startup policies reset"
-)
-if "%startChoice%"=="3" (
-    echo   Opening Task Manager Startup tab...
-    start taskmgr /7
-)
+if "%startChoice%"=="1" goto start1
+if "%startChoice%"=="2" goto start2
+if "%startChoice%"=="3" goto start3
 if "%startChoice%"=="4" goto menu
+goto startupcleanup
+
+:start1
+echo.
+echo   Disabling common auto-start entries...
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDrive" /f >nul 2>&1
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "com.squirrel.Teams.Teams" /f >nul 2>&1
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "MicrosoftTeams" /f >nul 2>&1
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Spotify" /f >nul 2>&1
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Discord" /f >nul 2>&1
+REM Asus-specific bloatware
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "ArmouryCrate" /f >nul 2>&1
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "ArmouryCrate" /f >nul 2>&1
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "AsusSplendid" /f >nul 2>&1
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /v "AsusOptimization" /f >nul 2>&1
+REM Cortana
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f >nul 2>&1
+REM Edge startup boost
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
+REM NVIDIA GeForce Experience overlay (battery drain)
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "NvBackend" /f >nul 2>&1
+echo   Done! Common + Asus + NVIDIA auto-start items disabled.
+call :log "Startup bloatware disabled (incl. Asus + NVIDIA)"
+goto start_end
+
+:start2
+echo.
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /f >nul 2>&1
+echo   Cortana and Edge startup boost policies removed.
+call :log "Startup policies reset"
+goto start_end
+
+:start3
+echo   Opening Task Manager Startup tab...
+start taskmgr /7
+goto start_end
+
+:start_end
 echo.
 pause
 goto startupcleanup
@@ -1238,86 +1324,103 @@ echo   [8] Back to menu
 echo.
 set /p oledChoice="  Select (1-8): "
 
-if "%oledChoice%"=="1" (
-    echo.
-    echo   Enabling dark mode and solid black wallpaper...
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f >nul 2>&1
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f >nul 2>&1
-    :: Set solid black wallpaper
-    powershell -NoProfile -Command ^
-      "try { " ^
-      "  Add-Type @' " ^
-      "  using System; using System.Runtime.InteropServices; " ^
-      "  public class WP { " ^
-      "    [DllImport(\"user32.dll\", CharSet=CharSet.Auto)] " ^
-      "    public static extern int SystemParametersInfo(int a, int b, string c, int d); " ^
-      "  } " ^
-      "'@ -ErrorAction SilentlyContinue; " ^
-      "  [WP]::SystemParametersInfo(0x0014, 0, '', 0x0001) | Out-Null; " ^
-      "  Write-Host '  Black wallpaper set (OLED pixels OFF = 0 power).'; " ^
-      "} catch { }" >nul 2>&1
-    echo   Dark mode + black wallpaper enabled.
-    call :log "OLED: dark mode + black wallpaper"
-)
-if "%oledChoice%"=="2" (
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 1 /f >nul 2>&1
-    reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 1 /f >nul 2>&1
-    echo   Light mode restored.
-    call :log "OLED: light mode restored"
-)
-if "%oledChoice%"=="3" (
-    echo   Auto-hiding taskbar...
-    powershell -NoProfile -Command ^
-      "$p = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; " ^
-      "if (Test-Path $p) { " ^
-      "  $v = (Get-ItemProperty -Path $p).Settings; " ^
-      "  $v[8] = 3; " ^
-      "  Set-ItemProperty -Path $p -Name Settings -Value $v; " ^
-      "  Stop-Process -Name explorer -Force; " ^
-      "  Start-Sleep -Seconds 2; " ^
-      "  Start-Process explorer; " ^
-      "  Write-Host '  Taskbar auto-hidden.'; " ^
-      "}" >nul 2>&1
-    echo   Taskbar set to auto-hide (reduces burn-in risk).
-    call :log "OLED: taskbar auto-hidden"
-)
-if "%oledChoice%"=="4" (
-    echo   Showing taskbar...
-    powershell -NoProfile -Command ^
-      "$p = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; " ^
-      "if (Test-Path $p) { " ^
-      "  $v = (Get-ItemProperty -Path $p).Settings; " ^
-      "  $v[8] = 2; " ^
-      "  Set-ItemProperty -Path $p -Name Settings -Value $v; " ^
-      "  Stop-Process -Name explorer -Force; " ^
-      "  Start-Sleep -Seconds 2; " ^
-      "  Start-Process explorer; " ^
-      "  Write-Host '  Taskbar restored.'; " ^
-      "}" >nul 2>&1
-    echo   Taskbar visible again.
-    call :log "OLED: taskbar shown"
-)
-if "%oledChoice%"=="5" (
-    powercfg /change monitor-timeout-dc 2
-    powercfg /change monitor-timeout-ac 2
-    echo   Screen turns off after 2 minutes (both AC and battery).
-    call :log "OLED: screen timeout 2min"
-)
-if "%oledChoice%"=="6" (
-    powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 70)" >nul 2>&1
-    echo   OLED brightness set to 70%% (safe for daily use).
-    call :log "OLED: brightness 70%%"
-)
-if "%oledChoice%"=="7" (
-    echo   Enabling screen saver (blank screen after 5 min)...
-    reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive" /t REG_SZ /d "1" /f >nul 2>&1
-    reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d "300" /f >nul 2>&1
-    reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "C:\Windows\System32\scrnsave.scr" /f >nul 2>&1
-    echo   Blank screen saver enabled (5 min timeout).
-    echo   NOTE: True pixel shift requires ASUS Splendid or manufacturer tool.
-    call :log "OLED: screen saver enabled"
-)
+if "%oledChoice%"=="1" goto oled1
+if "%oledChoice%"=="2" goto oled2
+if "%oledChoice%"=="3" goto oled3
+if "%oledChoice%"=="4" goto oled4
+if "%oledChoice%"=="5" goto oled5
+if "%oledChoice%"=="6" goto oled6
+if "%oledChoice%"=="7" goto oled7
 if "%oledChoice%"=="8" goto menu
+goto oledcare
+
+:oled1
+echo.
+echo   Enabling dark mode and solid black wallpaper...
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f >nul 2>&1
+REM Set solid black wallpaper
+powershell -NoProfile -Command ^
+  "try { " ^
+  "  Add-Type @' " ^
+  "  using System; using System.Runtime.InteropServices; " ^
+  "  public class WP { " ^
+  "    [DllImport(\"user32.dll\", CharSet=CharSet.Auto)] " ^
+  "    public static extern int SystemParametersInfo(int a, int b, string c, int d); " ^
+  "  } " ^
+  "'@ -ErrorAction SilentlyContinue; " ^
+  "  [WP]::SystemParametersInfo(0x0014, 0, '', 0x0001) | Out-Null; " ^
+  "  Write-Host '  Black wallpaper set (OLED pixels OFF = 0 power).'; " ^
+  "} catch { }" >nul 2>&1
+echo   Dark mode + black wallpaper enabled.
+call :log "OLED: dark mode + black wallpaper"
+goto oled_end
+
+:oled2
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 1 /f >nul 2>&1
+echo   Light mode restored.
+call :log "OLED: light mode restored"
+goto oled_end
+
+:oled3
+echo   Auto-hiding taskbar...
+powershell -NoProfile -Command ^
+  "$p = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; " ^
+  "if (Test-Path $p) { " ^
+  "  $v = (Get-ItemProperty -Path $p).Settings; " ^
+  "  $v[8] = 3; " ^
+  "  Set-ItemProperty -Path $p -Name Settings -Value $v; " ^
+  "  Stop-Process -Name explorer -Force; " ^
+  "  Start-Sleep -Seconds 2; " ^
+  "  Start-Process explorer; " ^
+  "  Write-Host '  Taskbar auto-hidden.'; " ^
+  "}" >nul 2>&1
+echo   Taskbar set to auto-hide (reduces burn-in risk).
+call :log "OLED: taskbar auto-hidden"
+goto oled_end
+
+:oled4
+echo   Showing taskbar...
+powershell -NoProfile -Command ^
+  "$p = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; " ^
+  "if (Test-Path $p) { " ^
+  "  $v = (Get-ItemProperty -Path $p).Settings; " ^
+  "  $v[8] = 2; " ^
+  "  Set-ItemProperty -Path $p -Name Settings -Value $v; " ^
+  "  Stop-Process -Name explorer -Force; " ^
+  "  Start-Sleep -Seconds 2; " ^
+  "  Start-Process explorer; " ^
+  "  Write-Host '  Taskbar restored.'; " ^
+  "}" >nul 2>&1
+echo   Taskbar visible again.
+call :log "OLED: taskbar shown"
+goto oled_end
+
+:oled5
+powercfg /change monitor-timeout-dc 2
+powercfg /change monitor-timeout-ac 2
+echo   Screen turns off after 2 minutes (both AC and battery).
+call :log "OLED: screen timeout 2min"
+goto oled_end
+
+:oled6
+powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 70)" >nul 2>&1
+echo   OLED brightness set to 70%% (safe for daily use).
+call :log "OLED: brightness 70%%"
+goto oled_end
+
+:oled7
+echo   Enabling screen saver (blank screen after 5 min)...
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveActive" /t REG_SZ /d "1" /f >nul 2>&1
+reg add "HKCU\Control Panel\Desktop" /v "ScreenSaveTimeOut" /t REG_SZ /d "300" /f >nul 2>&1
+reg add "HKCU\Control Panel\Desktop" /v "SCRNSAVE.EXE" /t REG_SZ /d "C:\Windows\System32\scrnsave.scr" /f >nul 2>&1
+echo   Blank screen saver enabled (5 min timeout).
+echo   NOTE: True pixel shift requires ASUS Splendid or manufacturer tool.
+call :log "OLED: screen saver enabled"
+goto oled_end
+
+:oled_end
 echo.
 pause
 goto oledcare
@@ -1332,6 +1435,42 @@ goto oledcare
 :: =============================================================
 :ultraperformance
 cls
+if not "!CURRENT_MODE!"=="ULTRAPERF" goto start_ultraperf
+echo.
+echo   [!] Ultra Performance is already active. Skipping re-activation.
+echo.
+call :log "Ultra Performance activation skipped (already active)"
+pause
+goto menu
+:start_ultraperf
+
+:: Battery safety check — Ultra Perf on battery gives only ~1h30m life
+set "upBatStatus="
+powershell -NoProfile -Command ^
+  "$b = Get-CimInstance Win32_Battery -ErrorAction SilentlyContinue; " ^
+  "if ($b -and $b.BatteryStatus -ne 2) { [System.IO.File]::WriteAllText('%TEMP%\po_upbat.txt', 'BATTERY') } " ^
+  "else { [System.IO.File]::WriteAllText('%TEMP%\po_upbat.txt', 'AC') }" >nul 2>&1
+if exist "%TEMP%\po_upbat.txt" ( set /p upBatStatus=<"%TEMP%\po_upbat.txt" & del "%TEMP%\po_upbat.txt" >nul 2>&1 )
+
+if not "!upBatStatus!"=="BATTERY" goto skip_up_battery_check
+echo.
+echo   +==============================================================+
+echo   :  WARNING: You are ON BATTERY!                                :
+echo   :  Ultra Performance drains battery in ~1h30m.                 :
+echo   :  Battery health is at 85.8%% — heavy drain accelerates       :
+echo   :  degradation. Consider using Balanced [3] instead.           :
+echo   +==============================================================+
+echo.
+set /p upConfirm="  Continue anyway? (y/n): "
+if /i "!upConfirm!"=="y" goto up_confirmed
+call :log "Ultra Performance cancelled (on battery, user declined)"
+goto menu
+
+:up_confirmed
+call :log "WARNING: Ultra Performance activated ON BATTERY (user confirmed)"
+:skip_up_battery_check
+
+set "CURRENT_MODE=ULTRAPERF"
 call :log "=== ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED ==="
 echo.
 echo   +==============================================================+
@@ -1555,20 +1694,20 @@ if exist "%TEMP%\wakesrc.txt" (
     del "%TEMP%\wakesrc.txt" >nul 2>&1
 )
 
-if "!wakeSource!"=="CHARGING" (
-    echo   Detected: PLUGGED IN after wake.
-    echo   Skipping battery saver re-apply. Use menu option 2 or 3 instead.
-    call :log "Re-apply skipped: system is on AC power"
-    echo.
-    pause
-    goto menu
-)
+if not "!wakeSource!"=="CHARGING" goto proceed_reapply
+echo   Detected: PLUGGED IN after wake.
+echo   Skipping battery saver re-apply. Use menu option 2 or 3 instead.
+call :log "Re-apply skipped: system is on AC power"
+echo.
+pause
+goto menu
+:proceed_reapply
 
 echo   Detected: ON BATTERY - re-applying saver settings.
 echo.
 echo   This fixes settings that Windows resets after sleep/wake:
 echo   - Processes that restarted during sleep
-echo   - Timer resolution fixes (Edge/MongoDB)
+echo   - Timer resolution fixes (Edge/MongoDB/Ferdium)
 echo   - CPU throttle + boost settings
 echo   - Brightness reset
 echo.
@@ -1578,6 +1717,7 @@ echo   [1/6] Re-killing power-hungry processes...
 taskkill /IM "PowerToys.Awake.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.Settings.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.PowerLauncher.exe" /F /T >nul 2>&1
 taskkill /IM OneDrive.exe /F /T >nul 2>&1
 taskkill /IM steam.exe /F /T >nul 2>&1
 taskkill /IM steamwebhelper.exe /F /T >nul 2>&1
@@ -1586,10 +1726,12 @@ taskkill /IM Spotify.exe /F /T >nul 2>&1
 taskkill /IM Teams.exe /F /T >nul 2>&1
 taskkill /IM ms-teams.exe /F /T >nul 2>&1
 taskkill /IM Widgets.exe /F /T >nul 2>&1
+:: Ferdium (1ms timer resolution hog - energy report May 2026)
+taskkill /IM Ferdium.exe /F >nul 2>&1
 net stop MongoDB >nul 2>&1
 taskkill /IM mongod.exe /F /T >nul 2>&1
-taskkill /IM msedge.exe /F /T >nul 2>&1
-taskkill /IM msedgewebview2.exe /F /T >nul 2>&1
+taskkill /IM msedge.exe /F >nul 2>&1
+taskkill /IM msedgewebview2.exe /F >nul 2>&1
 :: MoUsoCoreWorker blocks sleep (energy report finding)
 taskkill /IM MoUsoCoreWorker.exe /F /T >nul 2>&1
 net stop UsoSvc >nul 2>&1
@@ -1598,7 +1740,7 @@ taskkill /IM "NVDisplay.Container.exe" /F /T >nul 2>&1
 taskkill /IM "NVIDIA Share.exe" /F /T >nul 2>&1
 taskkill /IM "nvcontainer.exe" /F /T >nul 2>&1
 net stop NVDisplay.ContainerLocalSystem >nul 2>&1
-call :log "Re-killed processes after wake (on battery)"
+call :log "Re-killed processes after wake (incl. Ferdium, on battery)"
 
 echo   [2/6] Re-applying CPU throttle + Boost OFF...
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 40 >nul 2>&1
