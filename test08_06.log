@@ -1,0 +1,144 @@
+================================================================================
+  POWER OPTIMIZER - ANALYSIS SESSION LOG
+  Date: 2026-06-08 (Monday) 22:30 IST
+  Device: Asus Vivobook Pro OLED M3500QC
+  Script Version: v7.0 → v7.1 (updated this session)
+================================================================================
+
+================================================================================
+  SECTION 1: SYSTEM SNAPSHOT AT TIME OF SCAN
+================================================================================
+
+  Computer Name:       --JARVIS--
+  System:              ASUSTeK Vivobook_ASUSLaptop M3500QC_M3500QC
+  BIOS:                M3500QC.316 (2023/05/25) — LATEST, no newer available
+  OS Build:            26200 (Win 11 24H2)
+  CPU:                 AMD Ryzen 5 5600H (6C/12T, 3301 MHz base, 4200 MHz boost)
+  iGPU:                AMD Radeon Graphics (Vega 7)
+  dGPU:                NVIDIA GeForce RTX 3050 4GB (PCIe x8)
+  RAM:                 16 GB DDR4
+  Storage:             512 GB NVMe SSD
+  Display:             15.6" Samsung OLED 60Hz (AMOLED)
+  Connected Standby:   Supported
+  S3 Sleep:            NOT supported (uses Modern Standby)
+  Platform Role:       Mobile
+  PCIe ASPM:           HARDWARE DISABLED (BIOS incompatibility, unfixable)
+
+================================================================================
+  SECTION 2: BATTERY HEALTH (from battery-report.html, generated Jun 08)
+================================================================================
+
+  Battery Name:        ASUS Battery
+  Manufacturer:        ASUSTeK
+  Chemistry:           Li-Ion (LIon)
+  Design Capacity:     63,041 mWh
+  Full Charge Capacity: 52,566 mWh
+  Battery Health:      83.3% (was 85.8% on May 24 → DROPPED 2.5%)
+  Cycle Count:         285 (was 278 on May 24 → +7 cycles)
+  Report Generated:    2026-06-08
+
+  --- Capacity Degradation Trend ---
+  Date         Design     FullCharge  Health   Cycles  Source
+  2026-03-06   63,041     54,975      87.2%    231     energy-report
+  2026-04-13   63,041     55,957      88.8%    263     battery-report (recalib)
+  2026-05-24   63,041     54,076      85.8%    278     battery+energy-report
+  2026-06-08   63,041     52,566      83.3%    285     battery-report
+
+  NOTE: The battery has officially dropped below the 85% critical threshold where 
+  degradation accelerates. It lost 2.5% health in just 15 days despite only 
+  accumulating 7 cycles (0.46 cycles/day). Heat or sustained high-power states 
+  are likely contributing factors.
+
+================================================================================
+  SECTION 3: POWEROPTIMIZER.LOG ANALYSIS (~563 lines, May 24 - Jun 08)
+================================================================================
+
+  --- General Analytics ---
+  The log size remains manageable (563 lines). The log rotation function added 
+  in v6.0 effectively limits growth to ~500 lines per saver mode activation.
+  Usage points to continued heavy reliance on Performance modes while plugged in,
+  and quick switching between Balanced/Max Performance.
+
+================================================================================
+  SECTION 4: BUGS FOUND AND FIXED (v7.0 → v7.1)
+================================================================================
+
+  [BUG-17] CRITICAL: cmd.exe goto :eof corruption
+    PROBLEM: Using `call :log` inside a parenthesized `if` block caused cmd.exe
+             to corrupt the batch file seek pointer, silently exiting the script.
+    FIX:     Moved `call :log` outside of `if ()` blocks in the browser kill section.
+    IMPACT:  Ultra Battery Saver runs reliably without random silent exits.
+
+  [BUG-18] HIGH: Quick Re-apply [R] broke Power Saving Balanced mode
+    PROBLEM: The Re-apply block hardcoded Ultra Saver values (40% CPU max, 
+             EPP 100, 25% brightness). When users woke up the laptop from sleep 
+             while in PSB mode and pressed 'R', it silently forced them back to 
+             the laggy Ultra Saver CPU profile.
+    FIX:     Made the Re-apply section mode-aware. It now branches based on
+             `CURRENT_MODE` and re-applies either 100%/50% (for PSB) or 
+             40%/25% (for Saver).
+    IMPACT:  Users don't lose their smooth CPU experience after waking from sleep.
+
+  [BUG-19] COSMETIC: Step Numbering Discrepancies
+    PROBLEM: After Ferdium removal, Saver mode steps said `[1/16]` instead of 
+             `[1/15]`. Balanced mode steps jumped from `[5/6]` to `[6/7]`.
+    FIX:     Fixed all denominators (Saver is 15 steps, Balanced is 7).
+    IMPACT:  Script looks professional and accurate.
+
+================================================================================
+  SECTION 5: SCRIPT CHANGES SUMMARY (v7.0 → v7.1)
+================================================================================
+
+  File: d:\Personal_Projects\Testing\PowerOptimizer.bat
+  Lines: ~1748 → 1988 (net +240 lines)
+  Version: v7.0 → v7.1
+
+  CHANGES:
+  1.  Version bump to v7.1 in title and all banners.
+  2.  Added [P] POWER SAVING BALANCED Mode: Fills the gap between Ultra Saver 
+      and Balanced. Features:
+      - CPU 100% max, Boost Efficient, EPP 50 (NO 40% cap, zero lag)
+      - RTX 3050 completely DISABLED (saves ~15-25W)
+      - Wi-Fi set to max power saving
+      - PowerToys suite completely killed
+      - OLED at 50% brightness
+  3.  Removed all Ferdium references (app uninstalled).
+  4.  Quick Re-apply made mode-aware (supports both Ultra Saver and PSB).
+  5.  Fixed cosmetic step numbering in Saver and Balanced modes.
+  6.  Removed unused variables and leftover DEBUG logs.
+  
+================================================================================
+  SECTION 6: HISTORICAL CONTEXT (Prior Logs Recap)
+================================================================================
+
+  --- v6.0 Highlights (April 13, 2026) ---
+  - Introduced parallel service stopping, reducing activation time from 35s to ~8s.
+  - Replaced deprecated `wmic` calls with PowerShell `Get-CimInstance` for Win11 24H2.
+  - Implemented log rotation (capped at 500 lines).
+  - Fixed PowerToys wildcard process kill bugs.
+  - Hotfixed a critical bug where disabling the Webcam also disabled the Bluetooth radio.
+
+  --- v7.0 Highlights (May 24, 2026) ---
+  - Added Duplicate Mode Detection to prevent redundant mode activations.
+  - Added Battery Safety Check for Ultra Performance mode (warns user if on battery).
+  - Fixed Edge and MongoDB timer resolution bugs (1ms hogs).
+  - Identified Ferdium as a major power drain before its uninstallation.
+
+================================================================================
+  SECTION 7: USER RECOMMENDATIONS
+================================================================================
+
+  URGENT:
+  - ⚠️ Battery health at 83.3% — officially entered rapid degradation territory.
+  - Strictly enforce 80% charge cap in MyASUS.
+  - Never drain below 20%.
+
+  BEHAVIORAL:
+  - Strongly recommend using the new [P] Power Saving Balanced mode when on 
+    battery. It provides the same smooth CPU experience as Balanced but 
+    disables the RTX 3050 to save significant power.
+  - Avoid Ultra Performance completely unless plugged in.
+
+================================================================================
+  END OF SESSION LOG — 2026-06-08T22:35:00+05:30
+================================================================================

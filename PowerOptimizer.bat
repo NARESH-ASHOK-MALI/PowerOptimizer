@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Asus Vivobook Pro OLED - Power Optimizer v7.0
+title Asus Vivobook Pro OLED - Power Optimizer v7.1
 color 0B
 
 :: =============================================
@@ -18,13 +18,20 @@ color 0B
 :: =============================================
 
 :: =============================================
+::  CHANGELOG
+::  v7.1 - Added [P] Power Saving Balanced mode
+::         Balanced CPU (no 40% cap) + RTX OFF +
+::         Wi-Fi power saving + PowerToys killed
+::         Fills gap between Balanced and Ultra Saver
+::       - Removed Ferdium references (uninstalled)
+:: =============================================
+
+:: =============================================
 ::  CONFIGURATION
 :: =============================================
 set "LOGFILE=%~dp0PowerOptimizer.log"
 set "KILL_BROWSERS=1"
 :: Set KILL_BROWSERS=0 to keep browsers open in battery saver
-set "KILL_FERDIUM=1"
-:: Set KILL_FERDIUM=0 to keep Ferdium open in battery saver
 set "LOG_MAX_LINES=500"
 :: Track current active mode to prevent duplicate activations
 set "CURRENT_MODE="
@@ -51,6 +58,7 @@ cd /d "%~dp0"
 ::         PowerOptimizer.bat 2  (performance)
 ::         PowerOptimizer.bat 3  (balanced)
 ::         PowerOptimizer.bat 4  (ultra performance - NVIDIA only)
+::         PowerOptimizer.bat P  (power saving balanced)
 :: =============================================
 if "%~1"=="1" goto saver
 if "%~1"=="2" goto performance
@@ -64,6 +72,7 @@ if /i "%~1"=="N" goto networksaver
 if /i "%~1"=="C" goto startupcleanup
 if /i "%~1"=="O" goto oledcare
 if /i "%~1"=="R" goto reapply
+if /i "%~1"=="P" goto psbalanced
 
 :: =============================================
 ::  MAIN MENU
@@ -72,7 +81,7 @@ if /i "%~1"=="R" goto reapply
 cls
 echo.
 echo   +==============================================================+
-echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v7.0           :
+echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v7.1           :
 echo   :     Ryzen 5 5600H ^| RTX 3050 ^| 16GB ^| BIOS 316 (Latest)   :
 echo   +==============================================================+
 echo.
@@ -142,8 +151,8 @@ echo.
 
 :: ---- Smart suggestion ----
 if "%powerSrc%"=="BATTERY" (
-    echo   TIP: You're on battery. Press 1 for max battery life.
-    echo         ^(GPU will switch to Radeon iGPU, RTX 3050 powered off^)
+    echo   TIP: You're on battery. Press P for smooth battery saving,
+    echo         or press 1 for maximum battery life.
 ) else if "%powerSrc%"=="CHARGING" (
     echo   TIP: You're plugged in. Press 2 for full RTX 3050 performance.
 )
@@ -177,6 +186,11 @@ echo    [U]  Ultra Performance        NVIDIA rendering mode
 echo         CPU 100%%, Boost MAX, RTX 3050 renders everything
 echo         OLED 85%%, NVMe max speed, no sleep, all power unlocked
 echo.
+echo    [P]  Power Saving Balanced    Smooth + efficient on battery
+echo         CPU 100%% / Boost efficient / EPP 50 (no lag!)
+echo         RTX 3050 OFF, Wi-Fi power saving, PowerToys killed
+echo         OLED 50%%, screen off 3min, sleep 10min
+echo.
 echo    [R]  Quick Re-apply          Re-apply saver after wake
 echo         Fixes settings that reset after sleep/wake cycles
 echo.
@@ -184,7 +198,7 @@ echo    [0]  Exit
 echo.
 echo   ==============================================================
 echo.
-set /p choice="  Select an option (0-9): "
+set /p choice="  Select an option (0-9 / U / P / R): "
 
 if "%choice%"=="1" goto saver
 if "%choice%"=="2" goto performance
@@ -196,6 +210,7 @@ if "%choice%"=="7" goto networksaver
 if "%choice%"=="8" goto startupcleanup
 if "%choice%"=="9" goto oledcare
 if /i "%choice%"=="U" goto ultraperformance
+if /i "%choice%"=="P" goto psbalanced
 if /i "%choice%"=="R" goto reapply
 if "%choice%"=="0" goto exitscript
 
@@ -239,7 +254,6 @@ pause
 goto menu
 :start_saver
 set "CURRENT_MODE=SAVER"
-set "startTime=%time%"
 call :logrotate
 call :log "=== ULTRA BATTERY SAVER MODE ACTIVATED ==="
 echo.
@@ -248,7 +262,7 @@ echo   :       Applying ULTRA Battery Saver for Vivobook Pro OLED     :
 echo   +==============================================================+
 echo.
 
-echo   [1/16] Killing PowerToys and Awake module (prevents sleep)...
+echo   [1/15] Killing PowerToys and Awake module (prevents sleep)...
 :: PowerToys.Awake was flagged in energy report: prevents system+display sleep
 taskkill /IM "PowerToys.Awake.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.exe" /F /T >nul 2>&1
@@ -258,7 +272,7 @@ taskkill /FI "IMAGENAME eq PowerToys.FancyZones.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.PowerLauncher.exe" /F /T >nul 2>&1
 call :log "Killed PowerToys + Awake module (was blocking sleep)"
 
-echo   [2/16] Killing heavy background apps...
+echo   [2/15] Killing heavy background apps...
 :: Docker
 taskkill /IM "Docker Desktop.exe" /F /T >nul 2>&1
 taskkill /IM "com.docker.backend.exe" /F /T >nul 2>&1
@@ -331,38 +345,29 @@ taskkill /IM opera.exe /F >nul 2>&1
 call :log "Killed browsers"
 :skipbrowsers
 
-:: Ferdium (Electron-based, requests 1ms timer resolution - energy report May 2026)
-if "%KILL_FERDIUM%"=="0" echo          Ferdium kept open (KILL_FERDIUM=0)
-if "%KILL_FERDIUM%"=="0" goto skipferdium
-echo   [2c]  Closing Ferdium (1ms timer hog)...
-taskkill /IM Ferdium.exe /F >nul 2>&1
-call :log "Killed Ferdium (1ms timer resolution hog)"
-:skipferdium
-
-echo   [3/16] Disabling NVIDIA RTX 3050 (using iGPU only)...
+echo   [3/15] Disabling NVIDIA RTX 3050 (using iGPU only)...
 :: Disable the discrete GPU to save ~15-25W
 :: This forces everything onto the Radeon Vega 7 iGPU
 powershell -NoProfile -Command ^
   "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
   "if ($gpu) { $gpu | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; Write-Host 'RTX 3050 disabled.' } " ^
   "else { Write-Host 'NVIDIA GPU not found or already disabled.' }"
-echo [%date% %time%] DEBUG: After GPU disable >> "%LOGFILE%"
 :: Stop NVIDIA services
 net stop NVDisplay.ContainerLocalSystem >nul 2>&1
 net stop NvTelemetryContainer >nul 2>&1
 call :log "RTX 3050 DISABLED - iGPU only mode"
 
-echo   [4/16] Setting Power Plan to Power Saver...
+echo   [4/15] Setting Power Plan to Power Saver...
 powercfg -setactive a1841308-3541-4fab-bc81-f71556f20b4a >nul 2>&1
 if %errorlevel% neq 0 (
     powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
 )
 call :log "Power plan set to Power Saver"
 
-echo   [5/16] Setting Windows Power Slider to Best Power Efficiency...
+echo   [5/15] Setting Windows Power Slider to Best Power Efficiency...
 powercfg /SetActiveOverlay SCHEME_CURRENT 961cc777-2547-4f9d-8174-7d86181b8a7a >nul 2>&1
 
-echo   [6/16] Throttling Ryzen 5600H, Boost OFF...
+echo   [6/15] Throttling Ryzen 5600H, Boost OFF...
 :: AMD Ryzen 5600H: 6 cores / 12 threads, 45W TDP
 :: Cap CPU max to 40% on battery (~18W effective)
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 40 >nul 2>&1
@@ -380,7 +385,7 @@ powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFAUTONOMOUS 1 >nul 2>&
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 100 >nul 2>&1
 call :log "Ryzen 5600H throttled 40%%, Boost OFF, EPP=100"
 
-echo   [7/16] OLED Display optimizations...
+echo   [7/15] OLED Display optimizations...
 :: Screen off after 2 minutes on battery (OLED = 0W when pixels off)
 powercfg /change monitor-timeout-dc 2
 :: Also set reasonable AC timeouts (energy report flagged "never" as error)
@@ -415,7 +420,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "
 powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 1 >nul 2>&1
 call :log "OLED: brightness 25%%, dark mode ON, black wallpaper, video=powersave"
 
-echo   [8/16] NVMe SSD power optimization...
+echo   [8/15] NVMe SSD power optimization...
 :: NVMe-specific: enable APST (Autonomous Power State Transitions)
 :: No spin-down needed for SSD, but enable NVMe sleep states
 :: Set NVMe NOPPME (Non-Operational Power Management Enable)
@@ -426,7 +431,7 @@ powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK 0b2d69d7-a2a1-449c-9680-f91c70521c60 2 >nul 2>&1
 call :log "NVMe SSD: APST ON, link PM aggressive"
 
-echo   [9/16] USB, PCIe, Wi-Fi power optimization...
+echo   [9/15] USB, PCIe, Wi-Fi power optimization...
 :: Enable USB selective suspend on battery AND AC (energy report flagged AC disabled)
 powercfg /setdcvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
 powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
@@ -442,7 +447,7 @@ powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving"
 
-echo   [10/16] Disabling heavy background services (parallel)...
+echo   [10/15] Disabling heavy background services (parallel)...
 :: Use parallel stops to reduce the 30+ second bottleneck
 powershell -NoProfile -Command ^
   "$svcs = @('WSearch','wuauserv','SysMain','WerSvc','DiagTrack','Spooler','BITS','WbioSrvc','TermService','Fax','UsoSvc','NVDisplay.ContainerLocalSystem','NvTelemetryContainer'); " ^
@@ -451,7 +456,7 @@ powershell -NoProfile -Command ^
   "$jobs | Remove-Job -Force" >nul 2>&1
 call :log "Services stopped in parallel (including NVIDIA services)"
 
-echo   [11/16] Disabling background scheduled tasks...
+echo   [11/15] Disabling background scheduled tasks...
 schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable >nul 2>&1
 schtasks /change /tn "\Microsoft\Windows\Autochk\Proxy" /disable >nul 2>&1
 schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /disable >nul 2>&1
@@ -463,7 +468,7 @@ schtasks /change /tn "\NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /disable 
 schtasks /change /tn "\NVIDIA GeForce Experience SelfUpdate_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /disable >nul 2>&1
 call :log "Disabled heavy + NVIDIA scheduled tasks"
 
-echo   [12/16] Fixing Edge timer resolution (power hog)...
+echo   [12/15] Fixing Edge timer resolution (power hog)...
 :: Edge requests 1ms timer resolution which prevents deep CPU C-states
 :: Disable Edge startup boost (reduces background Edge processes)
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
@@ -477,7 +482,7 @@ taskkill /IM msedge.exe /F >nul 2>&1
 taskkill /IM msedgewebview2.exe /F >nul 2>&1
 call :log "Edge timer fix: startup boost OFF, background OFF, efficiency ON"
 
-echo   [13/16] USB device power management (webcam + phone)...
+echo   [13/15] USB device power management (webcam + phone)...
 :: Energy report flagged webcam (VID_13D3/PID_3563) rarely entering suspend
 :: Force USB devices to allow selective suspend via registry
 powershell -NoProfile -Command ^
@@ -499,7 +504,7 @@ powershell -NoProfile -Command ^
   "}" >nul 2>&1
 call :log "Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled"
 
-echo   [14/16] Enabling Windows Energy Saver / Battery Saver...
+echo   [14/15] Enabling Windows Energy Saver / Battery Saver...
 :: Method 1: powercfg threshold
 powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 100 >nul 2>&1
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
@@ -522,7 +527,7 @@ powershell -NoProfile -Command ^
   "} catch { }" >nul 2>&1
 call :log "Energy Saver enabled (threshold=100%%)"
 
-echo   [15/16] Setting low battery protection...
+echo   [15/15] Setting low battery protection...
 :: Battery report shows drain to 7-9%% which degrades battery health
 :: Raised thresholds: critical 8%%, low warn 20%%
 :: Critical battery level: 8%%
@@ -538,14 +543,9 @@ powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f bc
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "Low battery protection: warn 20%%, hibernate 8%%"
 
-echo   [16/16] Setting video playback to power-save on battery...
-powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 1 >nul 2>&1
-powercfg /setactive SCHEME_CURRENT >nul 2>&1
-call :log "Video playback set to power-save on battery"
-
 echo.
 echo   +==============================================================+
-echo   :         ULTRA BATTERY SAVER v7.0 is now ON!                  :
+echo   :         ULTRA BATTERY SAVER v7.1 is now ON!                  :
 echo   +--------------------------------------------------------------+
 echo   :  Ryzen 5600H: 40%% cap / Boost OFF / Core parking ON         :
 echo   :  RTX 3050:    DISABLED (Radeon iGPU only)                    :
@@ -555,7 +555,6 @@ echo   :  Wi-Fi:       Max power saving / PCIe: Max savings           :
 echo   :  Sleep: 5 min / Hibernate: 15 min                            :
 echo   :  Services:    Parallel-stopped (Search, Update, NVIDIA, etc) :
 echo   :  MongoDB:     STOPPED (timer hog)                            :
-echo   :  Ferdium:     KILLED (1ms timer resolution hog)              :
 echo   :  Edge:        Efficiency mode ON / Background OFF            :
 echo   :  USB Devices: Webcam suspend ON + Samsung phone suspend ON    :
 echo   :  Video:       Power-optimized playback                       :
@@ -765,16 +764,16 @@ echo   :         Restoring Balanced Settings for Vivobook Pro         :
 echo   +==============================================================+
 echo.
 
-echo   [1/6] Re-enabling NVIDIA RTX 3050 (hybrid mode)...
+echo   [1/7] Re-enabling NVIDIA RTX 3050 (hybrid mode)...
 powershell -NoProfile -Command ^
   "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
   "if ($gpu) { $gpu | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue }"
 net start NVDisplay.ContainerLocalSystem >nul 2>&1
 
-echo   [2/6] Setting Balanced power plan...
+echo   [2/7] Setting Balanced power plan...
 powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
 
-echo   [3/6] Restoring Ryzen 5600H defaults...
+echo   [3/7] Restoring Ryzen 5600H defaults...
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
 powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
@@ -808,14 +807,14 @@ powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12
 powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 60)" >nul 2>&1
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 
-echo   [4/6] Re-enabling services...
+echo   [4/7] Re-enabling services...
 net start WSearch >nul 2>&1
 net start wuauserv >nul 2>&1
 net start SysMain >nul 2>&1
 net start Spooler >nul 2>&1
 net start BITS >nul 2>&1
 
-echo   [5/6] Resetting Energy Saver to default (20%%)...
+echo   [5/7] Resetting Energy Saver to default (20%%)...
 powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 20 >nul 2>&1
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 
@@ -857,6 +856,166 @@ echo   :  GPU Prefs:   Reset to Optimus auto                           :
 echo   :  Video:       Default quality (balanced)                      :
 echo   :  All services running / Tasks enabled                        :
 echo   +==============================================================+
+echo.
+pause
+goto menu
+
+:: =============================================================
+::         POWER SAVING BALANCED MODE  [P]
+::  The sweet spot: smooth performance + real battery savings
+::  CPU fully unlocked (no 40% cap) — no lag
+::  RTX 3050 OFF (saves ~15-25W)
+::  Wi-Fi max power saving
+::  PowerToys fully killed (Awake blocks sleep)
+::  OLED 50% / screen off 3 min / sleep 10 min
+:: =============================================================
+:psbalanced
+cls
+if not "!CURRENT_MODE!"=="PSBALANCED" goto start_psbal
+echo.
+echo   [!] Power Saving Balanced is already active. Skipping re-activation.
+echo       Use [R] to Quick Re-apply if settings have drifted.
+echo.
+call :log "Power Saving Balanced skipped (already active)"
+pause
+goto menu
+:start_psbal
+set "CURRENT_MODE=PSBALANCED"
+call :logrotate
+call :log "=== POWER SAVING BALANCED MODE ACTIVATED ==="
+echo.
+echo   +==============================================================+
+echo   :      Applying POWER SAVING BALANCED for Vivobook Pro OLED    :
+echo   :      Smooth performance + real battery savings               :
+echo   +==============================================================+
+echo.
+
+echo   [1/8] Killing PowerToys (Awake blocks sleep, all plugins off)...
+:: PowerToys.Awake prevents system sleep — kill the whole suite
+taskkill /IM "PowerToys.Awake.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.Settings.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.Peek.UI.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.FancyZones.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.PowerLauncher.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.ColorPicker.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.ImageResizer.exe" /F /T >nul 2>&1
+taskkill /FI "IMAGENAME eq PowerToys.KeyboardManager.exe" /F /T >nul 2>&1
+call :log "PowerToys fully killed (all plugins)"
+
+echo   [2/8] Disabling NVIDIA RTX 3050 (iGPU only, saves ~15-25W)...
+:: Force everything onto Radeon Vega 7 iGPU
+:: RTX 3050 idle power draw alone is ~8-10W even when not rendering
+powershell -NoProfile -Command ^
+  "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
+  "if ($gpu) { $gpu | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue; Write-Host '  RTX 3050 disabled.' } " ^
+  "else { Write-Host '  NVIDIA GPU not found or already disabled.' }"
+:: Stop NVIDIA background services (they run even when GPU is idle)
+net stop NVDisplay.ContainerLocalSystem >nul 2>&1
+net stop NvTelemetryContainer >nul 2>&1
+taskkill /IM "NVDisplay.Container.exe" /F /T >nul 2>&1
+taskkill /IM "nvcontainer.exe" /F /T >nul 2>&1
+taskkill /IM "NvTelemetryContainer.exe" /F /T >nul 2>&1
+call :log "RTX 3050 DISABLED + NVIDIA services stopped"
+
+echo   [3/8] Setting Balanced power plan (base)...
+:: Use Balanced as the plan foundation — not Power Saver
+:: This keeps the OS scheduler responsive and avoids CPU frequency floor issues
+powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
+call :log "Power plan set to Balanced (base for PSB mode)"
+
+echo   [4/8] CPU: Full speed, Boost efficient, EPP 50 (no lag!)...
+:: KEY DIFFERENCE from Ultra Saver: CPU is NOT capped at 40%%
+:: Full 100%% max frequency — the Ryzen 5600H can clock up when needed
+:: No lag during bursts, no throttling on multi-tab browsing or compilation
+:: CPU max: 100%% (both AC and DC — matches Balanced)
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
+:: CPU min: 5%% (deep idle, matches Balanced)
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
+:: Boost mode: Efficient (4) — boosts when needed, backs off fast
+:: Not Aggressive (2) which burns power, not Disabled (0) which causes lag
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 4 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 4 >nul 2>&1
+:: Core parking: let OS park idle threads (balanced — not aggressive like Saver)
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 25 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 25 >nul 2>&1
+:: Autonomous mode: let AMD pstate driver manage clocks (balanced)
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFAUTONOMOUS 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFAUTONOMOUS 1 >nul 2>&1
+:: EPP: 50 = balanced (same as Balanced mode — performance when needed, saves at idle)
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50 >nul 2>&1
+call :log "CPU: 100%% max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON"
+
+echo   [5/8] OLED: 50%% brightness, screen off 3min, sleep 10min...
+:: Brightness at 50%% — comfortable for work, meaningful OLED power saving
+:: (OLED power scales linearly: 50%% brightness ~ half the panel power vs 100%%)
+powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 50)" >nul 2>&1
+:: Screen off after 3 minutes on battery (tighter than Balanced's 5 min)
+powercfg /change monitor-timeout-dc 3
+:: Screen off after 10 minutes on AC (same as Balanced)
+powercfg /change monitor-timeout-ac 10
+:: Sleep after 10 minutes on battery (tighter than Balanced's 15 min)
+powercfg /change standby-timeout-dc 10
+powercfg /change standby-timeout-ac 30
+:: Hibernate after 30 minutes on battery
+powercfg /change hibernate-timeout-dc 30
+powercfg /change hibernate-timeout-ac 0
+call :log "OLED: 50%% brightness, screen off 3/10min, sleep 10/30min"
+
+echo   [6/8] Wi-Fi: max power saving (DC + AC)...
+:: Set Wi-Fi to maximum power saving on battery
+powercfg /setdcvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 3 >nul 2>&1
+:: Also power saving on AC since we're targeting efficiency
+powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 2 >nul 2>&1
+:: USB selective suspend: ON for battery, ON for AC (saves ~1-2W)
+powercfg /setdcvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
+:: PCIe: moderate savings on battery (GPU is off so PCIe lane impact is minimal)
+powercfg /setdcvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+call :log "Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate"
+
+echo   [7/8] NVMe SSD: balanced power management...
+:: NVMe APST ON for battery (same as Balanced)
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 0 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+call :log "NVMe: APST ON (battery), off (AC)"
+
+echo   [8/8] Resetting Energy Saver to default 20%% threshold...
+:: Do NOT force Energy Saver to 100%% like Ultra Saver does
+:: Keep it at 20%% so it only kicks in when truly low
+powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 20 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergySaverEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
+call :log "Energy Saver at 20%% default (not forced)"
+
+echo.
+echo   +==============================================================+
+echo   :       POWER SAVING BALANCED v7.1 is now ON!                  :
+echo   +--------------------------------------------------------------+
+echo   :  Ryzen 5600H: 100%% max / Boost EFFICIENT / EPP 50           :
+echo   :                No 40%% cap — smooth and responsive!           :
+echo   :  RTX 3050:    DISABLED (Radeon iGPU only, saves ~15-25W)     :
+echo   :  NVIDIA Svcs: STOPPED (no background GPU drain)              :
+echo   :  PowerToys:   FULLY KILLED (all plugins, Awake OFF)          :
+echo   :  OLED:        50%% brightness / Screen off 3min / Sleep 10m  :
+echo   :  Wi-Fi:       Max power saving (DC + AC)                     :
+echo   :  USB:         Selective suspend ON (AC + DC)                  :
+echo   :  NVMe SSD:    Balanced PM (APST on battery)                  :
+echo   :  Energy Saver: Default 20%% threshold (not forced)           :
+echo   +--------------------------------------------------------------+
+echo   :  vs Ultra Saver [1]: CPU runs free — no lag. Less aggressive  :
+echo   :  vs Balanced [3]:    RTX off + Wi-Fi saving + no PowerToys   :
+echo   +--------------------------------------------------------------+
+echo   :  TIP: Use Balanced [3] to restore RTX 3050 + PowerToys       :
+echo   +==============================================================+
+echo.
+echo   Log: %LOGFILE%
 echo.
 pause
 goto menu
@@ -1703,11 +1862,20 @@ pause
 goto menu
 :proceed_reapply
 
-echo   Detected: ON BATTERY - re-applying saver settings.
+:: ---- Detect which mode to re-apply ----
+:: Default to Ultra Saver if no mode is set (script was restarted)
+if not defined CURRENT_MODE set "CURRENT_MODE=SAVER"
+
+:: Show which mode we're re-applying
+if "!CURRENT_MODE!"=="PSBALANCED" (
+    echo   Detected: ON BATTERY - re-applying POWER SAVING BALANCED settings.
+) else (
+    echo   Detected: ON BATTERY - re-applying ULTRA SAVER settings.
+)
 echo.
 echo   This fixes settings that Windows resets after sleep/wake:
 echo   - Processes that restarted during sleep
-echo   - Timer resolution fixes (Edge/MongoDB/Ferdium)
+echo   - Timer resolution fixes (Edge/MongoDB)
 echo   - CPU throttle + boost settings
 echo   - Brightness reset
 echo.
@@ -1726,8 +1894,6 @@ taskkill /IM Spotify.exe /F /T >nul 2>&1
 taskkill /IM Teams.exe /F /T >nul 2>&1
 taskkill /IM ms-teams.exe /F /T >nul 2>&1
 taskkill /IM Widgets.exe /F /T >nul 2>&1
-:: Ferdium (1ms timer resolution hog - energy report May 2026)
-taskkill /IM Ferdium.exe /F >nul 2>&1
 net stop MongoDB >nul 2>&1
 taskkill /IM mongod.exe /F /T >nul 2>&1
 taskkill /IM msedge.exe /F >nul 2>&1
@@ -1740,20 +1906,52 @@ taskkill /IM "NVDisplay.Container.exe" /F /T >nul 2>&1
 taskkill /IM "NVIDIA Share.exe" /F /T >nul 2>&1
 taskkill /IM "nvcontainer.exe" /F /T >nul 2>&1
 net stop NVDisplay.ContainerLocalSystem >nul 2>&1
-call :log "Re-killed processes after wake (incl. Ferdium, on battery)"
+call :log "Re-killed processes after wake (on battery)"
 
-echo   [2/6] Re-applying CPU throttle + Boost OFF...
+:: ---- Mode-aware CPU + brightness settings ----
+:: BUG-18 FIX: Previously hardcoded Ultra Saver values (40%/EPP 100/brightness 25%)
+:: which would silently break PSB mode after wake. Now branches on CURRENT_MODE.
+if "!CURRENT_MODE!"=="PSBALANCED" goto reapply_psb_cpu
+goto reapply_saver_cpu
+
+:reapply_psb_cpu
+echo   [2/6] Re-applying PSB CPU settings (100%% max, Boost Efficient, EPP 50)...
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 4 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 25 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50 >nul 2>&1
+call :log "PSB CPU re-applied: 100%% max, Boost Efficient, EPP=50"
+goto reapply_brightness
+
+:reapply_saver_cpu
+echo   [2/6] Re-applying Ultra Saver CPU throttle (40%% cap, Boost OFF, EPP 100)...
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 40 >nul 2>&1
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 0 >nul 2>&1
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 5 >nul 2>&1
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 100 >nul 2>&1
-call :log "CPU throttle re-applied"
+call :log "Saver CPU re-applied: 40%% max, Boost OFF, EPP=100"
+goto reapply_brightness
 
-echo   [3/6] Re-setting OLED brightness to 25%%...
+:reapply_brightness
+:: ---- Mode-aware brightness ----
+if "!CURRENT_MODE!"=="PSBALANCED" goto reapply_psb_bright
+goto reapply_saver_bright
+
+:reapply_psb_bright
+echo   [3/6] Re-setting OLED brightness to 50%% (PSB mode)...
+powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 50)" >nul 2>&1
+call :log "Brightness re-set to 50%% (PSB mode)"
+goto reapply_services
+
+:reapply_saver_bright
+echo   [3/6] Re-setting OLED brightness to 25%% (Ultra Saver)...
 powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 25)" >nul 2>&1
-call :log "Brightness re-set to 25%%"
+call :log "Brightness re-set to 25%% (Saver mode)"
+goto reapply_services
 
+:reapply_services
 echo   [4/6] Re-disabling services that auto-restarted...
 net stop WSearch >nul 2>&1
 net stop SysMain >nul 2>&1
@@ -1774,11 +1972,19 @@ echo   [6/6] Re-applying power plan settings...
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "Power plan re-applied"
 
+:: ---- Mode-aware completion banner ----
 echo.
-echo   +==============================================================+
-echo   :       Quick Re-apply Complete!                               :
-echo   :       All battery saver settings restored after wake.        :
-echo   +==============================================================+
+if "!CURRENT_MODE!"=="PSBALANCED" (
+    echo   +==============================================================+
+    echo   :       Quick Re-apply Complete! [PSB MODE]                    :
+    echo   :       CPU 100%% / Boost Efficient / EPP 50 / OLED 50%%       :
+    echo   +==============================================================+
+) else (
+    echo   +==============================================================+
+    echo   :       Quick Re-apply Complete! [ULTRA SAVER MODE]            :
+    echo   :       CPU 40%% / Boost OFF / EPP 100 / OLED 25%%              :
+    echo   +==============================================================+
+)
 echo.
 pause
 goto menu
