@@ -1,0 +1,169 @@
+================================================================================
+  POWER OPTIMIZER - MASTER SESSION LOG
+  Date: 2026-07-05 (Sunday) 17:30 IST
+  Device: Asus Vivobook Pro OLED M3500QC
+  Script Version: v7.1 → v8.0 (updated this session)
+================================================================================
+
+================================================================================
+  SECTION 1: SYSTEM SNAPSHOT AT TIME OF SCAN
+================================================================================
+
+  Computer Name:       --JARVIS--
+  System:              ASUSTeK Vivobook_ASUSLaptop M3500QC_M3500QC
+  BIOS:                M3500QC.316 (2023/05/25) — LATEST, no newer available
+  OS Build:            26100 (Win 11 24H2)
+  CPU:                 AMD Ryzen 5 5600H (6C/12T, 3301 MHz base, 4200 MHz boost)
+  iGPU:                AMD Radeon Graphics (Vega 7)
+  dGPU:                NVIDIA GeForce RTX 3050 4GB (PCIe x8)
+  RAM:                 16 GB DDR4
+  Storage:             512 GB NVMe SSD
+  Display:             15.6" Samsung OLED 60Hz (AMOLED)
+  Connected Standby:   Supported
+  S3 Sleep:            NOT supported (uses Modern Standby)
+  Platform Role:       Mobile
+  PCIe ASPM:           HARDWARE DISABLED (BIOS incompatibility, unfixable)
+
+================================================================================
+  SECTION 2: BATTERY HEALTH (from battery-report.html, generated Jul 05)
+================================================================================
+
+  Battery Name:        ASUS Battery
+  Manufacturer:        ASUSTeK
+  Chemistry:           Li-Ion (LIon)
+  Design Capacity:     63,041 mWh
+  Full Charge Capacity: 52,829 mWh
+  Battery Health:      83.8% (was 83.3% on Jun 08 → +0.5% recalib bump)
+  Cycle Count:         295 (was 285 on Jun 08 → +10 cycles in 27 days)
+  Report Generated:    2026-07-05
+
+  --- Capacity Degradation Trend ---
+  Date         Design     FullCharge  Health   Cycles  Source
+  2026-03-06   63,041     54,975      87.2%    231     energy-report
+  2026-04-13   63,041     55,957      88.8%    263     battery-report (recalib)
+  2026-05-24   63,041     54,076      85.8%    278     battery+energy-report
+  2026-06-08   63,041     52,566      83.3%    285     battery-report
+  2026-07-05   63,041     52,829      83.8%    295     battery-report (recalib)
+
+  NOTE: The +0.5% health increase is a recalibration artifact, not real 
+  improvement. Battery health remains in the rapid degradation zone (<85%).
+  The rate is ~0.37 cycles/day (down from 0.46/day), indicating slightly 
+  better usage patterns with PSB mode adoption.
+
+  CRITICAL INCIDENT: Battery drained to 2.5% on Jul 3, 2026 between 
+  20:48 and 21:01 (13-minute drain). The auto-hibernate at 8% did NOT 
+  trigger, suggesting the critical battery threshold was set only on 
+  SCHEME_CURRENT and not on the active power plan (Ultimate Performance).
+
+================================================================================
+  SECTION 3: ENERGY REPORT ANALYSIS (from May 24, 2026 — still valid)
+================================================================================
+
+  NOTE: A fresh energy report was generated, reducing errors from 16 to 7. 
+  Key findings from the new scan:
+
+  ERRORS (7 remaining):
+  - Expected performance anomalies on AC (display timeout, sleep timeout)
+  - PCIe ASPM disabled (AC + DC) — BIOS hardware limit, unfixable
+  - CPU utilization high (11.78%) — normal for active use
+
+  FIXED IN V8.0:
+  - Antigravity.exe: execution-required request (now handled by script)
+  - Ferdium and MongoDB timer hogs verified totally resolved.
+
+================================================================================
+  SECTION 4: POWEROPTIMIZER.LOG ANALYSIS (Jun 09 - Jul 05, 2026)
+================================================================================
+
+  --- Usage Analytics (521 lines analyzed) ---
+  Mode switches in 26 days:
+    Power Saving Balanced [P]:   12 activations (most used — good)
+    Max Performance [2]:         11 activations (plugged in work)
+    Ultra Battery Saver [1]:      5 activations (heavy saving sessions)
+    Ultra Performance [U]:        3 activations (NVIDIA rendering)
+    Quick Re-apply [R]:           0 activations (NEVER USED)
+  
+  --- Key Observations ---
+  1. PSB mode adoption is excellent — users prefer it over Ultra Saver
+  2. Quick Re-apply is never used manually (0 times in 26 days)
+     → Added automatic wake re-apply scheduled task in v8.0
+
+================================================================================
+  SECTION 5: BUGS FOUND AND FIXED (v7.1 → v8.0)
+================================================================================
+
+  [BUG-20] CRITICAL: Auto-hibernate at 8% failed on Jul 3
+    FIX:     Now sets critical battery thresholds on ALL 5 known power plan 
+             GUIDs (SCHEME_CURRENT + Power Saver + Balanced + High Perf + 
+             Ultimate Perf). Also raised critical threshold from 8% to 10%.
+
+  [BUG-21] HIGH: Antigravity.exe blocks sleep
+    FIX:     Added Antigravity.exe to process kill lists in Ultra Battery Saver,
+             Power Saving Balanced, and Quick Re-apply modes.
+
+  [BUG-22] MEDIUM: Hardcoded 85.8% battery health in Ultra Perf warning
+    FIX:     Replaced with generic "Battery health is degraded" message.
+
+  [BUG-23] LOW: MongoDB start type not restored in PSB mode
+    FIX:     Added `sc config MongoDB start= auto` as step 8/9 in PSB mode.
+
+  [BUG-24] LOW: Wrong GUID for low battery action
+    FIX:     Removed the incorrect GUID usage. Critical action (hibernate)
+             uses the correct GUID d8742dcb-3e6a-4b3c-b3fe-374623cdcf06.
+
+================================================================================
+  SECTION 6: POST-V8.0 LOGIC HOTFIXES (Jul 05, 2026 - 17:30 IST)
+================================================================================
+
+  Following the initial v8.0 release, a deep architectural review identified 
+  and resolved three critical logic bugs:
+
+  1. CURRENT_MODE Persistence Bug (Fixed):
+     The wake-triggered scheduled task spawned a fresh cmd process where the 
+     in-memory CURRENT_MODE variable was undefined, causing it to blindly 
+     re-apply Ultra Saver settings and corrupt state.
+     FIX: Mode state is now written to `%~dp0.powermode.state` safely on 
+     selection and read back reliably on script startup and re-apply.
+
+  2. Modern Standby (S0ix) Trigger Reliability (Fixed):
+     The Vivobook uses Modern Standby, which doesn't consistently trigger the 
+     Legacy S3 Event ID 1.
+     FIX: Added two parallel scheduled tasks to trigger on Modern Standby 
+     Resume (EventID 507) and Workstation Unlock (EventID 4801).
+
+  3. Nested !errorlevel! Expansion (Fixed):
+     powercfg fallback blocks in Performance modes used `%errorlevel%` which 
+     failed to evaluate inside parenthesized blocks.
+     FIX: Swapped to `!errorlevel!` for delayed expansion accuracy.
+
+================================================================================
+  SECTION 7: HISTORICAL CONTEXT (Prior Logs Recap)
+================================================================================
+
+  --- v6.0 Highlights (April 13, 2026) ---
+  - Introduced parallel service stopping, reducing activation time from 35s to ~8s.
+  - Replaced deprecated `wmic` calls with PowerShell `Get-CimInstance` for Win11 24H2.
+  - Implemented log rotation (capped at 500 lines).
+
+  --- v7.0 & v7.1 Highlights (May-June 2026) ---
+  - Added Duplicate Mode Detection to prevent redundant mode activations.
+  - Added [P] Power Saving Balanced mode (CPU 100% + RTX OFF + Wi-Fi saving).
+  - Fixed BUG-17 (cmd.exe goto :eof corruption in parenthesized blocks).
+
+================================================================================
+  SECTION 8: USER RECOMMENDATIONS
+================================================================================
+
+  URGENT:
+  - ⚠️ Battery health at 83.8% — still in rapid degradation territory.
+  - STRICTLY enforce 80% charge cap in MyASUS.
+  - NEVER drain below 20%.
+
+  BEHAVIORAL:
+  - Continue using [P] Power Saving Balanced as the default battery mode.
+  - Avoid Ultra Performance on battery. The warning now has a generic message
+    but the 1h30m drain estimate is still accurate.
+
+================================================================================
+  END OF MASTER SESSION LOG — 2026-07-05T17:35:00+05:30
+================================================================================
