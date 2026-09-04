@@ -1,534 +1,510 @@
-[07-07-2026 14.02.27.62] Performance activation skipped (already active) 
-[07-07-2026 14.28.27.01] Log rotated (was 543 lines) 
-[07-07-2026 14.28.27.84] === POWER SAVING BALANCED MODE ACTIVATED === 
-[07-07-2026 14.28.31.04] PowerToys + Antigravity fully killed (all plugins) 
-[07-07-2026 14.28.38.97] RTX 3050 DISABLED + NVIDIA services stopped 
-[07-07-2026 14.28.39.70] Power plan set to Balanced (base for PSB mode) 
-[07-07-2026 14.28.41.09] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[07-07-2026 14.28.44.69] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[07-07-2026 14.28.45.38] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[07-07-2026 14.28.45.98] NVMe: APST ON (battery), off (AC) 
-[07-07-2026 14.28.46.05] MongoDB start type restored to auto 
-[07-07-2026 14.28.46.70] Energy Saver at 20 default (not forced) 
-[07-07-2026 22.04.41.15] === QUICK RE-APPLY AFTER WAKE === 
-[07-07-2026 22.04.41.15] === QUICK RE-APPLY AFTER WAKE === 
-[07-07-2026 22.04.43.00] Re-apply skipped: system is on AC power 
-[07-07-2026 22.04.47.25] Re-killed processes after wake (on battery, incl. Antigravity) 
-[07-07-2026 22.04.47.33] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[07-07-2026 22.04.47.61] Brightness re-set to 50 (PSB mode) 
-[07-07-2026 22.04.50.22] Services re-stopped 
-[07-07-2026 22.04.53.16] GPU check after wake 
-[07-07-2026 22.04.53.34] Power plan re-applied 
-[07-07-2026 22.05.18.32] === MAX PERFORMANCE MODE ACTIVATED === 
-[07-07-2026 22.05.18.35] PowerToys start attempted 
-[07-07-2026 22.05.28.39] RTX 3050 ENABLED 
-[07-07-2026 22.05.29.96] Power plan set to Ultimate/High Performance 
-[07-07-2026 22.05.30.73] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[07-07-2026 22.05.31.77] OLED 85, always on, no sleep 
-[07-07-2026 22.05.31.91] NVMe SSD: max performance, no PM 
-[07-07-2026 22.05.32.14] USB always on, PCIe no PM, Wi-Fi max perf 
-[07-07-2026 22.05.36.48] Services restored (including NVIDIA) 
-[07-07-2026 22.05.36.72] Scheduled tasks re-enabled 
-[07-07-2026 22.05.37.27] Energy Saver disabled 
-[08-07-2026 10.00.04.11] === QUICK RE-APPLY AFTER WAKE === 
-[08-07-2026 10.00.05.64] Re-apply skipped: system is on AC power 
-[08-07-2026 10.00.12.57] Re-killed processes after wake (on battery, incl. Antigravity) 
-[08-07-2026 10.00.12.64] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
-[08-07-2026 10.00.12.96] Brightness re-set to 25 (Saver mode) 
-[08-07-2026 10.00.23.14] Services re-stopped 
-[08-07-2026 10.00.26.38] GPU check after wake 
-[08-07-2026 10.00.26.60] Power plan re-applied 
-[08-07-2026 10.00.39.82] Log rotated (was 538 lines) 
-[08-07-2026 10.00.40.03] === POWER SAVING BALANCED MODE ACTIVATED === 
-[08-07-2026 10.00.40.67] PowerToys + Antigravity fully killed (all plugins) 
-[08-07-2026 10.00.42.01] RTX 3050 DISABLED + NVIDIA services stopped 
-[08-07-2026 10.00.42.30] Power plan set to Balanced (base for PSB mode) 
-[08-07-2026 10.00.42.58] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[08-07-2026 10.00.43.13] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[08-07-2026 10.00.43.27] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[08-07-2026 10.00.43.35] NVMe: APST ON (battery), off (AC) 
-[08-07-2026 10.00.43.37] MongoDB start type restored to auto 
-[08-07-2026 10.00.43.45] Energy Saver at 20 default (not forced) 
-[08-07-2026 13.39.16.90] === QUICK RE-APPLY AFTER WAKE === 
-[08-07-2026 13.39.16.90] === QUICK RE-APPLY AFTER WAKE === 
-[08-07-2026 13.39.18.41] Re-apply skipped: system is on AC power 
-[08-07-2026 13.39.22.84] Re-killed processes after wake (on battery, incl. Antigravity) 
-[08-07-2026 13.39.22.93] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[08-07-2026 13.39.23.33] Brightness re-set to 50 (PSB mode) 
-[08-07-2026 13.39.32.63] === MAX PERFORMANCE MODE ACTIVATED === 
-[08-07-2026 13.39.32.66] PowerToys start attempted 
-[08-07-2026 13.39.52.36] RTX 3050 ENABLED 
-[08-07-2026 13.39.53.62] Power plan set to Ultimate/High Performance 
-[08-07-2026 13.39.56.98] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[08-07-2026 13.39.58.69] OLED 85, always on, no sleep 
-[08-07-2026 13.39.58.86] NVMe SSD: max performance, no PM 
-[08-07-2026 13.39.59.20] USB always on, PCIe no PM, Wi-Fi max perf 
-[08-07-2026 13.40.03.67] Services restored (including NVIDIA) 
-[08-07-2026 13.40.03.91] Scheduled tasks re-enabled 
-[08-07-2026 13.40.04.54] Energy Saver disabled 
-[08-07-2026 21.35.40.60] Log rotated (was 527 lines) 
-[08-07-2026 21.35.41.07] === POWER SAVING BALANCED MODE ACTIVATED === 
-[08-07-2026 21.35.42.28] PowerToys + Antigravity fully killed (all plugins) 
-[08-07-2026 21.35.50.79] RTX 3050 DISABLED + NVIDIA services stopped 
-[08-07-2026 21.35.51.15] Power plan set to Balanced (base for PSB mode) 
-[08-07-2026 21.35.51.94] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[08-07-2026 21.35.54.63] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[08-07-2026 21.35.55.18] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[08-07-2026 21.35.55.63] NVMe: APST ON (battery), off (AC) 
-[08-07-2026 21.35.55.70] MongoDB start type restored to auto 
-[08-07-2026 21.35.56.12] Energy Saver at 20 default (not forced) 
-[08-07-2026 22.23.17.83] === QUICK RE-APPLY AFTER WAKE === 
-[08-07-2026 22.23.17.87] === QUICK RE-APPLY AFTER WAKE === 
-[08-07-2026 22.23.18.50] Re-apply skipped: system is on AC power 
-[08-07-2026 22.23.24.02] Re-killed processes after wake (on battery, incl. Antigravity) 
-[08-07-2026 22.23.24.15] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[08-07-2026 22.23.24.62] Brightness re-set to 50 (PSB mode) 
-[08-07-2026 22.23.39.88] Services re-stopped 
-[08-07-2026 22.23.41.56] GPU check after wake 
-[08-07-2026 22.23.41.89] Power plan re-applied 
-[08-07-2026 22.24.51.61] === MAX PERFORMANCE MODE ACTIVATED === 
-[08-07-2026 22.24.51.66] PowerToys start attempted 
-[08-07-2026 22.25.08.57] RTX 3050 ENABLED 
-[08-07-2026 22.25.13.26] Power plan set to Ultimate/High Performance 
-[08-07-2026 22.25.14.33] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[08-07-2026 22.25.17.14] OLED 85, always on, no sleep 
-[08-07-2026 22.25.17.56] NVMe SSD: max performance, no PM 
-[08-07-2026 22.25.17.95] USB always on, PCIe no PM, Wi-Fi max perf 
-[08-07-2026 22.25.24.34] Services restored (including NVIDIA) 
-[08-07-2026 22.25.24.50] Scheduled tasks re-enabled 
-[08-07-2026 22.25.25.00] Energy Saver disabled 
-[09-07-2026  2.14.20.32] === QUICK RE-APPLY AFTER WAKE === 
-[09-07-2026  2.14.20.36] === QUICK RE-APPLY AFTER WAKE === 
-[09-07-2026  2.14.21.73] Re-apply skipped: system is on AC power 
-[09-07-2026  2.14.26.50] Re-killed processes after wake (on battery, incl. Antigravity) 
-[09-07-2026  2.14.26.56] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
-[09-07-2026  2.14.26.84] Brightness re-set to 25 (Saver mode) 
-[09-07-2026  2.14.38.74] Performance activation skipped (already active) 
-[09-07-2026  2.14.50.45] Performance activation skipped (already active) 
-[09-07-2026 15.00.17.82] Log rotated (was 538 lines) 
-[09-07-2026 15.00.18.21] === POWER SAVING BALANCED MODE ACTIVATED === 
-[09-07-2026 15.00.19.30] PowerToys + Antigravity fully killed (all plugins) 
-[09-07-2026 15.00.28.52] RTX 3050 DISABLED + NVIDIA services stopped 
-[09-07-2026 15.00.28.93] Power plan set to Balanced (base for PSB mode) 
-[09-07-2026 15.00.30.16] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[09-07-2026 15.00.32.73] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[09-07-2026 15.00.33.06] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[09-07-2026 15.00.33.31] NVMe: APST ON (battery), off (AC) 
-[09-07-2026 15.00.33.34] MongoDB start type restored to auto 
-[09-07-2026 15.00.33.60] Energy Saver at 20 default (not forced) 
-[09-07-2026 20.51.23.43] === QUICK RE-APPLY AFTER WAKE === 
-[09-07-2026 20.51.25.42] Re-apply skipped: system is on AC power 
-[09-07-2026 20.51.32.97] === MAX PERFORMANCE MODE ACTIVATED === 
-[09-07-2026 20.51.33.00] PowerToys start attempted 
-[09-07-2026 20.51.43.05] RTX 3050 ENABLED 
-[09-07-2026 20.51.43.82] Power plan set to Ultimate/High Performance 
-[09-07-2026 20.51.44.82] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[09-07-2026 20.51.47.06] OLED 85, always on, no sleep 
-[09-07-2026 20.51.47.28] NVMe SSD: max performance, no PM 
-[09-07-2026 20.51.47.79] USB always on, PCIe no PM, Wi-Fi max perf 
-[09-07-2026 20.51.52.18] Services restored (including NVIDIA) 
-[09-07-2026 20.51.52.44] Scheduled tasks re-enabled 
-[09-07-2026 20.51.53.11] Energy Saver disabled 
-[10-07-2026  0.14.57.24] Log rotated (was 523 lines) 
-[10-07-2026  0.14.57.53] === POWER SAVING BALANCED MODE ACTIVATED === 
-[10-07-2026  0.14.58.33] PowerToys + Antigravity fully killed (all plugins) 
-[10-07-2026  0.15.06.00] RTX 3050 DISABLED + NVIDIA services stopped 
-[10-07-2026  0.15.06.28] Power plan set to Balanced (base for PSB mode) 
-[10-07-2026  0.15.06.60] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[10-07-2026  0.15.07.18] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[10-07-2026  0.15.07.33] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[10-07-2026  0.15.07.41] NVMe: APST ON (battery), off (AC) 
-[10-07-2026  0.15.07.43] MongoDB start type restored to auto 
-[10-07-2026  0.15.07.52] Energy Saver at 20 default (not forced) 
-[10-07-2026  1.50.51.80] === QUICK RE-APPLY AFTER WAKE === 
-[10-07-2026  1.50.52.15] Re-apply skipped: system is on AC power 
-[10-07-2026 21.43.29.37] Log rotated (was 512 lines) 
-[10-07-2026 21.43.30.03] === ULTRA BATTERY SAVER MODE ACTIVATED === 
-[10-07-2026 21.43.31.22] Killed PowerToys + Awake module (was blocking sleep) 
-[10-07-2026 21.43.42.85] Killed background apps + MongoDB + NVIDIA + Asus bloat + Antigravity 
-[10-07-2026 21.43.43.61] Killed browsers 
-[10-07-2026 21.43.48.00] RTX 3050 DISABLED - iGPU only mode 
-[10-07-2026 21.43.48.92] Power plan set to Power Saver 
-[10-07-2026 21.43.51.22] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
-[10-07-2026 21.43.57.63] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
-[10-07-2026 21.43.57.82] NVMe SSD: APST ON, link PM aggressive 
-[10-07-2026 21.43.58.69] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
-[11-07-2026 10.18.30.26] === MAX PERFORMANCE MODE ACTIVATED === 
-[11-07-2026 10.18.30.31] PowerToys start attempted 
-[11-07-2026 10.18.37.03] RTX 3050 ENABLED 
-[11-07-2026 10.18.37.68] Power plan set to Ultimate/High Performance 
-[11-07-2026 10.18.38.23] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[11-07-2026 10.18.41.85] OLED 85, always on, no sleep 
-[11-07-2026 10.18.42.19] NVMe SSD: max performance, no PM 
-[11-07-2026 10.18.42.91] USB always on, PCIe no PM, Wi-Fi max perf 
-[11-07-2026 10.18.45.40] Services restored (including NVIDIA) 
-[11-07-2026 10.18.45.60] Scheduled tasks re-enabled 
-[11-07-2026 10.18.46.26] Energy Saver disabled 
-[11-07-2026 10.27.53.32] Log rotated (was 521 lines) 
-[11-07-2026 10.27.53.68] === POWER SAVING BALANCED MODE ACTIVATED === 
-[11-07-2026 10.27.55.12] PowerToys + Antigravity fully killed (all plugins) 
-[11-07-2026 10.28.03.61] RTX 3050 DISABLED + NVIDIA services stopped 
-[11-07-2026 10.28.04.03] Power plan set to Balanced (base for PSB mode) 
-[11-07-2026 10.28.05.44] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[11-07-2026 10.28.08.77] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[11-07-2026 10.28.09.83] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[11-07-2026 10.28.10.65] NVMe: APST ON (battery), off (AC) 
-[11-07-2026 10.28.10.87] MongoDB start type restored to auto 
-[11-07-2026 10.28.12.47] Energy Saver at 20 default (not forced) 
-[11-07-2026 11.49.30.22] === MAX PERFORMANCE MODE ACTIVATED === 
-[11-07-2026 11.49.30.28] PowerToys start attempted 
-[11-07-2026 11.49.38.45] RTX 3050 ENABLED 
-[11-07-2026 11.49.39.67] Power plan set to Ultimate/High Performance 
-[11-07-2026 11.49.40.78] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[11-07-2026 11.49.43.55] OLED 85, always on, no sleep 
-[11-07-2026 11.49.43.80] NVMe SSD: max performance, no PM 
-[11-07-2026 11.49.44.33] USB always on, PCIe no PM, Wi-Fi max perf 
-[11-07-2026 11.49.47.32] Services restored (including NVIDIA) 
-[11-07-2026 11.49.48.03] Scheduled tasks re-enabled 
-[11-07-2026 11.49.49.67] Energy Saver disabled 
-[11-07-2026 14.19.23.71] === QUICK RE-APPLY AFTER WAKE === 
-[11-07-2026 14.19.23.72] === QUICK RE-APPLY AFTER WAKE === 
-[11-07-2026 14.19.25.44] Re-apply skipped: system is on AC power 
-[11-07-2026 14.19.30.47] Re-killed processes after wake (on battery, incl. Antigravity) 
-[11-07-2026 14.19.30.73] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
-[11-07-2026 14.19.32.09] Brightness re-set to 25 (Saver mode) 
-[11-07-2026 14.19.42.32] Services re-stopped 
-[11-07-2026 14.19.45.20] GPU check after wake 
-[11-07-2026 14.19.45.43] Power plan re-applied 
-[11-07-2026 14.24.26.25] Log rotated (was 530 lines) 
-[11-07-2026 14.24.26.47] === POWER SAVING BALANCED MODE ACTIVATED === 
-[11-07-2026 14.24.27.35] PowerToys + Antigravity fully killed (all plugins) 
-[11-07-2026 14.24.28.82] RTX 3050 DISABLED + NVIDIA services stopped 
-[11-07-2026 14.24.29.12] Power plan set to Balanced (base for PSB mode) 
-[11-07-2026 14.24.36.63] === MAX PERFORMANCE MODE ACTIVATED === 
-[11-07-2026 14.24.36.68] PowerToys start attempted 
-[11-07-2026 14.24.44.25] RTX 3050 ENABLED 
-[11-07-2026 14.24.45.53] Power plan set to Ultimate/High Performance 
-[11-07-2026 14.24.46.60] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[11-07-2026 14.24.48.14] OLED 85, always on, no sleep 
-[11-07-2026 14.24.48.29] NVMe SSD: max performance, no PM 
-[11-07-2026 14.24.48.55] USB always on, PCIe no PM, Wi-Fi max perf 
-[11-07-2026 14.24.54.89] Services restored (including NVIDIA) 
-[11-07-2026 14.24.55.26] Scheduled tasks re-enabled 
-[11-07-2026 14.24.55.89] Energy Saver disabled 
-[11-07-2026 19.53.30.30] === QUICK RE-APPLY AFTER WAKE === 
-[11-07-2026 19.53.32.21] Re-apply skipped: system is on AC power 
-[11-07-2026 19.53.36.54] Re-killed processes after wake (on battery, incl. Antigravity) 
-[11-07-2026 19.53.36.61] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
-[11-07-2026 19.53.36.96] Brightness re-set to 25 (Saver mode) 
-[11-07-2026 19.53.45.91] Performance activation skipped (already active) 
-[11-07-2026 19.54.02.93] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[11-07-2026 19.54.04.43] RTX 3050 ENABLED + services started 
-[11-07-2026 19.54.06.35] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[11-07-2026 19.54.06.41] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[11-07-2026 19.54.06.59] Power plan set to Ultimate Performance 
-[11-07-2026 19.54.06.77] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[11-07-2026 19.54.08.08] OLED 85, always on, no sleep, no hibernate 
-[11-07-2026 19.54.08.16] NVMe SSD: max throughput, no PM, no sleep states 
-[11-07-2026 19.54.08.40] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[11-07-2026 19.54.15.22] All services started (including NVIDIA) 
-[11-07-2026 19.54.15.40] All scheduled tasks re-enabled (including NVIDIA) 
-[11-07-2026 19.54.15.88] Energy Saver completely disabled 
-[11-07-2026 19.54.16.07] Video playback set to max quality 
-[11-07-2026 21.14.39.00] === QUICK RE-APPLY AFTER WAKE === 
-[11-07-2026 21.14.39.00] === QUICK RE-APPLY AFTER WAKE === 
-[11-07-2026 21.14.40.41] Re-apply skipped: system is on AC power 
-[11-07-2026 21.14.44.67] Re-killed processes after wake (on battery, incl. Antigravity) 
-[11-07-2026 21.14.44.73] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
-[11-07-2026 21.14.45.00] Brightness re-set to 25 (Saver mode) 
-[12-07-2026  0.37.14.23] === QUICK RE-APPLY AFTER WAKE === 
-[12-07-2026  0.37.16.16] Re-apply skipped: system is on AC power 
-[12-07-2026 14.10.28.29] Log rotated (was 542 lines) 
-[12-07-2026 14.10.29.24] === POWER SAVING BALANCED MODE ACTIVATED === 
-[12-07-2026 14.10.31.72] PowerToys + Antigravity fully killed (all plugins) 
-[12-07-2026 14.10.43.62] RTX 3050 DISABLED + NVIDIA services stopped 
-[12-07-2026 14.10.44.33] Power plan set to Balanced (base for PSB mode) 
-[12-07-2026 14.10.45.00] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[12-07-2026 14.10.46.70] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[12-07-2026 14.10.47.03] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[12-07-2026 14.10.47.28] NVMe: APST ON (battery), off (AC) 
-[12-07-2026 14.10.47.32] MongoDB start type restored to auto 
-[12-07-2026 14.10.47.56] Energy Saver at 20 default (not forced) 
-[12-07-2026 15.36.17.22] === QUICK RE-APPLY AFTER WAKE === 
-[12-07-2026 15.36.20.13] Re-apply skipped: system is on AC power 
-[12-07-2026 15.36.27.86] === MAX PERFORMANCE MODE ACTIVATED === 
-[12-07-2026 15.36.27.92] PowerToys start attempted 
-[12-07-2026 15.36.40.02] RTX 3050 ENABLED 
-[12-07-2026 15.36.40.45] Power plan set to Ultimate/High Performance 
-[12-07-2026 15.36.41.06] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[12-07-2026 15.36.42.20] OLED 85, always on, no sleep 
-[12-07-2026 15.36.42.34] NVMe SSD: max performance, no PM 
-[12-07-2026 15.36.42.56] USB always on, PCIe no PM, Wi-Fi max perf 
-[12-07-2026 15.36.44.80] Services restored (including NVIDIA) 
-[12-07-2026 15.36.45.13] Scheduled tasks re-enabled 
-[12-07-2026 15.36.45.65] Energy Saver disabled 
-[12-07-2026 18.53.55.84] === QUICK RE-APPLY AFTER WAKE === 
-[12-07-2026 18.53.58.37] Re-apply skipped: system is on AC power 
-[12-07-2026 20.47.11.49] Log rotated (was 525 lines) 
-[12-07-2026 20.47.12.03] === POWER SAVING BALANCED MODE ACTIVATED === 
-[12-07-2026 20.47.13.32] PowerToys + Antigravity fully killed (all plugins) 
-[12-07-2026 20.47.22.05] RTX 3050 DISABLED + NVIDIA services stopped 
-[12-07-2026 20.47.22.41] Power plan set to Balanced (base for PSB mode) 
-[12-07-2026 20.47.23.13] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[12-07-2026 20.47.24.91] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[12-07-2026 20.47.25.25] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[12-07-2026 20.47.25.50] NVMe: APST ON (battery), off (AC) 
-[12-07-2026 20.47.25.53] MongoDB start type restored to auto 
-[12-07-2026 20.47.25.78] Energy Saver at 20 default (not forced) 
-[12-07-2026 22.29.54.64] === QUICK RE-APPLY AFTER WAKE === 
-[12-07-2026 22.29.54.65] === QUICK RE-APPLY AFTER WAKE === 
-[12-07-2026 22.29.56.14] Re-apply skipped: system is on AC power 
-[12-07-2026 22.30.00.39] Re-killed processes after wake (on battery, incl. Antigravity) 
-[12-07-2026 22.30.00.46] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[12-07-2026 22.30.00.73] Brightness re-set to 50 (PSB mode) 
-[12-07-2026 22.30.08.34] Services re-stopped 
-[12-07-2026 22.30.09.52] GPU check after wake 
-[12-07-2026 22.30.09.70] Power plan re-applied 
-[12-07-2026 22.30.24.42] === MAX PERFORMANCE MODE ACTIVATED === 
-[12-07-2026 22.30.24.52] PowerToys start attempted 
-[12-07-2026 22.30.30.66] RTX 3050 ENABLED 
-[12-07-2026 22.30.31.15] Power plan set to Ultimate/High Performance 
-[12-07-2026 22.30.32.22] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[12-07-2026 22.30.34.22] OLED 85, always on, no sleep 
-[12-07-2026 22.30.34.54] NVMe SSD: max performance, no PM 
-[12-07-2026 22.30.35.39] USB always on, PCIe no PM, Wi-Fi max perf 
-[12-07-2026 22.30.40.34] Services restored (including NVIDIA) 
-[12-07-2026 22.30.40.72] Scheduled tasks re-enabled 
-[12-07-2026 22.30.41.44] Energy Saver disabled 
-[12-07-2026 22.32.04.08] Status dashboard viewed 
-[13-07-2026  9.16.13.24] === QUICK RE-APPLY AFTER WAKE === 
-[13-07-2026  9.16.19.57] Re-apply skipped: system is on AC power 
-[13-07-2026  9.16.27.16] Re-killed processes after wake (on battery, incl. Antigravity) 
-[13-07-2026  9.16.27.24] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
-[13-07-2026  9.50.05.63] Performance activation skipped (already active) 
-[13-07-2026  9.50.12.08] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[13-07-2026  9.50.13.71] RTX 3050 ENABLED + services started 
-[13-07-2026  9.50.15.67] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[13-07-2026  9.50.15.72] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[13-07-2026  9.50.15.92] Power plan set to Ultimate Performance 
-[13-07-2026  9.50.16.10] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[13-07-2026  9.50.17.96] OLED 85, always on, no sleep, no hibernate 
-[13-07-2026  9.50.18.09] NVMe SSD: max throughput, no PM, no sleep states 
-[13-07-2026  9.50.18.36] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[13-07-2026  9.50.22.69] All services started (including NVIDIA) 
-[13-07-2026  9.50.22.88] All scheduled tasks re-enabled (including NVIDIA) 
-[13-07-2026  9.50.23.42] Energy Saver completely disabled 
-[13-07-2026  9.50.23.63] Video playback set to max quality 
-[13-07-2026 10.53.14.37] Log rotated (was 549 lines) 
-[13-07-2026 10.53.14.58] === POWER SAVING BALANCED MODE ACTIVATED === 
-[13-07-2026 10.53.15.29] PowerToys + Antigravity fully killed (all plugins) 
-[13-07-2026 10.53.22.91] RTX 3050 DISABLED + NVIDIA services stopped 
-[13-07-2026 10.53.23.23] Power plan set to Balanced (base for PSB mode) 
-[13-07-2026 10.53.23.54] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[13-07-2026 10.53.24.11] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[13-07-2026 10.53.24.25] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[13-07-2026 10.53.24.34] NVMe: APST ON (battery), off (AC) 
-[13-07-2026 10.53.24.36] MongoDB start type restored to auto 
-[13-07-2026 10.53.24.46] Energy Saver at 20 default (not forced) 
-[13-07-2026 12.08.46.51] === MAX PERFORMANCE MODE ACTIVATED === 
-[13-07-2026 12.08.46.56] PowerToys start attempted 
-[13-07-2026 12.08.53.49] RTX 3050 ENABLED 
-[13-07-2026 12.08.54.45] Power plan set to Ultimate/High Performance 
-[13-07-2026 12.08.55.17] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[13-07-2026 12.08.56.34] OLED 85, always on, no sleep 
-[13-07-2026 12.08.56.50] NVMe SSD: max performance, no PM 
-[13-07-2026 12.08.56.78] USB always on, PCIe no PM, Wi-Fi max perf 
-[13-07-2026 12.08.57.02] Services restored (including NVIDIA) 
-[13-07-2026 12.08.57.18] Scheduled tasks re-enabled 
-[13-07-2026 12.08.57.65] Energy Saver disabled 
-[13-07-2026 14.20.38.04] === QUICK RE-APPLY AFTER WAKE === 
-[13-07-2026 14.20.41.13] Re-apply skipped: system is on AC power 
-[13-07-2026 20.20.15.27] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026  9.17.17.94] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026  9.17.20.39] Re-apply skipped: system is on AC power 
-[14-07-2026 14.05.32.16] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026 14.05.36.51] Re-apply skipped: system is on AC power 
-[14-07-2026 14.24.21.79] Performance activation skipped (already active) 
-[14-07-2026 14.24.30.82] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
-[14-07-2026 14.24.32.24] RTX 3050 ENABLED + services started 
-[14-07-2026 14.24.34.15] All rendering forced to RTX 3050 (iGPU = display bridge only) 
-[14-07-2026 14.24.34.21] NVIDIA set to Maximum Performance (PowerMizer disabled) 
-[14-07-2026 14.24.34.40] Power plan set to Ultimate Performance 
-[14-07-2026 14.24.34.56] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
-[14-07-2026 14.24.35.85] OLED 85, always on, no sleep, no hibernate 
-[14-07-2026 14.24.35.92] NVMe SSD: max throughput, no PM, no sleep states 
-[14-07-2026 14.24.36.15] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
-[14-07-2026 14.24.40.42] All services started (including NVIDIA) 
-[14-07-2026 14.24.40.58] All scheduled tasks re-enabled (including NVIDIA) 
-[14-07-2026 14.24.41.04] Energy Saver completely disabled 
-[14-07-2026 14.24.41.20] Video playback set to max quality 
-[14-07-2026 15.23.25.35] Log rotated (was 542 lines) 
-[14-07-2026 15.23.25.86] === POWER SAVING BALANCED MODE ACTIVATED === 
-[14-07-2026 15.23.26.88] PowerToys + Antigravity fully killed (all plugins) 
-[14-07-2026 15.23.35.62] RTX 3050 DISABLED + NVIDIA services stopped 
-[14-07-2026 15.23.36.02] Power plan set to Balanced (base for PSB mode) 
-[14-07-2026 15.23.36.81] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[14-07-2026 15.23.39.84] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[14-07-2026 15.23.40.40] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[14-07-2026 15.23.40.92] NVMe: APST ON (battery), off (AC) 
-[14-07-2026 15.23.40.98] MongoDB start type restored to auto 
-[14-07-2026 15.23.41.46] Energy Saver at 20 default (not forced) 
-[14-07-2026 16.54.40.45] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026 16.54.42.75] Re-apply skipped: system is on AC power 
-[14-07-2026 16.54.49.75] Re-killed processes after wake (on battery, incl. Antigravity) 
-[14-07-2026 16.54.49.98] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[14-07-2026 16.54.50.35] Brightness re-set to 50 (PSB mode) 
-[14-07-2026 16.55.15.57] Services re-stopped 
-[14-07-2026 16.55.18.08] GPU check after wake 
-[14-07-2026 16.55.18.12] Power plan re-applied 
-[14-07-2026 16.55.21.74] === MAX PERFORMANCE MODE ACTIVATED === 
-[14-07-2026 16.55.21.79] PowerToys start attempted 
-[14-07-2026 16.55.31.04] RTX 3050 ENABLED 
-[14-07-2026 16.55.32.22] Power plan set to Ultimate/High Performance 
-[14-07-2026 16.55.33.63] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[14-07-2026 16.55.35.63] OLED 85, always on, no sleep 
-[14-07-2026 16.55.35.71] NVMe SSD: max performance, no PM 
-[14-07-2026 16.55.36.00] USB always on, PCIe no PM, Wi-Fi max perf 
-[14-07-2026 16.55.40.27] Services restored (including NVIDIA) 
-[14-07-2026 16.55.40.45] Scheduled tasks re-enabled 
-[14-07-2026 16.55.40.97] Energy Saver disabled 
-[14-07-2026 18.57.33.76] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026 18.57.37.20] Re-apply skipped: system is on AC power 
-[14-07-2026 21.28.31.68] Log rotated (was 531 lines) 
-[14-07-2026 21.28.32.21] === POWER SAVING BALANCED MODE ACTIVATED === 
-[14-07-2026 21.28.33.71] PowerToys + Antigravity fully killed (all plugins) 
-[14-07-2026 21.28.42.61] RTX 3050 DISABLED + NVIDIA services stopped 
-[14-07-2026 21.28.43.10] Power plan set to Balanced (base for PSB mode) 
-[14-07-2026 21.28.44.22] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[14-07-2026 21.28.46.24] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[14-07-2026 21.28.46.68] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[14-07-2026 21.28.47.02] NVMe: APST ON (battery), off (AC) 
-[14-07-2026 21.28.47.06] MongoDB start type restored to auto 
-[14-07-2026 21.28.47.59] Energy Saver at 20 default (not forced) 
-[14-07-2026 22.19.37.22] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026 22.19.37.24] === QUICK RE-APPLY AFTER WAKE === 
-[14-07-2026 22.19.38.32] Re-apply skipped: system is on AC power 
-[14-07-2026 22.20.09.89] === MAX PERFORMANCE MODE ACTIVATED === 
-[14-07-2026 22.20.09.94] PowerToys start attempted 
-[14-07-2026 22.20.17.57] RTX 3050 ENABLED 
-[14-07-2026 22.20.17.88] Power plan set to Ultimate/High Performance 
-[14-07-2026 22.20.19.14] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[14-07-2026 22.31.57.81] Performance activation skipped (already active) 
-[15-07-2026  9.11.55.93] Log rotated (was 519 lines) 
-[15-07-2026  9.11.56.42] === POWER SAVING BALANCED MODE ACTIVATED === 
-[15-07-2026  9.11.57.84] PowerToys + Antigravity fully killed (all plugins) 
-[15-07-2026  9.12.06.97] RTX 3050 DISABLED + NVIDIA services stopped 
-[15-07-2026  9.12.07.53] Power plan set to Balanced (base for PSB mode) 
-[15-07-2026  9.12.08.57] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[15-07-2026  9.12.10.82] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[15-07-2026  9.12.11.39] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[15-07-2026  9.12.11.73] NVMe: APST ON (battery), off (AC) 
-[15-07-2026  9.12.11.78] MongoDB start type restored to auto 
-[15-07-2026  9.12.12.09] Energy Saver at 20 default (not forced) 
-[15-07-2026 14.00.30.64] === QUICK RE-APPLY AFTER WAKE === 
-[15-07-2026 14.00.30.65] === QUICK RE-APPLY AFTER WAKE === 
-[15-07-2026 14.00.33.29] Re-apply skipped: system is on AC power 
-[15-07-2026 14.00.37.87] Re-killed processes after wake (on battery, incl. Antigravity) 
-[15-07-2026 14.00.38.32] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[15-07-2026 14.00.38.58] Brightness re-set to 50 (PSB mode) 
-[15-07-2026 14.00.53.55] === MAX PERFORMANCE MODE ACTIVATED === 
-[15-07-2026 14.00.53.64] PowerToys start attempted 
-[15-07-2026 14.01.01.14] RTX 3050 ENABLED 
-[15-07-2026 14.01.01.57] Power plan set to Ultimate/High Performance 
-[15-07-2026 14.01.02.56] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[15-07-2026 14.01.03.79] OLED 85, always on, no sleep 
-[15-07-2026 14.01.04.03] NVMe SSD: max performance, no PM 
-[15-07-2026 14.01.04.35] USB always on, PCIe no PM, Wi-Fi max perf 
-[15-07-2026 14.01.04.61] Services restored (including NVIDIA) 
-[15-07-2026 14.01.04.91] Scheduled tasks re-enabled 
-[15-07-2026 14.01.05.89] Energy Saver disabled 
-[15-07-2026 15.50.13.32] === QUICK RE-APPLY AFTER WAKE === 
-[15-07-2026 19.56.46.75] Log rotated (was 528 lines) 
-[15-07-2026 19.56.50.60] === POWER SAVING BALANCED MODE ACTIVATED === 
-[15-07-2026 19.56.52.66] PowerToys + Antigravity fully killed (all plugins) 
-[15-07-2026 19.57.04.11] RTX 3050 DISABLED + NVIDIA services stopped 
-[15-07-2026 19.57.04.55] Power plan set to Balanced (base for PSB mode) 
-[15-07-2026 19.57.05.35] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[15-07-2026 19.57.08.31] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[15-07-2026 19.57.08.75] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[15-07-2026 19.57.09.20] NVMe: APST ON (battery), off (AC) 
-[15-07-2026 19.57.09.25] MongoDB start type restored to auto 
-[15-07-2026 19.57.09.61] Energy Saver at 20 default (not forced) 
-[15-07-2026 21.24.15.56] Power Saving Balanced skipped (already active) 
-[15-07-2026 21.24.28.17] === QUICK RE-APPLY AFTER WAKE === 
-[15-07-2026 21.24.40.51] Re-killed processes after wake (on battery, incl. Antigravity) 
-[15-07-2026 21.24.40.71] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[15-07-2026 21.24.43.26] Brightness re-set to 50 (PSB mode) 
-[15-07-2026 21.25.08.68] Services re-stopped 
-[15-07-2026 21.25.15.50] GPU check after wake 
-[15-07-2026 21.25.15.93] Power plan re-applied 
-[15-07-2026 21.53.44.20] Power Saving Balanced skipped (already active) 
-[15-07-2026 21.53.55.73] === MAX PERFORMANCE MODE ACTIVATED === 
-[15-07-2026 21.53.55.76] PowerToys start attempted 
-[15-07-2026 21.54.09.23] RTX 3050 ENABLED 
-[15-07-2026 21.54.09.50] Power plan set to Ultimate/High Performance 
-[15-07-2026 21.54.10.36] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[15-07-2026 21.54.13.51] OLED 85, always on, no sleep 
-[15-07-2026 21.54.13.56] NVMe SSD: max performance, no PM 
-[15-07-2026 21.54.13.80] USB always on, PCIe no PM, Wi-Fi max perf 
-[15-07-2026 21.54.14.05] Services restored (including NVIDIA) 
-[15-07-2026 21.54.14.24] Scheduled tasks re-enabled 
-[15-07-2026 21.54.15.76] Energy Saver disabled 
-[16-07-2026 13.25.22.05] Log rotated (was 530 lines) 
-[16-07-2026 13.25.23.34] === POWER SAVING BALANCED MODE ACTIVATED === 
-[16-07-2026 13.25.24.31] PowerToys + Antigravity fully killed (all plugins) 
-[16-07-2026 13.25.33.96] RTX 3050 DISABLED + NVIDIA services stopped 
-[16-07-2026 13.25.34.35] Power plan set to Balanced (base for PSB mode) 
-[16-07-2026 13.25.34.94] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[16-07-2026 13.25.37.49] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[16-07-2026 13.25.37.82] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[16-07-2026 13.25.38.08] NVMe: APST ON (battery), off (AC) 
-[16-07-2026 13.25.38.11] MongoDB start type restored to auto 
-[16-07-2026 13.25.38.36] Energy Saver at 20 default (not forced) 
-[16-07-2026 20.52.39.57] === QUICK RE-APPLY AFTER WAKE === 
-[16-07-2026 20.52.39.58] === QUICK RE-APPLY AFTER WAKE === 
-[16-07-2026 20.52.41.30] Re-apply skipped: system is on AC power 
-[16-07-2026 20.52.50.71] === MAX PERFORMANCE MODE ACTIVATED === 
-[16-07-2026 20.52.50.76] PowerToys start attempted 
-[16-07-2026 20.53.04.00] RTX 3050 ENABLED 
-[16-07-2026 20.53.05.45] Power plan set to Ultimate/High Performance 
-[16-07-2026 20.53.06.00] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[16-07-2026 20.53.08.83] OLED 85, always on, no sleep 
-[16-07-2026 20.53.08.95] NVMe SSD: max performance, no PM 
-[16-07-2026 20.53.09.18] USB always on, PCIe no PM, Wi-Fi max perf 
-[16-07-2026 20.53.09.38] Services restored (including NVIDIA) 
-[16-07-2026 20.53.09.68] Scheduled tasks re-enabled 
-[16-07-2026 20.53.11.38] Energy Saver disabled 
-[16-07-2026 21.35.32.58] === QUICK RE-APPLY AFTER WAKE === 
-[17-07-2026 12.45.00.20] === QUICK RE-APPLY AFTER WAKE === 
-[17-07-2026 12.45.00.20] === QUICK RE-APPLY AFTER WAKE === 
-[17-07-2026 18.30.05.72] Log rotated (was 527 lines) 
-[17-07-2026 18.30.06.11] === POWER SAVING BALANCED MODE ACTIVATED === 
-[17-07-2026 18.30.07.23] PowerToys + Antigravity fully killed (all plugins) 
-[17-07-2026 18.30.16.56] RTX 3050 DISABLED + NVIDIA services stopped 
-[17-07-2026 18.30.17.10] Power plan set to Balanced (base for PSB mode) 
-[17-07-2026 18.30.17.98] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
-[17-07-2026 18.30.20.29] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
-[17-07-2026 18.30.20.66] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
-[17-07-2026 18.30.20.94] NVMe: APST ON (battery), off (AC) 
-[17-07-2026 18.30.20.98] MongoDB start type restored to auto 
-[17-07-2026 18.30.21.28] Energy Saver at 20 default (not forced) 
-[17-07-2026 23.19.13.80] === QUICK RE-APPLY AFTER WAKE === 
-[17-07-2026 23.19.13.80] === QUICK RE-APPLY AFTER WAKE === 
-[17-07-2026 23.19.15.90] Re-apply skipped: system is on AC power 
-[17-07-2026 23.19.20.48] Re-killed processes after wake (on battery, incl. Antigravity) 
-[17-07-2026 23.19.21.70] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
-[17-07-2026 23.19.21.98] Brightness re-set to 50 (PSB mode) 
-[17-07-2026 23.19.42.97] === MAX PERFORMANCE MODE ACTIVATED === 
-[17-07-2026 23.19.43.02] PowerToys start attempted 
-[17-07-2026 23.19.50.13] RTX 3050 ENABLED 
-[17-07-2026 23.19.50.35] Power plan set to Ultimate/High Performance 
-[17-07-2026 23.19.51.49] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
-[17-07-2026 23.19.53.57] OLED 85, always on, no sleep 
-[17-07-2026 23.19.53.84] NVMe SSD: max performance, no PM 
-[17-07-2026 23.19.54.41] USB always on, PCIe no PM, Wi-Fi max perf 
-[17-07-2026 23.19.55.03] Services restored (including NVIDIA) 
-[17-07-2026 23.19.55.85] Scheduled tasks re-enabled 
-[17-07-2026 23.19.57.04] Energy Saver disabled 
-[18-07-2026 11.43.17.12] === QUICK RE-APPLY AFTER WAKE === 
-[18-07-2026 11.43.17.95] Re-apply skipped: system is on AC power 
-[18-07-2026 11.43.17.95] Re-apply skipped: system is on AC power 
-[18-07-2026 12.37.57.63] === QUICK RE-APPLY AFTER WAKE === 
-[18-07-2026 12.37.58.70] Re-apply skipped: system is on AC power 
-[18-07-2026 17.55.51.45] === QUICK RE-APPLY AFTER WAKE === 
-[18-07-2026 17.55.53.47] Re-apply skipped: system is on AC power 
+[18-08-2026  3.18.01.34] Re-apply skipped: system is on AC power 
+[18-08-2026  4.37.52.53] === QUICK RE-APPLY AFTER WAKE === 
+[18-08-2026  4.37.52.91] Re-apply skipped: system is on AC power 
+[18-08-2026 12.53.42.77] === QUICK RE-APPLY AFTER WAKE === 
+[18-08-2026 12.53.42.77] === QUICK RE-APPLY AFTER WAKE === 
+[18-08-2026 12.53.45.48] Re-apply skipped: system is on AC power 
+[18-08-2026 12.53.49.89] Re-killed processes after wake (on battery, incl. Antigravity) 
+[18-08-2026 12.53.49.98] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[18-08-2026 12.53.50.28] Brightness re-set to 50 (PSB mode) 
+[18-08-2026 12.53.57.92] Services re-stopped 
+[18-08-2026 12.53.59.03] GPU check after wake 
+[18-08-2026 12.53.59.09] Power plan re-applied 
+[18-08-2026 14.35.46.81] Power Saving Balanced skipped (already active) 
+[18-08-2026 16.28.20.85] === QUICK RE-APPLY AFTER WAKE === 
+[18-08-2026 16.28.20.86] === QUICK RE-APPLY AFTER WAKE === 
+[18-08-2026 16.28.22.61] Re-apply skipped: system is on AC power 
+[18-08-2026 16.28.26.92] Re-killed processes after wake (on battery, incl. Antigravity) 
+[18-08-2026 16.28.27.03] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[18-08-2026 16.28.27.43] Brightness re-set to 50 (PSB mode) 
+[18-08-2026 16.28.30.05] Services re-stopped 
+[18-08-2026 16.28.31.42] GPU check after wake 
+[18-08-2026 16.28.31.61] Power plan re-applied 
+[19-08-2026 11.25.44.50] === QUICK RE-APPLY AFTER WAKE === 
+[19-08-2026 11.25.47.43] Re-apply skipped: another instance is already running (lockfile) 
+[19-08-2026 11.25.47.51] Re-apply skipped: system is on AC power 
+[19-08-2026 14.23.07.27] === QUICK RE-APPLY AFTER WAKE === 
+[19-08-2026 14.23.09.27] Re-apply skipped: system is on AC power 
+[19-08-2026 16.09.12.39] === QUICK RE-APPLY AFTER WAKE === 
+[19-08-2026 16.09.12.39] === QUICK RE-APPLY AFTER WAKE === 
+[19-08-2026 16.09.14.38] Re-apply skipped: system is on AC power 
+[19-08-2026 16.09.33.78] === MAX PERFORMANCE MODE ACTIVATED === 
+[19-08-2026 16.09.33.83] PowerToys start attempted 
+[19-08-2026 16.09.41.70] RTX 3050 ENABLED 
+[19-08-2026 16.09.42.60] Power plan set to Ultimate/High Performance 
+[19-08-2026 16.09.46.45] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[19-08-2026 16.09.48.47] OLED 85, always on, no sleep 
+[19-08-2026 16.09.48.79] NVMe SSD: max performance, no PM 
+[19-08-2026 16.09.49.35] USB always on, PCIe no PM, Wi-Fi max perf 
+[19-08-2026 16.09.55.27] Services restored (including NVIDIA, MongoDB auto-start) 
+[19-08-2026 16.09.56.69] Scheduled tasks re-enabled 
+[19-08-2026 16.09.58.77] Energy Saver disabled 
+[19-08-2026 20.16.58.06] === QUICK RE-APPLY AFTER WAKE === 
+[19-08-2026 20.17.01.65] Re-apply skipped: another instance is already running (lockfile) 
+[19-08-2026 20.17.01.72] Re-apply skipped: system is on AC power 
+[20-08-2026 11.36.01.98] === QUICK RE-APPLY AFTER WAKE === 
+[20-08-2026 11.36.06.49] Re-apply skipped: another instance is already running (lockfile) 
+[20-08-2026 11.36.06.57] Re-apply skipped: system is on AC power 
+[20-08-2026 21.07.59.11] Log rotated (was 558 lines) 
+[20-08-2026 21.07.59.55] === POWER SAVING BALANCED MODE ACTIVATED === 
+[20-08-2026 21.08.00.76] PowerToys + Antigravity fully killed (all plugins) 
+[20-08-2026 21.08.08.79] RTX 3050 DISABLED + NVIDIA services stopped 
+[20-08-2026 21.08.09.19] Power plan set to Balanced (base for PSB mode) 
+[20-08-2026 21.08.09.98] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[20-08-2026 21.08.12.01] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[20-08-2026 21.08.12.36] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[20-08-2026 21.08.12.61] NVMe: APST ON (battery), off (AC) 
+[20-08-2026 21.08.12.66] MongoDB start type restored to auto 
+[20-08-2026 21.08.12.92] Energy Saver at 20 default (not forced) 
+[20-08-2026 21.11.30.78] === QUICK RE-APPLY AFTER WAKE === 
+[20-08-2026 21.11.38.48] Re-killed processes after wake (on battery, incl. Antigravity) 
+[20-08-2026 21.11.38.63] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[20-08-2026 21.11.39.20] Brightness re-set to 50 (PSB mode) 
+[20-08-2026 21.12.04.59] Services re-stopped 
+[20-08-2026 21.12.07.46] GPU check after wake 
+[20-08-2026 21.12.07.81] Power plan re-applied 
+[20-08-2026 23.52.33.41] === QUICK RE-APPLY AFTER WAKE === 
+[20-08-2026 23.52.37.46] Re-apply skipped: another instance is already running (lockfile) 
+[20-08-2026 23.52.37.56] Re-apply skipped: system is on AC power 
+[20-08-2026 23.53.58.02] === MAX PERFORMANCE MODE ACTIVATED === 
+[20-08-2026 23.53.58.15] PowerToys start attempted 
+[20-08-2026 23.54.20.14] RTX 3050 ENABLED 
+[20-08-2026 23.54.20.97] Power plan set to Ultimate/High Performance 
+[20-08-2026 23.54.22.42] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[20-08-2026 23.54.24.74] OLED 85, always on, no sleep 
+[20-08-2026 23.54.24.99] NVMe SSD: max performance, no PM 
+[20-08-2026 23.54.25.35] USB always on, PCIe no PM, Wi-Fi max perf 
+[20-08-2026 23.54.32.06] Services restored (including NVIDIA, MongoDB auto-start) 
+[20-08-2026 23.54.32.45] Scheduled tasks re-enabled 
+[20-08-2026 23.54.33.54] Energy Saver disabled 
+[21-08-2026  5.03.46.78] Log rotated (was 531 lines) 
+[21-08-2026  5.03.47.07] === POWER SAVING BALANCED MODE ACTIVATED === 
+[21-08-2026  5.03.48.15] PowerToys + Antigravity fully killed (all plugins) 
+[21-08-2026  5.03.54.98] RTX 3050 DISABLED + NVIDIA services stopped 
+[21-08-2026  5.03.55.26] Power plan set to Balanced (base for PSB mode) 
+[21-08-2026  5.03.55.59] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[21-08-2026  5.03.56.22] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[21-08-2026  5.03.56.38] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[21-08-2026  5.03.56.46] NVMe: APST ON (battery), off (AC) 
+[21-08-2026  5.03.56.48] MongoDB start type restored to auto 
+[21-08-2026  5.03.56.57] Energy Saver at 20 default (not forced) 
+[21-08-2026 11.51.02.12] === QUICK RE-APPLY AFTER WAKE === 
+[21-08-2026 11.51.03.55] Re-apply skipped: another instance is already running (lockfile) 
+[21-08-2026 11.51.03.60] Re-apply skipped: system is on AC power 
+[21-08-2026 11.51.53.34] === MAX PERFORMANCE MODE ACTIVATED === 
+[21-08-2026 11.51.53.45] PowerToys start attempted 
+[21-08-2026 11.52.00.15] RTX 3050 ENABLED 
+[21-08-2026 11.52.01.29] Power plan set to Ultimate/High Performance 
+[21-08-2026 11.52.02.38] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[21-08-2026 11.52.04.58] OLED 85, always on, no sleep 
+[21-08-2026 11.52.04.63] NVMe SSD: max performance, no PM 
+[21-08-2026 11.52.04.85] USB always on, PCIe no PM, Wi-Fi max perf 
+[21-08-2026 11.52.05.07] Services restored (including NVIDIA, MongoDB auto-start) 
+[21-08-2026 11.52.05.27] Scheduled tasks re-enabled 
+[21-08-2026 11.52.05.83] Energy Saver disabled 
+[21-08-2026 12.15.59.20] === QUICK RE-APPLY AFTER WAKE === 
+[21-08-2026 12.15.59.20] === QUICK RE-APPLY AFTER WAKE === 
+[21-08-2026 14.43.56.26] Log rotated (was 526 lines) 
+[21-08-2026 14.43.56.73] === POWER SAVING BALANCED MODE ACTIVATED === 
+[21-08-2026 14.43.57.84] PowerToys + Antigravity fully killed (all plugins) 
+[21-08-2026 14.44.05.79] RTX 3050 DISABLED + NVIDIA services stopped 
+[21-08-2026 14.44.06.19] Power plan set to Balanced (base for PSB mode) 
+[21-08-2026 14.44.07.00] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[21-08-2026 14.44.08.82] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[21-08-2026 14.44.09.16] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[21-08-2026 14.44.09.42] NVMe: APST ON (battery), off (AC) 
+[21-08-2026 14.44.09.46] MongoDB start type restored to auto 
+[21-08-2026 14.44.09.71] Energy Saver at 20 default (not forced) 
+[21-08-2026 14.44.35.57] Log rotated (was 510 lines) 
+[21-08-2026 14.44.36.19] === ULTRA BATTERY SAVER MODE ACTIVATED === 
+[21-08-2026 14.44.37.32] Killed PowerToys + Awake module (was blocking sleep) 
+[21-08-2026 14.44.49.04] Killed background apps + MongoDB + NVIDIA + Asus bloat + Antigravity 
+[21-08-2026 14.44.49.89] Killed browsers 
+[21-08-2026 14.44.52.98] RTX 3050 DISABLED - iGPU only mode 
+[21-08-2026 14.44.53.82] Power plan set to Power Saver 
+[21-08-2026 14.44.55.22] Ryzen 5600H throttled 40, Boost OFF, EPP=100 
+[21-08-2026 14.45.01.15] OLED: brightness 25, dark mode ON, black wallpaper, video=powersave 
+[21-08-2026 14.45.01.30] NVMe SSD: APST ON, latency tolerance aggressive 
+[21-08-2026 14.45.02.15] USB suspend ON (AC+DC), PCIe max savings, Wi-Fi max saving 
+[21-08-2026 14.45.18.40] Services stopped in parallel (including NVIDIA services) 
+[21-08-2026 14.45.19.22] Disabled heavy + NVIDIA scheduled tasks 
+[21-08-2026 14.45.19.90] Edge timer fix: startup boost OFF, background OFF, efficiency ON 
+[21-08-2026 14.45.26.12] Webcam USB selective suspend enabled + Samsung phone USB selective suspend enabled 
+[21-08-2026 14.45.27.72] Energy Saver enabled (threshold=100) 
+[21-08-2026 14.45.29.21] Low battery protection: warn 20 (ALL plans) 
+[21-08-2026 14.45.29.79] Auto wake tasks: 3/3 created, 0/3 failed 
+[22-08-2026  1.07.05.92] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026  1.07.05.93] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026  1.07.06.61] Re-apply skipped: system is on AC power 
+[22-08-2026  1.07.11.17] Re-killed processes after wake (on battery, incl. Antigravity) 
+[22-08-2026  1.07.11.35] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
+[22-08-2026  1.07.12.15] Brightness re-set to 25 (Saver mode) 
+[22-08-2026  1.07.14.81] Services re-stopped 
+[22-08-2026  1.07.15.84] GPU check after wake 
+[22-08-2026  1.07.16.02] Power plan re-applied 
+[22-08-2026  1.08.05.09] === MAX PERFORMANCE MODE ACTIVATED === 
+[22-08-2026  1.08.05.14] PowerToys start attempted 
+[22-08-2026  1.08.12.90] RTX 3050 ENABLED 
+[22-08-2026  1.08.14.75] Power plan set to Ultimate/High Performance 
+[22-08-2026  1.08.14.99] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[22-08-2026  1.08.17.94] OLED 85, always on, no sleep 
+[22-08-2026  1.08.18.07] NVMe SSD: max performance, no PM 
+[22-08-2026  1.08.18.79] USB always on, PCIe no PM, Wi-Fi max perf 
+[22-08-2026  1.08.31.48] Services restored (including NVIDIA, MongoDB auto-start) 
+[22-08-2026  1.08.31.82] Scheduled tasks re-enabled 
+[22-08-2026  1.08.32.91] Energy Saver disabled 
+[22-08-2026 12.39.21.24] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 12.39.21.24] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 12.39.24.65] Re-apply skipped: system is on AC power 
+[22-08-2026 16.53.21.94] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 16.53.21.94] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 16.53.45.16] Log rotated (was 542 lines) 
+[22-08-2026 16.53.45.71] === POWER SAVING BALANCED MODE ACTIVATED === 
+[22-08-2026 16.53.46.76] PowerToys + Antigravity fully killed (all plugins) 
+[22-08-2026 16.53.54.18] RTX 3050 DISABLED + NVIDIA services stopped 
+[22-08-2026 16.53.54.57] Power plan set to Balanced (base for PSB mode) 
+[22-08-2026 16.53.55.63] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[22-08-2026 16.53.57.36] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[22-08-2026 16.53.57.70] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[22-08-2026 16.53.57.95] NVMe: APST ON (battery), off (AC) 
+[22-08-2026 16.53.58.00] MongoDB start type restored to auto 
+[22-08-2026 16.53.58.25] Energy Saver at 20 default (not forced) 
+[22-08-2026 18.11.20.55] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 18.11.20.56] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 18.11.21.72] Re-apply skipped: system is on AC power 
+[22-08-2026 18.11.29.86] Re-killed processes after wake (on battery, incl. Antigravity) 
+[22-08-2026 18.11.30.00] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[22-08-2026 18.11.31.89] Brightness re-set to 50 (PSB mode) 
+[22-08-2026 18.11.39.53] Services re-stopped 
+[22-08-2026 18.11.40.92] GPU check after wake 
+[22-08-2026 18.11.40.99] Power plan re-applied 
+[22-08-2026 21.37.16.06] === QUICK RE-APPLY AFTER WAKE === 
+[22-08-2026 21.37.17.71] Re-apply skipped: another instance is already running (lockfile) 
+[22-08-2026 21.37.18.01] Re-apply skipped: system is on AC power 
+[23-08-2026  0.17.10.40] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026  0.17.10.40] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026  0.17.13.66] Re-apply skipped: system is on AC power 
+[23-08-2026  0.17.18.36] Re-killed processes after wake (on battery, incl. Antigravity) 
+[23-08-2026  0.17.18.45] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[23-08-2026  0.17.18.82] Brightness re-set to 50 (PSB mode) 
+[23-08-2026  0.17.21.44] Services re-stopped 
+[23-08-2026  0.17.23.44] GPU check after wake 
+[23-08-2026  0.17.23.50] Power plan re-applied 
+[23-08-2026 13.02.49.45] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026 13.02.51.93] Re-apply skipped: another instance is already running (lockfile) 
+[23-08-2026 13.02.52.09] Re-apply skipped: system is on AC power 
+[23-08-2026 14.21.08.78] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026 14.21.10.63] Re-apply skipped: system is on AC power 
+[23-08-2026 19.45.31.29] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026 19.45.33.15] Re-apply skipped: another instance is already running (lockfile) 
+[23-08-2026 19.45.33.34] Re-apply skipped: system is on AC power 
+[23-08-2026 23.19.28.66] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026 23.19.30.23] Re-apply skipped: system is on AC power 
+[23-08-2026 23.23.55.94] === QUICK RE-APPLY AFTER WAKE === 
+[23-08-2026 23.23.56.38] Re-apply skipped: system is on AC power 
+[24-08-2026 12.48.48.33] === QUICK RE-APPLY AFTER WAKE === 
+[24-08-2026 12.48.48.33] === QUICK RE-APPLY AFTER WAKE === 
+[24-08-2026 12.48.54.62] Re-apply skipped: system is on AC power 
+[24-08-2026 16.38.20.82] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[24-08-2026 16.38.27.33] RTX 3050 ENABLED + services started 
+[24-08-2026 16.38.28.35] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[24-08-2026 16.38.28.42] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[24-08-2026 16.38.28.52] Power plan set to Ultimate Performance 
+[24-08-2026 16.38.29.03] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[24-08-2026 16.38.30.35] OLED 85, always on, no sleep, no hibernate 
+[24-08-2026 16.38.30.41] NVMe SSD: max throughput, no PM, no sleep states 
+[24-08-2026 16.38.30.66] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[24-08-2026 16.38.37.03] All services started (including NVIDIA, MongoDB auto-start) 
+[24-08-2026 16.38.37.24] All scheduled tasks re-enabled (including NVIDIA) 
+[24-08-2026 16.38.38.09] Energy Saver completely disabled 
+[24-08-2026 16.38.38.46] Video playback set to max quality 
+[24-08-2026 18.01.24.67] Log rotated (was 559 lines) 
+[24-08-2026 18.01.24.99] === POWER SAVING BALANCED MODE ACTIVATED === 
+[24-08-2026 18.01.25.87] PowerToys + Antigravity fully killed (all plugins) 
+[24-08-2026 18.01.33.10] RTX 3050 DISABLED + NVIDIA services stopped 
+[24-08-2026 18.01.33.38] Power plan set to Balanced (base for PSB mode) 
+[24-08-2026 18.01.33.69] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[24-08-2026 18.01.34.35] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[24-08-2026 18.01.34.50] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[24-08-2026 18.01.34.59] NVMe: APST ON (battery), off (AC) 
+[24-08-2026 18.01.34.62] MongoDB start type restored to auto 
+[24-08-2026 18.01.34.71] Energy Saver at 20 default (not forced) 
+[24-08-2026 20.08.21.34] === QUICK RE-APPLY AFTER WAKE === 
+[24-08-2026 21.29.49.66] === QUICK RE-APPLY AFTER WAKE === 
+[24-08-2026 21.29.50.45] Re-apply skipped: system is on AC power 
+[25-08-2026  8.44.24.77] === QUICK RE-APPLY AFTER WAKE === 
+[25-08-2026  8.44.25.87] Re-apply skipped: another instance is already running (lockfile) 
+[25-08-2026  8.44.26.03] Re-apply skipped: system is on AC power 
+[25-08-2026 11.01.14.52] === QUICK RE-APPLY AFTER WAKE === 
+[25-08-2026 11.01.16.29] Re-apply skipped: system is on AC power 
+[25-08-2026 20.26.54.40] === QUICK RE-APPLY AFTER WAKE === 
+[25-08-2026 20.26.56.75] Re-apply skipped: another instance is already running (lockfile) 
+[25-08-2026 20.26.57.13] Re-apply skipped: system is on AC power 
+[26-08-2026  1.48.10.29] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026  1.48.11.53] Re-apply skipped: system is on AC power 
+[26-08-2026  1.56.32.30] Power Saving Balanced skipped (already active) 
+[26-08-2026  1.56.49.55] === BALANCED MODE ACTIVATED === 
+[26-08-2026  1.57.05.73] GPU preferences reset to Optimus auto (explicit defaults) 
+[26-08-2026  1.57.06.14] Video playback reset to balanced 
+[26-08-2026  1.57.06.54] Balanced mode restored (GPU prefs reset, video reset) 
+[26-08-2026  1.57.36.02] Log rotated (was 528 lines) 
+[26-08-2026  1.57.36.55] === POWER SAVING BALANCED MODE ACTIVATED === 
+[26-08-2026  1.57.38.14] PowerToys + Antigravity fully killed (all plugins) 
+[26-08-2026  1.57.47.90] RTX 3050 DISABLED + NVIDIA services stopped 
+[26-08-2026  1.57.48.22] Power plan set to Balanced (base for PSB mode) 
+[26-08-2026  1.57.48.56] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[26-08-2026  1.57.51.14] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[26-08-2026  1.57.51.62] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[26-08-2026  1.57.51.97] NVMe: APST ON (battery), off (AC) 
+[26-08-2026  1.57.52.02] MongoDB start type restored to auto 
+[26-08-2026  1.57.52.38] Energy Saver at 20 default (not forced) 
+[26-08-2026  9.47.04.41] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026  9.47.04.41] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026  9.47.08.38] Re-apply skipped: system is on AC power 
+[26-08-2026  9.47.08.38] Re-apply skipped: system is on AC power 
+[26-08-2026 13.13.06.94] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026 13.13.06.94] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026 13.13.10.31] Re-apply skipped: system is on AC power 
+[26-08-2026 13.13.17.21] Re-killed processes after wake (on battery, incl. Antigravity) 
+[26-08-2026 13.13.17.31] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[26-08-2026 13.13.17.72] Brightness re-set to 50 (PSB mode) 
+[26-08-2026 13.13.25.39] Services re-stopped 
+[26-08-2026 13.13.26.68] GPU check after wake 
+[26-08-2026 13.13.26.85] Power plan re-applied 
+[26-08-2026 14.00.33.29] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026 14.00.34.16] Re-apply skipped: system is on AC power 
+[26-08-2026 20.14.58.05] === QUICK RE-APPLY AFTER WAKE === 
+[26-08-2026 20.15.01.72] Re-apply skipped: another instance is already running (lockfile) 
+[26-08-2026 20.15.02.21] Re-apply skipped: system is on AC power 
+[27-08-2026  1.50.36.25] === QUICK RE-APPLY AFTER WAKE === 
+[27-08-2026  1.50.36.25] === QUICK RE-APPLY AFTER WAKE === 
+[27-08-2026  1.50.38.59] Re-apply skipped: system is on AC power 
+[27-08-2026 21.58.49.79] === QUICK RE-APPLY AFTER WAKE === 
+[27-08-2026 21.59.24.05] === MAX PERFORMANCE MODE ACTIVATED === 
+[27-08-2026 21.59.24.11] PowerToys start attempted 
+[27-08-2026 21.59.34.05] RTX 3050 ENABLED 
+[27-08-2026 21.59.34.33] Power plan set to Ultimate/High Performance 
+[27-08-2026 21.59.35.99] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[27-08-2026 21.59.38.49] OLED 85, always on, no sleep 
+[27-08-2026 21.59.38.77] NVMe SSD: max performance, no PM 
+[27-08-2026 21.59.40.93] USB always on, PCIe no PM, Wi-Fi max perf 
+[27-08-2026 21.59.47.81] Services restored (including NVIDIA, MongoDB auto-start) 
+[27-08-2026 21.59.48.16] Scheduled tasks re-enabled 
+[27-08-2026 21.59.49.01] Energy Saver disabled 
+[28-08-2026  2.47.59.56] Performance activation skipped (already active) 
+[28-08-2026  2.49.53.81] Log rotated (was 544 lines) 
+[28-08-2026  2.49.54.87] === POWER SAVING BALANCED MODE ACTIVATED === 
+[28-08-2026  2.49.55.62] PowerToys + Antigravity fully killed (all plugins) 
+[28-08-2026  2.50.04.19] RTX 3050 DISABLED + NVIDIA services stopped 
+[28-08-2026  2.50.04.43] Power plan set to Balanced (base for PSB mode) 
+[28-08-2026  2.50.04.72] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[28-08-2026  2.50.06.01] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[28-08-2026  2.50.06.15] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[28-08-2026  2.50.06.23] NVMe: APST ON (battery), off (AC) 
+[28-08-2026  2.50.06.26] MongoDB start type restored to auto 
+[28-08-2026  2.50.06.33] Energy Saver at 20 default (not forced) 
+[28-08-2026 20.25.57.29] === MAX PERFORMANCE MODE ACTIVATED === 
+[28-08-2026 20.25.57.41] PowerToys start attempted 
+[28-08-2026 20.26.17.43] RTX 3050 ENABLED 
+[28-08-2026 20.26.19.49] Power plan set to Ultimate/High Performance 
+[28-08-2026 20.26.21.63] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[28-08-2026 20.26.33.06] OLED 85, always on, no sleep 
+[28-08-2026 20.26.33.18] NVMe SSD: max performance, no PM 
+[28-08-2026 20.26.34.94] USB always on, PCIe no PM, Wi-Fi max perf 
+[28-08-2026 20.26.38.54] Services restored (including NVIDIA, MongoDB auto-start) 
+[28-08-2026 20.26.38.91] Scheduled tasks re-enabled 
+[28-08-2026 20.26.44.00] Energy Saver disabled 
+[28-08-2026 20.52.04.49] === QUICK RE-APPLY AFTER WAKE === 
+[28-08-2026 20.52.04.49] === QUICK RE-APPLY AFTER WAKE === 
+[28-08-2026 20.52.05.96] Re-apply skipped: system is on AC power 
+[29-08-2026  1.14.47.75] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026  1.14.49.47] Re-apply skipped: another instance is already running (lockfile) 
+[29-08-2026  1.14.49.77] Re-apply skipped: system is on AC power 
+[29-08-2026  9.07.49.04] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026  9.07.51.13] Re-apply skipped: system is on AC power 
+[29-08-2026  9.34.46.25] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026  9.34.50.13] Re-apply skipped: another instance is already running (lockfile) 
+[29-08-2026 11.37.38.13] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026 11.37.38.13] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026 11.37.38.88] Re-apply skipped: system is on AC power 
+[29-08-2026 21.04.21.96] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026 21.06.57.20] Performance activation skipped (already active) 
+[29-08-2026 21.07.11.70] Log rotated (was 536 lines) 
+[29-08-2026 21.07.12.00] === POWER SAVING BALANCED MODE ACTIVATED === 
+[29-08-2026 21.07.12.79] PowerToys + Antigravity fully killed (all plugins) 
+[29-08-2026 21.07.20.30] RTX 3050 DISABLED + NVIDIA services stopped 
+[29-08-2026 21.07.20.58] Power plan set to Balanced (base for PSB mode) 
+[29-08-2026 21.07.21.89] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[29-08-2026 21.07.24.70] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[29-08-2026 21.07.25.22] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[29-08-2026 21.07.25.61] NVMe: APST ON (battery), off (AC) 
+[29-08-2026 21.07.25.66] MongoDB start type restored to auto 
+[29-08-2026 21.07.26.06] Energy Saver at 20 default (not forced) 
+[29-08-2026 21.07.30.34] === MAX PERFORMANCE MODE ACTIVATED === 
+[29-08-2026 21.07.30.38] PowerToys start attempted 
+[29-08-2026 21.07.38.53] RTX 3050 ENABLED 
+[29-08-2026 21.07.39.51] Power plan set to Ultimate/High Performance 
+[29-08-2026 21.07.40.35] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[29-08-2026 21.07.41.84] OLED 85, always on, no sleep 
+[29-08-2026 21.07.42.05] NVMe SSD: max performance, no PM 
+[29-08-2026 21.07.42.53] USB always on, PCIe no PM, Wi-Fi max perf 
+[29-08-2026 21.07.45.19] Services restored (including NVIDIA, MongoDB auto-start) 
+[29-08-2026 21.07.45.59] Scheduled tasks re-enabled 
+[29-08-2026 21.07.46.57] Energy Saver disabled 
+[29-08-2026 23.00.34.89] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026 23.00.34.89] === QUICK RE-APPLY AFTER WAKE === 
+[29-08-2026 23.00.35.58] Re-apply skipped: system is on AC power 
+[30-08-2026  0.46.00.88] Log rotated (was 524 lines) 
+[30-08-2026  0.46.01.16] === POWER SAVING BALANCED MODE ACTIVATED === 
+[30-08-2026  0.46.01.94] PowerToys + Antigravity fully killed (all plugins) 
+[30-08-2026  0.46.08.68] RTX 3050 DISABLED + NVIDIA services stopped 
+[30-08-2026  0.46.08.98] Power plan set to Balanced (base for PSB mode) 
+[30-08-2026  0.46.10.19] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[30-08-2026  0.46.12.90] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[30-08-2026  0.46.13.40] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[30-08-2026  0.46.13.78] NVMe: APST ON (battery), off (AC) 
+[30-08-2026  0.46.13.83] MongoDB start type restored to auto 
+[30-08-2026  0.46.14.21] Energy Saver at 20 default (not forced) 
+[30-08-2026 11.08.04.14] === QUICK RE-APPLY AFTER WAKE === 
+[30-08-2026 11.08.07.10] Re-apply skipped: system is on AC power 
+[30-08-2026 11.56.55.65] === QUICK RE-APPLY AFTER WAKE === 
+[30-08-2026 11.56.55.65] === QUICK RE-APPLY AFTER WAKE === 
+[30-08-2026 11.56.59.37] Re-apply skipped: system is on AC power 
+[30-08-2026 11.57.03.72] Re-killed processes after wake (on battery, incl. Antigravity) 
+[30-08-2026 11.57.03.81] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[30-08-2026 11.57.04.14] Brightness re-set to 50 (PSB mode) 
+[30-08-2026 11.57.11.80] Services re-stopped 
+[30-08-2026 11.57.12.72] GPU check after wake 
+[30-08-2026 11.57.12.91] Power plan re-applied 
+[30-08-2026 11.57.39.58] === MAX PERFORMANCE MODE ACTIVATED === 
+[30-08-2026 11.57.39.63] PowerToys start attempted 
+[30-08-2026 11.57.45.40] RTX 3050 ENABLED 
+[30-08-2026 11.57.45.94] Power plan set to Ultimate/High Performance 
+[30-08-2026 11.57.46.67] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[30-08-2026 11.57.48.85] OLED 85, always on, no sleep 
+[30-08-2026 11.57.49.60] NVMe SSD: max performance, no PM 
+[30-08-2026 11.57.49.95] USB always on, PCIe no PM, Wi-Fi max perf 
+[30-08-2026 11.57.54.40] Services restored (including NVIDIA, MongoDB auto-start) 
+[30-08-2026 11.57.54.61] Scheduled tasks re-enabled 
+[30-08-2026 11.57.55.31] Energy Saver disabled 
+[30-08-2026 16.15.12.37] === QUICK RE-APPLY AFTER WAKE === 
+[30-08-2026 16.15.14.03] Re-apply skipped: another instance is already running (lockfile) 
+[30-08-2026 16.15.14.10] Re-apply skipped: system is on AC power 
+[31-08-2026  1.20.49.41] Log rotated (was 535 lines) 
+[31-08-2026  1.20.49.76] === POWER SAVING BALANCED MODE ACTIVATED === 
+[31-08-2026  1.20.50.68] PowerToys + Antigravity fully killed (all plugins) 
+[31-08-2026  1.20.58.42] RTX 3050 DISABLED + NVIDIA services stopped 
+[31-08-2026  1.20.58.73] Power plan set to Balanced (base for PSB mode) 
+[31-08-2026  1.21.00.11] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[31-08-2026  1.21.03.07] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[31-08-2026  1.21.03.62] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[31-08-2026  1.21.04.05] NVMe: APST ON (battery), off (AC) 
+[31-08-2026  1.21.04.11] MongoDB start type restored to auto 
+[31-08-2026  1.21.04.52] Energy Saver at 20 default (not forced) 
+[31-08-2026  9.24.44.21] === QUICK RE-APPLY AFTER WAKE === 
+[31-08-2026 16.50.54.25] === QUICK RE-APPLY AFTER WAKE === 
+[31-08-2026 16.50.54.26] === QUICK RE-APPLY AFTER WAKE === 
+[31-08-2026 16.50.55.16] Re-apply skipped: system is on AC power 
+[31-08-2026 17.33.44.83] === QUICK RE-APPLY AFTER WAKE === 
+[31-08-2026 17.33.46.60] Re-apply skipped: system is on AC power 
+[31-08-2026 20.33.30.84] === QUICK RE-APPLY AFTER WAKE === 
+[31-08-2026 20.33.30.84] === QUICK RE-APPLY AFTER WAKE === 
+[31-08-2026 22.08.31.55] Power Saving Balanced skipped (already active) 
+[31-08-2026 22.08.35.20] === MAX PERFORMANCE MODE ACTIVATED === 
+[31-08-2026 22.08.35.24] PowerToys start attempted 
+[31-08-2026 22.08.44.03] RTX 3050 ENABLED 
+[31-08-2026 22.08.44.93] Power plan set to Ultimate/High Performance 
+[31-08-2026 22.08.46.24] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[31-08-2026 22.08.48.46] OLED 85, always on, no sleep 
+[31-08-2026 22.08.48.86] NVMe SSD: max performance, no PM 
+[31-08-2026 22.08.49.51] USB always on, PCIe no PM, Wi-Fi max perf 
+[31-08-2026 22.08.52.68] Services restored (including NVIDIA, MongoDB auto-start) 
+[31-08-2026 22.08.53.41] Scheduled tasks re-enabled 
+[31-08-2026 22.08.55.28] Energy Saver disabled 
+[31-08-2026 22.09.00.90] Log rotated (was 530 lines) 
+[31-08-2026 22.09.01.32] === POWER SAVING BALANCED MODE ACTIVATED === 
+[31-08-2026 22.09.02.60] PowerToys + Antigravity fully killed (all plugins) 
+[31-08-2026 22.09.07.43] RTX 3050 DISABLED + NVIDIA services stopped 
+[31-08-2026 22.09.07.73] Power plan set to Balanced (base for PSB mode) 
+[31-08-2026 22.09.08.07] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[31-08-2026 22.09.08.81] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[31-08-2026 22.09.08.98] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[31-08-2026 22.09.09.08] NVMe: APST ON (battery), off (AC) 
+[31-08-2026 22.09.09.10] MongoDB start type restored to auto 
+[31-08-2026 22.09.09.19] Energy Saver at 20 default (not forced) 
+[01-09-2026  1.39.16.51] === QUICK RE-APPLY AFTER WAKE === 
+[01-09-2026  1.39.17.66] Re-apply skipped: system is on AC power 
+[01-09-2026 17.11.26.72] === QUICK RE-APPLY AFTER WAKE === 
+[01-09-2026 17.11.30.91] Re-apply skipped: another instance is already running (lockfile) 
+[01-09-2026 19.10.19.57] === QUICK RE-APPLY AFTER WAKE === 
+[01-09-2026 19.10.19.57] === QUICK RE-APPLY AFTER WAKE === 
+[01-09-2026 19.10.20.31] Re-apply skipped: system is on AC power 
+[01-09-2026 19.10.27.39] Re-killed processes after wake (on battery, incl. Antigravity) 
+[01-09-2026 19.10.27.56] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[01-09-2026 19.10.28.05] Brightness re-set to 50 (PSB mode) 
+[01-09-2026 19.10.35.73] Services re-stopped 
+[01-09-2026 19.10.36.65] GPU check after wake 
+[01-09-2026 19.10.36.83] Power plan re-applied 
+[02-09-2026  1.44.50.17] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026  1.44.50.17] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 19.48.12.66] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 19.48.12.66] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 19.48.13.37] Re-apply skipped: system is on AC power 
+[02-09-2026 19.53.54.65] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 19.53.54.99] Re-apply skipped: system is on AC power 
+[02-09-2026 21.16.00.05] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 21.16.00.05] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 21.16.02.44] Re-apply skipped: system is on AC power 
+[02-09-2026 21.16.07.53] Re-killed processes after wake (on battery, incl. Antigravity) 
+[02-09-2026 21.16.07.63] PSB CPU re-applied: 100 max, Boost Efficient, EPP=50 
+[02-09-2026 21.16.07.99] Brightness re-set to 50 (PSB mode) 
+[02-09-2026 21.16.10.62] Services re-stopped 
+[02-09-2026 21.16.11.64] GPU check after wake 
+[02-09-2026 21.16.11.70] Power plan re-applied 
+[02-09-2026 23.49.00.66] === QUICK RE-APPLY AFTER WAKE === 
+[02-09-2026 23.49.01.47] Re-apply skipped: system is on AC power 
+[03-09-2026  2.19.19.38] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026  2.19.20.84] Re-apply skipped: another instance is already running (lockfile) 
+[03-09-2026  2.19.20.90] Re-apply skipped: system is on AC power 
+[03-09-2026 11.10.39.70] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 11.10.39.70] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 13.36.50.96] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 13.36.50.96] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 13.36.51.52] Re-apply skipped: system is on AC power 
+[03-09-2026 16.45.23.26] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 16.45.23.26] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 16.45.25.80] Re-apply skipped: system is on AC power 
+[03-09-2026 16.46.12.45] Power Saving Balanced skipped (already active) 
+[03-09-2026 16.46.19.50] === MAX PERFORMANCE MODE ACTIVATED === 
+[03-09-2026 16.46.19.53] PowerToys start attempted 
+[03-09-2026 16.46.28.92] RTX 3050 ENABLED 
+[03-09-2026 16.46.29.20] Power plan set to Ultimate/High Performance 
+[03-09-2026 16.46.30.18] Ryzen 5600H 100, Boost Aggressive, EPP=0, 12T active 
+[03-09-2026 16.46.32.16] OLED 85, always on, no sleep 
+[03-09-2026 16.46.32.29] NVMe SSD: max performance, no PM 
+[03-09-2026 16.46.32.83] USB always on, PCIe no PM, Wi-Fi max perf 
+[03-09-2026 16.46.39.25] Services restored (including NVIDIA, MongoDB auto-start) 
+[03-09-2026 16.46.39.45] Scheduled tasks re-enabled 
+[03-09-2026 16.46.40.01] Energy Saver disabled 
+[03-09-2026 20.27.23.64] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 20.27.23.64] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 20.27.25.49] Re-apply skipped: system is on AC power 
+[03-09-2026 22.35.59.30] === QUICK RE-APPLY AFTER WAKE === 
+[03-09-2026 22.36.00.68] Re-apply skipped: system is on AC power 
+[03-09-2026 22.36.05.18] Re-killed processes after wake (on battery, incl. Antigravity) 
+[03-09-2026 22.36.05.26] Saver CPU re-applied: 40 max, Boost OFF, EPP=100 
+[03-09-2026 22.36.05.61] Brightness re-set to 25 (Saver mode) 
+[03-09-2026 22.36.25.79] Services re-stopped 
+[03-09-2026 22.36.28.25] GPU check after wake 
+[03-09-2026 22.36.28.42] Power plan re-applied 
+[04-09-2026  1.21.03.83] Log rotated (was 575 lines) 
+[04-09-2026  1.21.04.03] === POWER SAVING BALANCED MODE ACTIVATED === 
+[04-09-2026  1.21.04.69] PowerToys + Antigravity fully killed (all plugins) 
+[04-09-2026  1.21.23.90] RTX 3050 DISABLED + NVIDIA services stopped 
+[04-09-2026  1.21.24.16] Power plan set to Balanced (base for PSB mode) 
+[04-09-2026  1.21.24.47] CPU: 100 max, Boost Efficient, EPP=50, CPMINCORES=25, Autonomous ON 
+[04-09-2026  1.21.25.00] OLED: 50 brightness, screen off 3/10min, sleep 10/30min 
+[04-09-2026  1.21.25.14] Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate 
+[04-09-2026  1.21.25.22] NVMe: APST ON (battery), off (AC) 
+[04-09-2026  1.21.25.25] MongoDB start type restored to auto 
+[04-09-2026  1.21.25.33] Energy Saver at 20 default (not forced) 

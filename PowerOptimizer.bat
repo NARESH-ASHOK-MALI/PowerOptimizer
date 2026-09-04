@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Asus Vivobook Pro OLED - Power Optimizer v8.0
+title Asus Vivobook Pro OLED - Power Optimizer v9.0
 color 0B
 
 :: =============================================
@@ -13,13 +13,21 @@ color 0B
 ::  Storage: 512 GB NVMe SSD
 ::  Display: 15.6" OLED 60Hz (AMOLED)
 ::  BIOS:    M3500QC.316 (2023/05/25) - LATEST
-::  Battery: 83.8%% health / 295 cycles (as of Jul 5, 2026)
+::  Battery: 83.8%% health / 295 cycles (as of July 05 2026)
 ::  NOTE:    PCIe ASPM disabled at BIOS level
 ::           (hardware incompatibility, no newer BIOS)
 :: =============================================
 
 :: =============================================
 ::  CHANGELOG
+::  v9.0 - [FIX-1] MongoDB start type now restored in Perf/Ultra Perf modes
+::       - [FIX-2] Scheduled task creation now logs each task independently
+::       - [FIX-3] Node.js blanket kill replaced with opt-in toggle (KILL_NODE)
+::       - [FIX-4] Removed obsolete SATA AHCI Link PM GUID (NVMe-only machine)
+::       - [FIX-5] Taskbar auto-hide no longer restarts explorer.exe
+::       - [FIX-6] Balanced mode documents GPU registry restore rationale
+::       - [FIX-7a] PhoneLink excluded from kill lists (prevents device loss)
+::       - [FIX-7b] Auto re-apply lockfile prevents duplicate cmd windows
 ::  v8.0 - [BUG-20] Fixed critical battery hibernate not triggering
 ::         at 8%% — now sets thresholds on ALL power plans, raised to 10%%
 ::       - [BUG-21] Antigravity.exe blocks sleep (energy report)
@@ -40,6 +48,9 @@ color 0B
 set "LOGFILE=%~dp0PowerOptimizer.log"
 set "KILL_BROWSERS=1"
 :: Set KILL_BROWSERS=0 to keep browsers open in battery saver
+set "KILL_NODE=0"
+:: Set KILL_NODE=1 to kill all Node.js processes in battery saver
+:: Default OFF: blanket-killing node.exe can terminate dev servers or tools
 set "LOG_MAX_LINES=500"
 :: Track current active mode to prevent duplicate activations
 set "CURRENT_MODE="
@@ -92,7 +103,7 @@ if /i "%~1"=="P" goto psbalanced
 cls
 echo.
 echo   +==============================================================+
-echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v8.0           :
+echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v9.0           :
 echo   :     Ryzen 5 5600H ^| RTX 3050 ^| 16GB ^| BIOS 316 (Latest)   :
 echo   +==============================================================+
 echo.
@@ -314,11 +325,19 @@ taskkill /IM CCXProcess.exe /F /T >nul 2>&1
 taskkill /IM Widgets.exe /F /T >nul 2>&1
 taskkill /IM WidgetService.exe /F /T >nul 2>&1
 :: Node / Dev tools background
+:: FIX-3: Blanket node.exe kill is now opt-in via KILL_NODE config.
+:: Default OFF because it can terminate local dev servers, Antigravity terminal,
+:: or any Node-based tool the user has running.
+if not "%KILL_NODE%"=="1" goto skip_node_kill
 :: IMPORTANT: Do NOT use /T (tree kill) for node.exe!
 :: If this script was launched from VS Code terminal, Antigravity, or any
 :: Node-based tool, /T would kill the cmd.exe process tree and terminate
 :: this script mid-execution (BUG-17 fix - May 2026).
 taskkill /IM "node.exe" /F >nul 2>&1
+call :log "Node.exe killed (KILL_NODE=1)"
+:skip_node_kill
+:: FIX-7a: PhoneLink (PhoneExperienceHost.exe) is intentionally NOT killed.
+:: Killing it breaks Bluetooth LE pairing and forces device re-pair on restart.
 :: MongoDB (timer resolution hog - requests 1ms/10000 100ns units, wastes CPU power)
 net stop MongoDB >nul 2>&1
 taskkill /IM mongod.exe /F /T >nul 2>&1
@@ -441,9 +460,9 @@ echo   [8/16] NVMe SSD power optimization...
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 1 >nul 2>&1
 :: Reduce NVMe power state transition latency tolerance on battery
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131dbc80e 10 >nul 2>&1
-:: Enable AHCI Link Power Management - HIPM/DIPM (power saving)
-powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK 0b2d69d7-a2a1-449c-9680-f91c70521c60 2 >nul 2>&1
-call :log "NVMe SSD: APST ON, link PM aggressive"
+:: FIX-4: Removed obsolete SATA AHCI Link PM GUID (0b2d69d7).
+:: This machine uses NVMe SSD only — SATA HIPM/DIPM is irrelevant.
+call :log "NVMe SSD: APST ON, latency tolerance aggressive"
 
 echo   [9/16] USB, PCIe, Wi-Fi power optimization...
 :: Enable USB selective suspend on battery AND AC (energy report flagged AC disabled)
@@ -564,20 +583,21 @@ powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "Low battery protection: warn 20%%, hibernate 10%% (ALL plans)"
 
 echo   [16/16] Setting up auto re-apply on wake...
-:: Users never manually press [R] after wake (log shows 0 uses).
-:: Create a lightweight scheduled task that re-applies power settings on resume.
+:: FIX-2: Log each scheduled task creation independently instead of only
+:: checking the last %errorlevel% (which misrepresents partial failures).
+set "_taskOK=0"
+set "_taskFail=0"
 schtasks /create /tn "PowerOptimizer_WakeReapply" /tr "cmd /c \"%~f0\" R" /sc ONEVENT /ec System /mo "*[System[Provider[@Name='Microsoft-Windows-Power-Troubleshooter'] and (EventID=1)]]" /f /rl HIGHEST >nul 2>&1
+if !errorlevel! equ 0 (set /a "_taskOK+=1") else (set /a "_taskFail+=1")
 schtasks /create /tn "PowerOptimizer_WakeReapply_Modern" /tr "cmd /c \"%~f0\" R" /sc ONEVENT /ec System /mo "*[System[Provider[@Name='Microsoft-Windows-Kernel-Power'] and (EventID=507)]]" /f /rl HIGHEST >nul 2>&1
+if !errorlevel! equ 0 (set /a "_taskOK+=1") else (set /a "_taskFail+=1")
 schtasks /create /tn "PowerOptimizer_WakeReapply_Unlock" /tr "cmd /c \"%~f0\" R" /sc ONEVENT /ec Security /mo "*[System[(EventID=4801)]]" /f /rl HIGHEST >nul 2>&1
-if %errorlevel% equ 0 (
-    call :log "Auto wake re-apply task created"
-) else (
-    call :log "Auto wake re-apply task creation failed (non-critical)"
-)
+if !errorlevel! equ 0 (set /a "_taskOK+=1") else (set /a "_taskFail+=1")
+call :log "Auto wake tasks: !_taskOK!/3 created, !_taskFail!/3 failed"
 
 echo.
 echo   +==============================================================+
-echo   :         ULTRA BATTERY SAVER v8.0 is now ON!                  :
+echo   :         ULTRA BATTERY SAVER v9.0 is now ON!                  :
 echo   +--------------------------------------------------------------+
 echo   :  Ryzen 5600H: 40%% cap / Boost OFF / Core parking ON         :
 echo   :  RTX 3050:    DISABLED (Radeon iGPU only)                    :
@@ -702,8 +722,7 @@ echo   [7/10] NVMe SSD: max performance...
 powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 0 >nul 2>&1
 :: Set max latency tolerance
 powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131dbc80e 0 >nul 2>&1
-:: AHCI Link PM: Active (no power saving)
-powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK 0b2d69d7-a2a1-449c-9680-f91c70521c60 0 >nul 2>&1
+:: FIX-4: SATA AHCI Link PM GUID removed (NVMe-only machine)
 call :log "NVMe SSD: max performance, no PM"
 
 echo   [8/10] USB, PCIe, Wi-Fi: max performance...
@@ -726,7 +745,9 @@ net start Spooler >nul 2>&1
 net start BITS >nul 2>&1
 net start WbioSrvc >nul 2>&1
 net start NVDisplay.ContainerLocalSystem >nul 2>&1
-call :log "Services restored (including NVIDIA)"
+:: FIX-1: Restore MongoDB to auto start (was set to demand in saver/PSB modes)
+sc config MongoDB start= auto >nul 2>&1
+call :log "Services restored (including NVIDIA, MongoDB auto-start)"
 
 :: Re-enable scheduled tasks
 schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /enable >nul 2>&1
@@ -856,11 +877,17 @@ powercfg /setactive SCHEME_CURRENT >nul 2>&1
 echo   [6/7] Resetting GPU preferences to auto (Optimus)...
 :: Clear global GPU preference set by Ultra Performance mode
 reg delete "HKLM\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /f >nul 2>&1
+:: FIX-6: Restore GPU registry to OEM defaults.
+:: EnableMsHybrid: OEM default is KEY ABSENT (verified in registry).
+:: Ultra Performance creates this key with value 2 to force NVIDIA rendering.
+:: Deleting it returns the driver to its built-in Optimus auto-select behavior.
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "EnableMsHybrid" /f >nul 2>&1
-reg delete "HKCU\SOFTWARE\NVIDIA Corporation\Global\NVTweak" /v "DisablePowerMizer" /f >nul 2>&1
+:: DisablePowerMizer: Ultra Performance sets this to 1 (PowerMizer OFF).
+:: Restore to 0 = PowerMizer enabled (normal NVIDIA power management).
+reg add "HKCU\SOFTWARE\NVIDIA Corporation\Global\NVTweak" /v "DisablePowerMizer" /t REG_DWORD /d 0 /f >nul 2>&1
 :: Restore MongoDB to auto start
 sc config MongoDB start= auto >nul 2>&1
-call :log "GPU preferences reset to Optimus auto"
+call :log "GPU preferences reset to Optimus auto (explicit defaults)"
 
 echo   [7/7] Resetting video playback to balanced...
 :: Video quality was set to power-save in saver, max in ultra perf — reset to default
@@ -1039,7 +1066,7 @@ call :log "Energy Saver at 20%% default (not forced)"
 
 echo.
 echo   +==============================================================+
-echo   :       POWER SAVING BALANCED v8.0 is now ON!                  :
+echo   :       POWER SAVING BALANCED v9.0 is now ON!                  :
 echo   +--------------------------------------------------------------+
 echo   :  Ryzen 5600H: 100%% max / Boost EFFICIENT / EPP 50           :
 echo   :                No 40%% cap — smooth and responsive!           :
@@ -1567,16 +1594,26 @@ goto oled_end
 
 :oled3
 echo   Auto-hiding taskbar...
+:: FIX-5: Use WM_SETTINGCHANGE broadcast instead of restarting explorer.exe.
+:: This preserves all open File Explorer windows.
 powershell -NoProfile -Command ^
   "$p = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; " ^
   "if (Test-Path $p) { " ^
   "  $v = (Get-ItemProperty -Path $p).Settings; " ^
   "  $v[8] = 3; " ^
   "  Set-ItemProperty -Path $p -Name Settings -Value $v; " ^
-  "  Stop-Process -Name explorer -Force; " ^
-  "  Start-Sleep -Seconds 2; " ^
-  "  Start-Process explorer; " ^
-  "  Write-Host '  Taskbar auto-hidden.'; " ^
+  "  Add-Type @' " ^
+  "  using System; using System.Runtime.InteropServices; " ^
+  "  public class TaskbarRefresh { " ^
+  "    [DllImport(\"user32.dll\", SetLastError=true)] " ^
+  "    public static extern IntPtr SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam); " ^
+  "    public static void Refresh() { " ^
+  "      SendNotifyMessage((IntPtr)0xFFFF, 0x001A, UIntPtr.Zero, \"TraySettings\"); " ^
+  "    } " ^
+  "  } " ^
+  "'@ -ErrorAction SilentlyContinue; " ^
+  "  [TaskbarRefresh]::Refresh(); " ^
+  "  Write-Host '  Taskbar auto-hidden (no explorer restart).'; " ^
   "}" >nul 2>&1
 echo   Taskbar set to auto-hide (reduces burn-in risk).
 call :log "OLED: taskbar auto-hidden"
@@ -1584,16 +1621,25 @@ goto oled_end
 
 :oled4
 echo   Showing taskbar...
+:: FIX-5: Use WM_SETTINGCHANGE broadcast instead of restarting explorer.exe.
 powershell -NoProfile -Command ^
   "$p = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3'; " ^
   "if (Test-Path $p) { " ^
   "  $v = (Get-ItemProperty -Path $p).Settings; " ^
   "  $v[8] = 2; " ^
   "  Set-ItemProperty -Path $p -Name Settings -Value $v; " ^
-  "  Stop-Process -Name explorer -Force; " ^
-  "  Start-Sleep -Seconds 2; " ^
-  "  Start-Process explorer; " ^
-  "  Write-Host '  Taskbar restored.'; " ^
+  "  Add-Type @' " ^
+  "  using System; using System.Runtime.InteropServices; " ^
+  "  public class TaskbarRefresh { " ^
+  "    [DllImport(\"user32.dll\", SetLastError=true)] " ^
+  "    public static extern IntPtr SendNotifyMessage(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam); " ^
+  "    public static void Refresh() { " ^
+  "      SendNotifyMessage((IntPtr)0xFFFF, 0x001A, UIntPtr.Zero, \"TraySettings\"); " ^
+  "    } " ^
+  "  } " ^
+  "'@ -ErrorAction SilentlyContinue; " ^
+  "  [TaskbarRefresh]::Refresh(); " ^
+  "  Write-Host '  Taskbar restored (no explorer restart).'; " ^
   "}" >nul 2>&1
 echo   Taskbar visible again.
 call :log "OLED: taskbar shown"
@@ -1779,9 +1825,7 @@ powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b49
 :: Set max latency tolerance (no delay)
 powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131dbc80e 0 >nul 2>&1
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131dbc80e 0 >nul 2>&1
-:: AHCI Link PM: Active (no power saving)
-powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK 0b2d69d7-a2a1-449c-9680-f91c70521c60 0 >nul 2>&1
-powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK 0b2d69d7-a2a1-449c-9680-f91c70521c60 0 >nul 2>&1
+:: FIX-4: SATA AHCI Link PM GUID removed (NVMe-only machine)
 call :log "NVMe SSD: max throughput, no PM, no sleep states"
 
 echo   [9/12] USB, PCIe, Wi-Fi: maximum performance (all power states)...
@@ -1807,7 +1851,9 @@ net start BITS >nul 2>&1
 net start WbioSrvc >nul 2>&1
 net start NVDisplay.ContainerLocalSystem >nul 2>&1
 net start NvTelemetryContainer >nul 2>&1
-call :log "All services started (including NVIDIA)"
+:: FIX-1: Restore MongoDB to auto start (was set to demand in saver/PSB modes)
+sc config MongoDB start= auto >nul 2>&1
+call :log "All services started (including NVIDIA, MongoDB auto-start)"
 
 :: Re-enable all scheduled tasks
 schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /enable >nul 2>&1
@@ -1879,6 +1925,28 @@ goto menu
 :: =============================================================
 :reapply
 cls
+:: FIX-7b: Lockfile mechanism to prevent duplicate cmd windows.
+:: All 3 wake tasks (S3, Modern Standby, Unlock) can fire simultaneously,
+:: each launching a separate cmd.exe instance. Only the first one should run.
+:: IMPORTANT: Do NOT nest call :log inside parenthesized if-blocks here.
+:: call :log ends in goto :eof which corrupts cmd.exe's seek pointer when
+:: inside nested parentheses (BUG-17 pattern — see browser-kill section).
+set "LOCKFILE=%~dp0.reapply.lock"
+set "_lockFresh=0"
+if exist "!LOCKFILE!" (
+    :: Check if lockfile is stale (older than 120 seconds = safety net)
+    powershell -NoProfile -Command ^
+      "$f = '%LOCKFILE%'; if ((Test-Path $f) -and ((Get-Date) - (Get-Item $f).LastWriteTime).TotalSeconds -lt 120) { exit 0 } else { exit 1 }" >nul 2>&1
+    if !errorlevel! equ 0 set "_lockFresh=1"
+)
+if "!_lockFresh!"=="1" goto reapply_locked
+goto reapply_proceed_lock
+:reapply_locked
+call :log "Re-apply skipped: another instance is already running (lockfile)"
+exit /b
+:reapply_proceed_lock
+:: Create the lockfile — we are the first instance
+echo %date% %time%>"!LOCKFILE!"
 call :log "=== QUICK RE-APPLY AFTER WAKE ==="
 echo.
 echo   +==============================================================+
@@ -1901,6 +1969,9 @@ if not "!wakeSource!"=="CHARGING" goto proceed_reapply
 echo   Detected: PLUGGED IN after wake.
 echo   Skipping battery saver re-apply. Use menu option 2 or 3 instead.
 call :log "Re-apply skipped: system is on AC power"
+:: Clean up lockfile on AC early-exit — without this the lock stays stale
+:: and could incorrectly block the next wake re-apply within 120 seconds.
+if defined LOCKFILE if exist "!LOCKFILE!" del /f /q "!LOCKFILE!" >nul 2>&1
 echo.
 pause
 goto menu
@@ -2033,6 +2104,8 @@ if "!CURRENT_MODE!"=="PSBALANCED" (
     echo   +==============================================================+
 )
 echo.
+:: Clean up lockfile — this re-apply instance is done
+if defined LOCKFILE if exist "!LOCKFILE!" del /f /q "!LOCKFILE!" >nul 2>&1
 pause
 goto menu
 
