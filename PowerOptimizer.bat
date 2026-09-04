@@ -875,6 +875,7 @@ powershell -NoProfile -Command ^
   "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
   "if ($gpu) { $gpu | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue }"
 net start NVDisplay.ContainerLocalSystem >nul 2>&1
+net start NvTelemetryContainer >nul 2>&1
 
 echo   [2/7] Setting Balanced power plan...
 powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
@@ -935,6 +936,12 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1
 :: DisablePowerMizer: Ultra Performance sets this to 1 (PowerMizer OFF).
 :: Restore to 0 = PowerMizer enabled (normal NVIDIA power management).
 reg add "HKCU\SOFTWARE\NVIDIA Corporation\Global\NVTweak" /v "DisablePowerMizer" /t REG_DWORD /d 0 /f >nul 2>&1
+:: Clear per-app GPU preferences set by Ultra Performance
+powershell -NoProfile -Command "$k = 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferences'; if (Test-Path $k) { (Get-Item $k).Property | Where-Object { $_ -match 'chrome|msedge|firefox|brave|explorer|code|devenv' } | ForEach-Object { Remove-ItemProperty -Path $k -Name $_ -Force -ErrorAction SilentlyContinue } }" >nul 2>&1
+:: Clear PowerMizer forced values
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PerfLevelSrc" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerEnable" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerLevel" /f >nul 2>&1
 :: Restore MongoDB to auto start
 sc config MongoDB start= auto >nul 2>&1
 call :log "GPU preferences reset to Optimus auto (explicit defaults)"
@@ -2205,6 +2212,7 @@ powershell -NoProfile -Command ^
   "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
   "if ($gpu) { $gpu | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue }"
 net start NVDisplay.ContainerLocalSystem >nul 2>&1
+net start NvTelemetryContainer >nul 2>&1
 :: Setting Balanced power plan
 powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
 :: Restoring Ryzen 5600H defaults
@@ -2259,6 +2267,8 @@ schtasks /change /tn "\NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /enable >
 call :log "Balanced mode base settings restored"
 
 echo   [2/7] Cleaning up Registry overrides...
+reg delete "HKLM\SOFTWARE\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /f >nul 2>&1
+powershell -NoProfile -Command "$k = 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferences'; if (Test-Path $k) { (Get-Item $k).Property | Where-Object { $_ -match 'chrome|msedge|firefox|brave|explorer|code|devenv' } | ForEach-Object { Remove-ItemProperty -Path $k -Name $_ -Force -ErrorAction SilentlyContinue } }" >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /f >nul 2>&1
 reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "EfficiencyModeEnabled" /f >nul 2>&1
@@ -2267,6 +2277,9 @@ powershell -NoProfile -Command "$k = 'HKLM:\SOFTWARE\Policies\Microsoft\Edge'; i
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergySaverEnabled" /f >nul 2>&1
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /f >nul 2>&1
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "EnableMsHybrid" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PerfLevelSrc" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerEnable" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "PowerMizerLevel" /f >nul 2>&1
 reg delete "HKCU\SOFTWARE\NVIDIA Corporation\Global\NVTweak" /v "DisablePowerMizer" /f >nul 2>&1
 call :log "Registry overrides deleted"
 
