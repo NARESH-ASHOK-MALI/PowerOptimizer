@@ -508,3 +508,16 @@
 [04-09-2026  1.21.25.22] NVMe: APST ON (battery), off (AC) 
 [04-09-2026  1.21.25.25] MongoDB start type restored to auto 
 [04-09-2026  1.21.25.33] Energy Saver at 20 default (not forced) 
+[04-09-2026 15.03.02.80] === ULTRA PERFORMANCE MODE (NVIDIA-PREFERRED) ACTIVATED === 
+[04-09-2026 15.03.07.76] RTX 3050 ENABLED + services started 
+[04-09-2026 15.03.09.67] All rendering forced to RTX 3050 (iGPU = display bridge only) 
+[04-09-2026 15.03.09.76] NVIDIA set to Maximum Performance (PowerMizer disabled) 
+[04-09-2026 15.03.09.92] Power plan set to Ultimate Performance 
+[04-09-2026 15.03.10.64] Ryzen 5600H 100 min+max, Boost Aggressive, EPP=0, 12T active, no parking 
+[04-09-2026 15.03.13.67] OLED 85, always on, no sleep, no hibernate 
+[04-09-2026 15.03.13.75] NVMe SSD: max throughput, no PM, no sleep states 
+[04-09-2026 15.03.14.05] USB always on, PCIe no PM (both AC/DC), Wi-Fi max perf 
+[04-09-2026 15.03.16.44] All services started (including NVIDIA, MongoDB auto-start) 
+[04-09-2026 15.03.16.77] All scheduled tasks re-enabled (including NVIDIA) 
+[04-09-2026 15.03.17.63] Energy Saver completely disabled 
+[04-09-2026 15.03.17.94] Video playback set to max quality 

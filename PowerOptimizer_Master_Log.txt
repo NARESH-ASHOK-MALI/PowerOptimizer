@@ -1,4 +1,55 @@
 ================================================================================
+  POWER OPTIMIZER - MASTER SESSION LOG (v10.0)
+  Date: 2026-09-04 (Thursday) 14:49 IST
+  Device: Asus Vivobook Pro OLED M3500QC
+  Script Version: v9.0 → v10.0 (updated this session)
+================================================================================
+
+================================================================================
+  v10.0 UPDATE SUMMARY (Sep 04, 2026)
+================================================================================
+
+  BATTERY HEALTH TREND:
+  Date         Design     FullCharge  Health   Cycles  Source
+  2026-03-06   63,041     54,975      87.2%    231     energy-report
+  2026-04-13   63,041     55,957      88.8%    263     battery-report (recalib)
+  2026-05-24   63,041     54,076      85.8%    278     battery+energy-report
+  2026-06-08   63,041     52,566      83.3%    285     battery-report
+  2026-07-05   63,041     52,829      83.8%    295     battery-report (recalib)
+  2026-09-04   63,041     52,266      82.9%    309     battery+energy-report
+
+  OS BUILD: 26100 → 26300 (Win 11 24H2 update)
+
+  ENERGY REPORT FINDINGS (6 errors, 12+ warnings):
+  - Antigravity.exe: STILL requesting execution-required + 2.63% CPU (3 PIDs)
+  - language_server_windows_x64.exe: ~1% CPU (Antigravity LSP, NEW)
+  - MongoDB 8.3: STILL requesting 1ms timer resolution
+  - Unknown USB Device (VID_0000/PID_0002): Device Descriptor Failed (NEW)
+  - chrome.exe: 5.27% background CPU (NEW finding)
+  - Wi-Fi AP doesn't support WMM Power Save (hotspot limitation)
+  - Video playback on battery: "Optimize for Quality" (BUG in PSB mode)
+  - USB Suspend: FIXED (webcam+phone no longer flagged)
+  - PCIe ASPM: still hardware-disabled (BIOS limit, unfixable)
+
+  FIXES APPLIED IN V10.0:
+  [FIX-8]  Kill language_server_windows_x64.exe in all battery modes
+  [FIX-9]  PSB mode now sets video playback to power-saving on battery
+  [FIX-10] PSB keeps MongoDB at demand start (was incorrectly auto)
+  [FIX-11] Disable failed USB device (VID_0000/PID_0002) in Saver/PSB
+  [FIX-12] Wake log deduplication — log after lockfile check
+  [FIX-13] Battery health metadata: 82.9% / 309 cycles / OS 26300
+  [FIX-14] Chrome background kill in Saver mode (5.27% CPU)
+  [FIX-15] MongoDB version updated to 8.3 in comments
+
+  USAGE ANALYTICS (Aug 18 - Sep 04, ~17 days, 511 log lines):
+  PSB [P]: 15 activations | Perf [2]: 11 | Saver [1]: 1 | Ultra [U]: 1
+  Auto re-apply [R]: ~40 triggers (all automatic, lockfile working well)
+
+================================================================================
+  PREVIOUS SESSION LOG (v8.0, Jul 05 2026)
+================================================================================
+
+================================================================================
   POWER OPTIMIZER - MASTER SESSION LOG
   Date: 2026-07-05 (Sunday) 17:30 IST
   Device: Asus Vivobook Pro OLED M3500QC

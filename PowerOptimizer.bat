@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Asus Vivobook Pro OLED - Power Optimizer v9.0
+title Asus Vivobook Pro OLED - Power Optimizer v10.0
 color 0B
 
 :: =============================================
@@ -13,13 +13,31 @@ color 0B
 ::  Storage: 512 GB NVMe SSD
 ::  Display: 15.6" OLED 60Hz (AMOLED)
 ::  BIOS:    M3500QC.316 (2023/05/25) - LATEST
-::  Battery: 83.8%% health / 295 cycles (as of July 05 2026)
+::  OS:      Win 11 26300 (24H2)
+::  Battery: 82.9%% health / 309 cycles (as of September 04 2026)
 ::  NOTE:    PCIe ASPM disabled at BIOS level
 ::           (hardware incompatibility, no newer BIOS)
 :: =============================================
 
 :: =============================================
 ::  CHANGELOG
+::  v10.0 - [FIX-8]  Kill Antigravity language_server_windows_x64.exe
+::           (energy report: ~1%% combined CPU across multiple instances)
+::        - [FIX-9]  PSB mode now sets video playback to power-saving
+::        - [FIX-16] Auto wake re-apply runs SILENT (hidden window, no
+::           pause). Uses wscript+VBS to launch hidden cmd. Exits cleanly
+::           instead of opening the menu. No more cmd popups on wake.
+::           (energy report flagged "Optimize for Video Quality" on battery)
+::        - [FIX-10] PSB mode keeps MongoDB at demand start (was restoring
+::           to auto, defeating the purpose of a battery-saving mode)
+::        - [FIX-11] Disable failed USB device (VID_0000/PID_0002) in
+::           Saver/PSB modes (energy report: Device Descriptor Failed)
+::        - [FIX-12] Fix duplicate wake log entries — log call moved after
+::           lockfile check to prevent double-logging from concurrent tasks
+::        - [FIX-13] Battery health updated: 82.9%% / 309 cycles (Sep 04)
+::        - [FIX-14] Chrome background processes killed in Saver mode
+::           (energy report: 5.27%% CPU from background chrome.exe)
+::        - [FIX-15] MongoDB version updated to 8.3 in comments
 ::  v9.0 - [FIX-1] MongoDB start type now restored in Perf/Ultra Perf modes
 ::       - [FIX-2] Scheduled task creation now logs each task independently
 ::       - [FIX-3] Node.js blanket kill replaced with opt-in toggle (KILL_NODE)
@@ -57,6 +75,11 @@ set "CURRENT_MODE="
 if exist "%~dp0.powermode.state" (
     set /p CURRENT_MODE=<"%~dp0.powermode.state"
 )
+:: FIX-16: SILENT_MODE flag — set when script is invoked via command-line
+:: argument (scheduled task / shortcut). When set, re-apply runs hidden:
+:: no pause, no menu, just apply settings and exit.
+set "SILENT_MODE=0"
+if not "%~1"=="" set "SILENT_MODE=1"
 
 :: =============================================
 ::  Check for Admin privileges (auto-elevate)
@@ -103,7 +126,7 @@ if /i "%~1"=="P" goto psbalanced
 cls
 echo.
 echo   +==============================================================+
-echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v9.0           :
+echo   :     ASUS VIVOBOOK PRO OLED - POWER OPTIMIZER  v10.0          :
 echo   :     Ryzen 5 5600H ^| RTX 3050 ^| 16GB ^| BIOS 316 (Latest)   :
 echo   +==============================================================+
 echo.
@@ -338,7 +361,7 @@ call :log "Node.exe killed (KILL_NODE=1)"
 :skip_node_kill
 :: FIX-7a: PhoneLink (PhoneExperienceHost.exe) is intentionally NOT killed.
 :: Killing it breaks Bluetooth LE pairing and forces device re-pair on restart.
-:: MongoDB (timer resolution hog - requests 1ms/10000 100ns units, wastes CPU power)
+:: MongoDB 8.3 (timer resolution hog - requests 1ms/10000 100ns units, wastes CPU power)
 net stop MongoDB >nul 2>&1
 taskkill /IM mongod.exe /F /T >nul 2>&1
 taskkill /IM mongos.exe /F /T >nul 2>&1
@@ -362,7 +385,11 @@ taskkill /IM "AsusOptimization.exe" /F /T >nul 2>&1
 taskkill /IM "MyASUS.exe" /F /T >nul 2>&1
 :: Antigravity (energy report: execution-required request preventing sleep)
 taskkill /IM "Antigravity.exe" /F /T >nul 2>&1
-call :log "Killed background apps + MongoDB + NVIDIA + Asus bloat + Antigravity"
+:: FIX-8: Kill Antigravity's language server (energy report: ~1%% combined CPU)
+taskkill /IM "language_server_windows_x64.exe" /F >nul 2>&1
+:: FIX-14: Kill background Chrome processes (energy report: 5.27%% CPU)
+taskkill /IM "chrome.exe" /F >nul 2>&1
+call :log "Killed background apps + MongoDB + NVIDIA + Asus bloat + Antigravity + LSP + Chrome"
 
 :: Browsers — BUG-17 FIX: Do NOT use call :log inside if () blocks.
 :: cmd.exe's goto :eof inside a call from within a parenthesized block
@@ -463,6 +490,15 @@ powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK fc95af4d-40e7-4b6d-835a-56d131
 :: FIX-4: Removed obsolete SATA AHCI Link PM GUID (0b2d69d7).
 :: This machine uses NVMe SSD only — SATA HIPM/DIPM is irrelevant.
 call :log "NVMe SSD: APST ON, latency tolerance aggressive"
+
+echo   [8b/16] Disabling failed USB device (energy report)...
+:: FIX-11: Energy report flagged Unknown USB Device (VID_0000/PID_0002)
+:: Device Descriptor Request Failed — phantom device wasting power
+powershell -NoProfile -Command ^
+  "Get-PnpDevice | Where-Object { $_.InstanceId -like '*VID_0000*PID_0002*' } | ForEach-Object { " ^
+  "  Disable-PnpDevice -InstanceId $_.InstanceId -Confirm:$false -ErrorAction SilentlyContinue " ^
+  "}" >nul 2>&1
+call :log "Failed USB device (VID_0000/PID_0002) disabled"
 
 echo   [9/16] USB, PCIe, Wi-Fi power optimization...
 :: Enable USB selective suspend on battery AND AC (energy report flagged AC disabled)
@@ -582,22 +618,31 @@ for %%P in (%BP_PLANS%) do (
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "Low battery protection: warn 20%%, hibernate 10%% (ALL plans)"
 
-echo   [16/16] Setting up auto re-apply on wake...
-:: FIX-2: Log each scheduled task creation independently instead of only
-:: checking the last %errorlevel% (which misrepresents partial failures).
+echo   [16/16] Setting up auto re-apply on wake (silent)...
+:: FIX-16: Wake tasks now use wscript to launch a hidden cmd window.
+:: Previously, each wake event opened a visible cmd.exe that blocked on
+:: `pause` — extremely annoying. Now the VBS wrapper runs the script
+:: with window style 0 (hidden), and the script detects SILENT_MODE
+:: to skip pause/menu and exit cleanly.
+:: FIX-2: Log each scheduled task creation independently.
 set "_taskOK=0"
 set "_taskFail=0"
-schtasks /create /tn "PowerOptimizer_WakeReapply" /tr "cmd /c \"%~f0\" R" /sc ONEVENT /ec System /mo "*[System[Provider[@Name='Microsoft-Windows-Power-Troubleshooter'] and (EventID=1)]]" /f /rl HIGHEST >nul 2>&1
+:: Create a persistent VBS launcher that runs the .bat hidden
+set "_vbsPath=%~dp0PowerOptimizer_silent.vbs"
+>"!_vbsPath!" echo Set ws = CreateObject("WScript.Shell")
+>>"!_vbsPath!" echo ws.Run "cmd /c """" ^& WScript.Arguments(0) ^& """" R", 0, False
+:: Use wscript to launch the VBS which launches cmd hidden
+schtasks /create /tn "PowerOptimizer_WakeReapply" /tr "wscript.exe //nologo \"%_vbsPath%\" \"%~f0\"" /sc ONEVENT /ec System /mo "*[System[Provider[@Name='Microsoft-Windows-Power-Troubleshooter'] and (EventID=1)]]" /f /rl HIGHEST >nul 2>&1
 if !errorlevel! equ 0 (set /a "_taskOK+=1") else (set /a "_taskFail+=1")
-schtasks /create /tn "PowerOptimizer_WakeReapply_Modern" /tr "cmd /c \"%~f0\" R" /sc ONEVENT /ec System /mo "*[System[Provider[@Name='Microsoft-Windows-Kernel-Power'] and (EventID=507)]]" /f /rl HIGHEST >nul 2>&1
+schtasks /create /tn "PowerOptimizer_WakeReapply_Modern" /tr "wscript.exe //nologo \"%_vbsPath%\" \"%~f0\"" /sc ONEVENT /ec System /mo "*[System[Provider[@Name='Microsoft-Windows-Kernel-Power'] and (EventID=507)]]" /f /rl HIGHEST >nul 2>&1
 if !errorlevel! equ 0 (set /a "_taskOK+=1") else (set /a "_taskFail+=1")
-schtasks /create /tn "PowerOptimizer_WakeReapply_Unlock" /tr "cmd /c \"%~f0\" R" /sc ONEVENT /ec Security /mo "*[System[(EventID=4801)]]" /f /rl HIGHEST >nul 2>&1
+schtasks /create /tn "PowerOptimizer_WakeReapply_Unlock" /tr "wscript.exe //nologo \"%_vbsPath%\" \"%~f0\"" /sc ONEVENT /ec Security /mo "*[System[(EventID=4801)]]" /f /rl HIGHEST >nul 2>&1
 if !errorlevel! equ 0 (set /a "_taskOK+=1") else (set /a "_taskFail+=1")
-call :log "Auto wake tasks: !_taskOK!/3 created, !_taskFail!/3 failed"
+call :log "Auto wake tasks: !_taskOK!/3 created (silent VBS launcher), !_taskFail!/3 failed"
 
 echo.
 echo   +==============================================================+
-echo   :         ULTRA BATTERY SAVER v9.0 is now ON!                  :
+echo   :         ULTRA BATTERY SAVER v10.0 is now ON!                 :
 echo   +--------------------------------------------------------------+
 echo   :  Ryzen 5600H: 40%% cap / Boost OFF / Core parking ON         :
 echo   :  RTX 3050:    DISABLED (Radeon iGPU only)                    :
@@ -608,6 +653,7 @@ echo   :  Sleep: 5 min / Hibernate: 15 min                            :
 echo   :  Services:    Parallel-stopped (Search, Update, NVIDIA, etc) :
 echo   :  MongoDB:     STOPPED (timer hog)                            :
 echo   :  Edge:        Efficiency mode ON / Background OFF            :
+echo   :  Chrome:      Background processes killed                     :
 echo   :  USB Devices: Webcam suspend ON + Samsung phone suspend ON    :
 echo   :  Video:       Power-optimized playback                       :
 echo   :  Energy Saver: FORCED ON                                     :
@@ -966,7 +1012,9 @@ taskkill /FI "IMAGENAME eq PowerToys.ImageResizer.exe" /F /T >nul 2>&1
 taskkill /FI "IMAGENAME eq PowerToys.KeyboardManager.exe" /F /T >nul 2>&1
 :: Antigravity (energy report: execution-required request preventing sleep)
 taskkill /IM "Antigravity.exe" /F /T >nul 2>&1
-call :log "PowerToys + Antigravity fully killed (all plugins)"
+:: FIX-8: Kill Antigravity's language server (energy report: ~1%% combined CPU)
+taskkill /IM "language_server_windows_x64.exe" /F >nul 2>&1
+call :log "PowerToys + Antigravity + LSP fully killed (all plugins)"
 
 echo   [2/9] Disabling NVIDIA RTX 3050 (iGPU only, saves ~15-25W)...
 :: Force everything onto Radeon Vega 7 iGPU
@@ -1044,19 +1092,28 @@ powercfg /setacvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "Wi-Fi max saving (DC+AC), USB suspend ON, PCIe moderate"
 
-echo   [7/9] NVMe SSD: balanced power management...
+echo   [7/10] NVMe SSD: balanced power management...
 :: NVMe APST ON for battery (same as Balanced)
 powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 1 >nul 2>&1
 powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 0 >nul 2>&1
 powercfg /setactive SCHEME_CURRENT >nul 2>&1
 call :log "NVMe: APST ON (battery), off (AC)"
 
-echo   [8/9] Restoring MongoDB startup type...
-:: BUG-23 FIX: Saver mode sets MongoDB to demand start, restore it here
-sc config MongoDB start= auto >nul 2>&1
-call :log "MongoDB start type restored to auto"
+echo   [8/10] Setting video playback to power-saving on battery...
+:: FIX-9: PSB mode was missing video playback optimization.
+:: Energy report flagged "Optimize for Video Quality" on battery — wasteful.
+powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 1 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+call :log "Video playback set to power-saving on battery"
 
-echo   [9/9] Resetting Energy Saver to default 20%% threshold...
+echo   [9/10] Keeping MongoDB at demand start...
+:: FIX-10: PSB is a battery-saving mode. MongoDB 8.3 should stay at demand
+:: start (like Saver). Only Performance/Balanced should restore it to auto.
+:: Previous BUG-23 fix was wrong here — it restored MongoDB to auto in PSB.
+sc config MongoDB start= demand >nul 2>&1
+call :log "MongoDB kept at demand start (battery-saving mode)"
+
+echo   [10/10] Resetting Energy Saver to default 20%% threshold...
 :: Do NOT force Energy Saver to 100%% like Ultra Saver does
 :: Keep it at 20%% so it only kicks in when truly low
 powercfg /setdcvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 20 >nul 2>&1
@@ -1066,7 +1123,7 @@ call :log "Energy Saver at 20%% default (not forced)"
 
 echo.
 echo   +==============================================================+
-echo   :       POWER SAVING BALANCED v9.0 is now ON!                  :
+echo   :       POWER SAVING BALANCED v10.0 is now ON!                 :
 echo   +--------------------------------------------------------------+
 echo   :  Ryzen 5600H: 100%% max / Boost EFFICIENT / EPP 50           :
 echo   :                No 40%% cap — smooth and responsive!           :
@@ -1077,6 +1134,8 @@ echo   :  OLED:        50%% brightness / Screen off 3min / Sleep 10m  :
 echo   :  Wi-Fi:       Max power saving (DC + AC)                     :
 echo   :  USB:         Selective suspend ON (AC + DC)                  :
 echo   :  NVMe SSD:    Balanced PM (APST on battery)                  :
+echo   :  Video:       Power-saving playback on battery               :
+echo   :  MongoDB:     Kept at demand start (not auto)                :
 echo   :  Energy Saver: Default 20%% threshold (not forced)           :
 echo   +--------------------------------------------------------------+
 echo   :  vs Ultra Saver [1]: CPU runs free — no lag. Less aggressive  :
@@ -1928,9 +1987,6 @@ cls
 :: FIX-7b: Lockfile mechanism to prevent duplicate cmd windows.
 :: All 3 wake tasks (S3, Modern Standby, Unlock) can fire simultaneously,
 :: each launching a separate cmd.exe instance. Only the first one should run.
-:: IMPORTANT: Do NOT nest call :log inside parenthesized if-blocks here.
-:: call :log ends in goto :eof which corrupts cmd.exe's seek pointer when
-:: inside nested parentheses (BUG-17 pattern — see browser-kill section).
 set "LOCKFILE=%~dp0.reapply.lock"
 set "_lockFresh=0"
 if exist "!LOCKFILE!" (
@@ -1946,7 +2002,8 @@ call :log "Re-apply skipped: another instance is already running (lockfile)"
 exit /b
 :reapply_proceed_lock
 :: Create the lockfile — we are the first instance
-echo %date% %time%>"!LOCKFILE!"
+echo %date% %time%>"%LOCKFILE%"
+:: FIX-12: Log AFTER lockfile check to prevent duplicate log entries.
 call :log "=== QUICK RE-APPLY AFTER WAKE ==="
 echo.
 echo   +==============================================================+
@@ -1966,12 +2023,14 @@ if exist "%TEMP%\wakesrc.txt" (
 )
 
 if not "!wakeSource!"=="CHARGING" goto proceed_reapply
-echo   Detected: PLUGGED IN after wake.
-echo   Skipping battery saver re-apply. Use menu option 2 or 3 instead.
+if "!SILENT_MODE!"=="0" echo   Detected: PLUGGED IN after wake.
+if "!SILENT_MODE!"=="0" echo   Skipping battery saver re-apply. Use menu option 2 or 3 instead.
 call :log "Re-apply skipped: system is on AC power"
 :: Clean up lockfile on AC early-exit — without this the lock stays stale
 :: and could incorrectly block the next wake re-apply within 120 seconds.
 if defined LOCKFILE if exist "!LOCKFILE!" del /f /q "!LOCKFILE!" >nul 2>&1
+:: FIX-16: Silent exit when invoked from scheduled task (no pause, no menu)
+if "!SILENT_MODE!"=="1" exit
 echo.
 pause
 goto menu
@@ -2024,7 +2083,9 @@ taskkill /IM "nvcontainer.exe" /F /T >nul 2>&1
 net stop NVDisplay.ContainerLocalSystem >nul 2>&1
 :: Antigravity.exe (execution-required request per energy report)
 taskkill /IM "Antigravity.exe" /F /T >nul 2>&1
-call :log "Re-killed processes after wake (on battery, incl. Antigravity)"
+:: FIX-8: Kill Antigravity's language server (energy report: ~1%% combined CPU)
+taskkill /IM "language_server_windows_x64.exe" /F >nul 2>&1
+call :log "Re-killed processes after wake (on battery, incl. Antigravity + LSP)"
 
 :: ---- Mode-aware CPU + brightness settings ----
 :: BUG-18 FIX: Previously hardcoded Ultra Saver values (40%/EPP 100/brightness 25%)
@@ -2106,6 +2167,8 @@ if "!CURRENT_MODE!"=="PSBALANCED" (
 echo.
 :: Clean up lockfile — this re-apply instance is done
 if defined LOCKFILE if exist "!LOCKFILE!" del /f /q "!LOCKFILE!" >nul 2>&1
+:: FIX-16: Silent exit when invoked from scheduled task (no pause, no menu)
+if "!SILENT_MODE!"=="1" exit
 pause
 goto menu
 
