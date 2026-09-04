@@ -118,6 +118,7 @@ if /i "%~1"=="C" goto startupcleanup
 if /i "%~1"=="O" goto oledcare
 if /i "%~1"=="R" goto reapply
 if /i "%~1"=="P" goto psbalanced
+if /i "%~1"=="X" goto uninstall
 
 :: =============================================
 ::  MAIN MENU
@@ -239,11 +240,13 @@ echo.
 echo    [R]  Quick Re-apply          Re-apply saver after wake
 echo         Fixes settings that reset after sleep/wake cycles
 echo.
+echo    [X]  Uninstall / Full Revert Reverts all script changes
+echo.
 echo    [0]  Exit
 echo.
 echo   ==============================================================
 echo.
-set /p choice="  Select an option (0-9 / U / P / R): "
+set /p choice="  Select an option (0-9 / U / P / R / X): "
 
 if "%choice%"=="1" goto saver
 if "%choice%"=="2" goto performance
@@ -257,6 +260,7 @@ if "%choice%"=="9" goto oledcare
 if /i "%choice%"=="U" goto ultraperformance
 if /i "%choice%"=="P" goto psbalanced
 if /i "%choice%"=="R" goto reapply
+if /i "%choice%"=="X" goto uninstall
 if "%choice%"=="0" goto exitscript
 
 echo   [!] Invalid choice. Try again.
@@ -2168,6 +2172,137 @@ echo.
 :: Clean up lockfile — this re-apply instance is done
 if defined LOCKFILE if exist "!LOCKFILE!" del /f /q "!LOCKFILE!" >nul 2>&1
 :: FIX-16: Silent exit when invoked from scheduled task (no pause, no menu)
+if "!SILENT_MODE!"=="1" exit
+pause
+goto menu
+
+:: =============================================================
+::         UNINSTALL / FULL REVERT
+:: =============================================================
+:uninstall
+cls
+if "!SILENT_MODE!"=="1" goto start_uninstall
+echo.
+echo   +==============================================================+
+echo   :  WARNING: UNINSTALL / FULL REVERT                            :
+echo   :  This will revert all power settings to Windows defaults,    :
+echo   :  delete background tasks, and clean up registry overrides.   :
+echo   :  Use this if you intend to delete this script folder.        :
+echo   +==============================================================+
+echo.
+set /p unConfirm="  Are you sure you want to revert everything? (y/n): "
+if /i not "!unConfirm!"=="y" (
+    call :log "Uninstall cancelled by user"
+    goto menu
+)
+:start_uninstall
+set "CURRENT_MODE=UNINSTALL"
+call :log "=== UNINSTALL / FULL REVERT INITIATED ==="
+echo.
+echo   [1/7] Restoring Balanced Settings for Vivobook Pro...
+:: Re-enable NVIDIA RTX 3050 (hybrid mode)
+powershell -NoProfile -Command ^
+  "$gpu = Get-PnpDevice | Where-Object { $_.FriendlyName -like '*NVIDIA*' -and $_.Class -eq 'Display' }; " ^
+  "if ($gpu) { $gpu | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue }"
+net start NVDisplay.ContainerLocalSystem >nul 2>&1
+:: Setting Balanced power plan
+powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e >nul 2>&1
+:: Restoring Ryzen 5600H defaults
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 4 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 4 >nul 2>&1
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50 >nul 2>&1
+:: Display / sleep
+powercfg /change monitor-timeout-dc 5
+powercfg /change monitor-timeout-ac 10
+powercfg /change standby-timeout-dc 15
+powercfg /change standby-timeout-ac 30
+powercfg /change hibernate-timeout-dc 60
+powercfg /change hibernate-timeout-ac 0
+:: NVMe
+powercfg /setdcvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT SUB_DISK dbc9e238-6de9-49e3-92cd-8c2b4946b472 0 >nul 2>&1
+:: USB selective suspend
+powercfg /setdcvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0 >nul 2>&1
+:: PCIe
+powercfg /setdcvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 1 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0 >nul 2>&1
+:: Wi-Fi
+powercfg /setdcvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 2 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0 >nul 2>&1
+:: OLED Brightness 60%
+powershell -NoProfile -Command "(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1, 60)" >nul 2>&1
+:: Reset video playback
+powercfg /setdcvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 0 >nul 2>&1
+powercfg /setacvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b151-7bf6-4e87-b075-e0f5f5899773 0 >nul 2>&1
+powercfg /setactive SCHEME_CURRENT >nul 2>&1
+:: Services
+net start WSearch >nul 2>&1
+net start wuauserv >nul 2>&1
+net start SysMain >nul 2>&1
+net start Spooler >nul 2>&1
+net start BITS >nul 2>&1
+sc config MongoDB start= auto >nul 2>&1
+:: Scheduled Tasks
+schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /enable >nul 2>&1
+schtasks /change /tn "\Microsoft\Windows\Autochk\Proxy" /enable >nul 2>&1
+schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /enable >nul 2>&1
+schtasks /change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /enable >nul 2>&1
+schtasks /change /tn "\Microsoft\Windows\Windows Error Reporting\QueueReporting" /enable >nul 2>&1
+schtasks /change /tn "\NvTmMon_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /enable >nul 2>&1
+schtasks /change /tn "\NvTmRep_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}" /enable >nul 2>&1
+call :log "Balanced mode base settings restored"
+
+echo   [2/7] Cleaning up Registry overrides...
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "EfficiencyModeEnabled" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "EfficiencyModeOnPowerEnabled" /f >nul 2>&1
+powershell -NoProfile -Command "$k = 'HKLM:\SOFTWARE\Policies\Microsoft\Edge'; if (Test-Path $k) { if ((Get-Item $k).Property.Count -eq 0 -and (Get-ChildItem $k).Count -eq 0) { Remove-Item $k -Force -Recurse } }" >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergySaverEnabled" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0001" /v "EnableMsHybrid" /f >nul 2>&1
+reg delete "HKCU\SOFTWARE\NVIDIA Corporation\Global\NVTweak" /v "DisablePowerMizer" /f >nul 2>&1
+call :log "Registry overrides deleted"
+
+echo   [3/7] Deleting Wake-Reapply Scheduled Tasks...
+schtasks /delete /tn "PowerOptimizer_WakeReapply" /f >nul 2>&1
+schtasks /delete /tn "PowerOptimizer_WakeReapply_Modern" /f >nul 2>&1
+schtasks /delete /tn "PowerOptimizer_WakeReapply_Unlock" /f >nul 2>&1
+call :log "Scheduled tasks deleted"
+
+echo   [4/7] Re-enabling disabled PnP devices (USB)...
+powershell -NoProfile -Command ^
+  "Get-PnpDevice | Where-Object { $_.InstanceId -like '*VID_0000*PID_0002*' } | ForEach-Object { " ^
+  "  Enable-PnpDevice -InstanceId $_.InstanceId -Confirm:$false -ErrorAction SilentlyContinue " ^
+  "}" >nul 2>&1
+call :log "Disabled PnP devices re-enabled"
+
+echo   [5/7] Deleting script state files...
+if exist "%~dp0.powermode.state" del /f /q "%~dp0.powermode.state" >nul 2>&1
+if exist "%~dp0PowerOptimizer_silent.vbs" del /f /q "%~dp0PowerOptimizer_silent.vbs" >nul 2>&1
+call :log "State files deleted"
+
+echo   [6/7] Finalizing Uninstallation...
+call :log "Uninstall complete - system reverted to defaults"
+
+echo.
+echo   +==============================================================+
+echo   :              UNINSTALL / FULL REVERT COMPLETE!               :
+echo   +--------------------------------------------------------------+
+echo   :  All power plans, CPU, GPU, and sleep settings restored.     :
+echo   :  Registry overrides and scheduled tasks deleted.             :
+echo   :  Disabled PnP devices and services re-enabled.               :
+echo   :  Script state files deleted.                                 :
+echo   :                                                              :
+echo   :  You can now safely delete the PowerOptimizer folder.        :
+echo   +==============================================================+
+echo.
 if "!SILENT_MODE!"=="1" exit
 pause
 goto menu
